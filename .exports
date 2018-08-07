@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 
 # Make vim the default editor.
-export EDITOR='emacsclient -c';
+export EDTOR=vim
+#export EDITOR='emacsclient -c';
 
 # Enable persistent REPL history for `node`.
 export NODE_REPL_HISTORY=~/.node_history;

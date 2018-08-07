@@ -6,6 +6,7 @@ export PATH="/usr/local/bin:$GOPATH/bin:$PATH"
 
 # Android shit
 export ANDROID_HOME="$HOME/Library/Android/sdk"
+export ANDROID_SDK="$HOME/Library/Android/sdk"
 export ANDROID_SDK_ROOT=$ANDROID_HOME
 export ANDROID_NDK="$HOME/Library/Android/ndk"
 export ANDROID_NDK_ROOT=$ANDROID_NDK
@@ -17,7 +18,7 @@ export PATH="$PATH:$ANDROID_HOME/platform-tools"
 export PATH="$PATH:$ANDROID_HOME/build-tools/25.0.1"
 
 # Java shit
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_121.jdk/Contents/Home"
+export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk1.8.0_151.jdk/Contents/Home"
 export PATH="$PATH:$JAVA_HOME/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
@@ -26,10 +27,14 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm
 
 # Ruby shit
-export PATH="$PATH:$HOME/.rvm/bin"
+# export PATH="$PATH:$HOME/.rvm/bin"
+
+# Rust shit
+export PATH="$PATH:$HOME/.cargo/bin"
 
 # Flutter shit
-export PATH="$PATH:$HOME/Projects/flutter/bin"
+export FLUTTER_HOME="/Users/igor/Projects/flutter"
+export PATH="$PATH:$FLUTTER_HOME/bin"
 
 # Keychain shit
 # [[ $(ssh-add -l | wc -l | tr -d ' ') = 0 ]] && ssh-add -K
@@ -42,3 +47,9 @@ eval $(gpg-agent --daemon --enable-ssh-support 2> /dev/null)
 # misc shit
 export PATH="$PATH:/usr/local/sbin"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Nintendo Switch shit
+export DEVKITPRO="/opt/devkitpro"
+export DEVKITARM=$DEVKITPRO/devkitARM
+export LIBTRANSISTOR_HOME="/opt/libtransistor"
+export PATH="$(brew --prefix llvm)/bin:$PATH"

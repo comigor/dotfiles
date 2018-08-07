@@ -13,6 +13,7 @@ function customDoIt() {
 	mkdir -p "$HOME/.oh-my-zsh/themes"
   cp "igor.zsh-theme" "$HOME/.oh-my-zsh/themes/"
 
+  mkdir -p "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
 	cp -R "sublime/" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
 }
 
@@ -24,6 +25,7 @@ function doIt() {
 		--exclude "LICENSE-MIT.txt" \
 		--exclude "igor.zsh-theme" \
 		--exclude "brew.sh" \
+		--exclude "sublime" \
 		-avh --no-perms . ~;
 
 	customDoIt;
