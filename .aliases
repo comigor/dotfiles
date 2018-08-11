@@ -1,9 +1,7 @@
 #!/usr/bin/env bash
 alias dl="aria2c -c -s 8 -j 8 -x 8"
 alias rlein="rlwrap lein"
-alias rnu="~/Projects/nu/nucli/nu"
-alias intellij="open -a /Applications/IntelliJ\ IDEA.app"
-alias idea="open -a /Applications/IntelliJ\ IDEA.app"
+alias idea="open -a /Applications/IntelliJ*.app"
 alias ast="open -a \"Android Studio\""
 alias e="emacsclient -c"
 
@@ -12,6 +10,7 @@ alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias .....="cd ../../../.."
+alias ......="cd ../../../../.."
 alias ~="cd ~" # `cd` is probably faster to type though
 alias -- -="cd -"
 
@@ -143,11 +142,6 @@ alias badge="tput bel"
 # For example, to list all directories that contain a certain file:
 # find . -name .gitattributes | map dirname
 alias map="xargs -n1"
-
-# One of @janmoesen’s ProTip™s
-for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-	alias "$method"="lwp-request -m '$method'"
-done
 
 # Make Grunt print stack traces by default
 command -v grunt > /dev/null && alias grunt="grunt --stack"
