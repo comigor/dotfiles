@@ -13,8 +13,14 @@ function customDoIt() {
 	mkdir -p "$HOME/.oh-my-zsh/themes"
   cp "igor.zsh-theme" "$HOME/.oh-my-zsh/themes/"
 
-  mkdir -p "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
+  mkdir -p "$HOME/Library/Application Support/Sublime Text 3/Packages/User"
 	cp -R "sublime/" "$HOME/Library/Application Support/Sublime Text 3/Packages/User/"
+
+	mkdir -p "$HOME/.config/kitty"
+	cp "kitty.conf" "$HOME/.config/kitty/"
+
+	mkdir -p "$HOME/Library/Application Support/Code/User"
+	cp -R "vscode/" "$HOME/Library/Application Support/Code/User/"
 }
 
 function doIt() {

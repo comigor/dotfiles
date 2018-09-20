@@ -1,0 +1,21 @@
+{
+    "editor.tabSize": 2,
+    "files.autoSave": "onFocusChange",
+
+    "editor.rulers": [
+      80,
+      120,
+    ],
+
+    "javascript.preferences.quoteStyle": "single",
+    "typescript.preferences.quoteStyle": "single",
+    "explorer.confirmDelete": false,
+    "window.zoomLevel": 0,
+    "workbench.startupEditor": "newUntitledFile",
+
+    "editor.autoClosingBrackets": "beforeWhitespace",
+
+    "html.autoClosingTags": false,
+    "javascript.autoClosingTags": false,
+    "typescript.autoClosingTags": false
+}
