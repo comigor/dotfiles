@@ -26,12 +26,16 @@ function customDoIt() {
 function doIt() {
 	rsync --exclude ".git/" \
 		--exclude ".DS_Store" \
+		--exclude ".macos" \
+		--exclude ".ubuntu" \
 		--exclude "bootstrap.sh" \
 		--exclude "README.md" \
 		--exclude "LICENSE-MIT.txt" \
 		--exclude "igor.zsh-theme" \
 		--exclude "brew.sh" \
 		--exclude "sublime" \
+		--exclude "vscode" \
+		--exclude "kitty.conf" \
 		-avh --no-perms . ~;
 
 	customDoIt;
