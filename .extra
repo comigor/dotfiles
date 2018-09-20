@@ -23,7 +23,7 @@ export PATH="$PATH:$JAVA_HOME/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 
 # Node shit
-eval "$(nodenv init - | grep -v 'nodenv rehash')"
+which nodenv > /dev/null 2>&1 && eval "$(nodenv init - | grep -v 'nodenv rehash')"
 
 # Rust shit
 export PATH="$PATH:$HOME/.cargo/bin"
