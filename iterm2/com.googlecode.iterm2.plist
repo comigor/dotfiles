@@ -53,18 +53,23 @@
 	</data>
 	<key>NSTableView Supports v2 KeyBingingTable</key>
 	<true/>
+	<key>NSToolbar Configuration com.apple.NSColorPanel</key>
+	<dict>
+		<key>TB Is Shown</key>
+		<integer>1</integer>
+	</dict>
 	<key>NSWindow Frame NSFontPanel</key>
 	<string>599 110 775 341 0 0 1440 878 </string>
 	<key>NSWindow Frame ProfilesPanel</key>
-	<string>1277 360 735 382 0 0 2560 1418 </string>
+	<string>2717 443 735 382 1440 84 2560 1418 </string>
 	<key>NSWindow Frame SUStatusFrame</key>
 	<string>1995 1283 400 129 1440 388 2560 1418 </string>
 	<key>NSWindow Frame SUUpdateAlert</key>
-	<string>970 769 620 392 0 0 2560 1418 </string>
+	<string>530 477 620 392 0 0 1680 1028 </string>
 	<key>NSWindow Frame SharedPreferences</key>
-	<string>1387 248 796 486 0 0 2560 1418 </string>
+	<string>1973 486 796 486 1440 84 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>1418 428 953 571 0 0 2560 1418 </string>
+	<string>2099 653 953 571 1440 84 2560 1418 </string>
 	<key>NSWindow Frame iTerm Window 1</key>
 	<string>1819 379 953 811 1440 84 2560 1418 </string>
 	<key>NeverWarnAboutShortLivedSessions_C4EF7712-FDEA-40C1-9FF5-42C5C40F7081</key>
@@ -692,6 +697,10 @@
 	<true/>
 	<key>NoSyncInstallationId</key>
 	<string>EDEEE41E-23AF-4313-B1CD-0D9EC63B97AF</string>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile</key>
+	<true/>
+	<key>NoSyncNeverRemindPrefsChangesLostForFile_selection</key>
+	<integer>0</integer>
 	<key>NoSyncPermissionToShowTip</key>
 	<false/>
 	<key>NoSyncSuppressBroadcastInputWarning</key>
@@ -701,7 +710,7 @@
 	<key>NoSyncTimeOfFirstLaunchOfVersionWithTip</key>
 	<real>530566501.32968903</real>
 	<key>OpenBookmark</key>
-	<true/>
+	<false/>
 	<key>PasteTabToStringTabStopSize</key>
 	<integer>4</integer>
 	<key>PointerActions</key>
@@ -750,7 +759,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<true/>
 	<key>SULastCheckTime</key>
-	<date>2018-10-02T13:21:53Z</date>
+	<date>2018-10-08T17:17:18Z</date>
 	<key>SUSendProfileInfo</key>
 	<false/>
 	<key>ShowFullScreenTabBar</key>

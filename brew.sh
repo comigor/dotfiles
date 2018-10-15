@@ -17,6 +17,22 @@ BREW_PREFIX=$(brew --prefix)
 brew install coreutils
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
+
+
+
+
+# brew cask install iterm
+# brew cask install mobster
+brew cask install spectacle
+brew cask install jumpcut
+brew cask install visual-studio-code
+
+brew install zsh
+
+
+
+
+
 # Install some other useful utilities like `sponge`.
 brew install moreutils
 # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.

@@ -21,6 +21,9 @@ function customDoIt() {
 
 	mkdir -p "$HOME/Library/Application Support/Code/User"
 	cp -R "vscode/" "$HOME/Library/Application Support/Code/User/"
+
+	curl 'https://github.com/robbyrussell/oh-my-zsh/compare/master...Igor1201:magic-patch.patch' > /tmp/magic.patch
+	( cd "$HOME/.oh-my-zsh"; git apply /tmp/magic.patch )
 }
 
 function doIt() {
@@ -43,14 +46,6 @@ function doIt() {
 	source ~/.zprofile;
 }
 
-if [ "$1" == "--force" ] || [ "$1" == "-f" ]; then
-	doIt;
-else
-	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1;
-	echo "";
-	if [[ $REPLY =~ ^[Yy]$ ]]; then
-		doIt;
-	fi;
-fi;
+doIt;
 unset doIt;
 unset customDoIt;
