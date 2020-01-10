@@ -189,7 +189,7 @@
 
 	insteadOf = "gist:"
 [user]
-	email = igor@borges.me
+	email = igor@borges.dev
 	name = Igor Borges
 	signingkey = 7AD24624
 [filter "lfs"]
