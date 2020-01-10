@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-vscode () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $* ;}
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $* ;}
 
 function emu() {
     emulator -avd $(emulator -list-avds | head -n1) >&/dev/null & disown
