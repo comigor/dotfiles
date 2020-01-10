@@ -13,9 +13,9 @@ function customDoIt() {
 	mkdir -p "$HOME/.oh-my-zsh/themes"
   	cp "igor.zsh-theme" "$HOME/.oh-my-zsh/themes/"
 
+	mkdir -p "$HOME/Library/Application Support/Code - Insiders/User"
+	cp -R "vscode/" "$HOME/Library/Application Support/Code - Insiders/User/"
 
-	mkdir -p "$HOME/Library/Application Support/Code/User"
-	cp -R "vscode/" "$HOME/Library/Application Support/Code/User/"
 	curl 'https://github.com/robbyrussell/oh-my-zsh/compare/master...comigor:magic-patch.patch' > /tmp/magic.patch
 	( cd "$HOME/.oh-my-zsh"; git apply /tmp/magic.patch )
 }

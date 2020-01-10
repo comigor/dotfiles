@@ -1,21 +1,70 @@
 {
-    "editor.tabSize": 2,
-    "files.autoSave": "onFocusChange",
-
-    "editor.rulers": [
-      80,
-      120,
-    ],
-
-    "javascript.preferences.quoteStyle": "single",
-    "typescript.preferences.quoteStyle": "single",
-    "explorer.confirmDelete": false,
-    "window.zoomLevel": 0,
     "workbench.startupEditor": "newUntitledFile",
-
-    "editor.autoClosingBrackets": "beforeWhitespace",
-
-    "html.autoClosingTags": false,
-    "javascript.autoClosingTags": false,
-    "typescript.autoClosingTags": false
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.organizeImports": false
+    },
+    "window.zoomLevel": 0,
+    "calva.fmt.allgnMapItems": true,
+    "calva.fmt.newIndentEngine": true,
+    "calva.fmt.removeConsecutiveBlankLines": true,
+    "multiCommand.commands": [
+        {
+            "command": "multiCommand.raise",
+            "sequence": [
+                "paredit.forwardSexp",
+                "paredit.sexpRangeExpansion",
+                "editor.action.clipboardCopyAction",
+                "paredit.sexpRangeExpansion",
+                "paredit.sexpRangeExpansion",
+                "editor.action.clipboardPasteAction",
+                "paredit.backwardSexp"
+            ]
+        }
+    ],
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "scope": [
+                    "constant.keyword.clojure"
+                ],
+                "settings": {
+                    "foreground": "#9cdcfeff"
+                }
+            },
+            {
+                "scope": [
+                    "punctuation.section.expression.begin.clojure",
+                    "punctuation.section.expression.end.trailing.clojure"
+                ],
+                "settings": {
+                    "foreground": "#999"
+                }
+            }
+        ]
+    },
+    "calva.syncReplNamespaceToCurrentFile": true,
+    "dart.warnWhenEditingFilesOutsideWorkspace": false,
+    "workbench.iconTheme": "material-icon-theme",
+    "dart.env": {
+        "ENABLE_FLUTTER_DESKTOP": true,
+    },
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.enablePreviewFromQuickOpen": false,
+    "calva.replConnectSequences": [
+        {
+            "name": "Nubank Backend",
+            "projectType": "Leiningen",
+            "menuSelections": {
+                "leinAlias": null,
+                "leinProfiles": [
+                    "dev",
+                    "unit",
+                    "flows"
+                ]
+            },
+            "cljsType": "none"
+        }
+    ],
+    "workbench.sideBar.location": "left"
 }
