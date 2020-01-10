@@ -10,3 +10,6 @@ plugins=(gitfast osx)
 source $ZSH/oh-my-zsh.sh
 
 autoload -U add-zsh-hook
+
+# for some reason this doesn't work on .zprofile
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
