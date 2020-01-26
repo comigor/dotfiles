@@ -16,7 +16,7 @@
 	di = !"d() { git diff --patch-with-stat HEAD~$1; }; git diff-index --quiet HEAD -- || clear; d"
 
 	# Pull in remote changes for the current repository and all its submodules
-	p = !"git pull; git submodule foreach git pull origin master"
+	p = git pull --recurse-submodules
 
 	# Clone a repository including all submodules
 	c = clone --recursive
@@ -81,6 +81,9 @@
 			git commit --amend -m \"$(git log -1 --pretty=%B)\n\nCloses #$1.\"; \
 		fi \
 	}; f"
+
+	# Show the user email for the current repository.
+	whoami = config user.email
 
 [apply]
 
@@ -188,12 +191,14 @@
 [url "git://gist.github.com/"]
 
 	insteadOf = "gist:"
-[user]
-	email = igor@borges.dev
-	name = Igor Borges
-	signingkey = 7AD24624
+
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+
+[user]
+	email = igor@borges.dev
+	name = Igor Borges
+	signingkey = 7AD24624
