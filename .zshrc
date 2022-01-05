@@ -41,4 +41,4 @@ precmd() {
 }
 
 # Redo some exports
-source ".zprofile"
+source "$HOME/.zprofile"
