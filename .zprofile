@@ -12,7 +12,7 @@ export PATH="$HOME/bin:$PATH";
 
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
-for file in ~/.{exports,aliases,functions,extra,nurc}; do
+for file in ~/.{aliases,functions,extra,exports,fzf.zsh,nurc}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;

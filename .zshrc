@@ -41,7 +41,4 @@ precmd() {
 }
 
 # Redo some exports
-for file in ~/.{exports,fzf.zsh}; do
-	[ -r "$file" ] && [ -f "$file" ] && source "$file";
-done;
-unset file;
+source ".zprofile"
