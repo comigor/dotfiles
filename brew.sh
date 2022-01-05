@@ -23,6 +23,8 @@ ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
 # brew cask install iterm
 # brew cask install mobster
+brew install --cask gpg-suite
+
 brew cask install spectacle
 brew cask install jumpcut
 brew cask install visual-studio-code

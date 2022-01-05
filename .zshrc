@@ -27,7 +27,9 @@ SPACESHIP_KUBECTL_VERSION_SHOW=false
 SPACESHIP_KUBECONTEXT_SHOW=false
 SPACESHIP_TERRAFORM_SHOW=false
 
-plugins=(gitfast osx)
+DISABLE_MAGIC_FUNCTIONS=1
+
+plugins=(gitfast macos)
 
 source $ZSH/oh-my-zsh.sh
 

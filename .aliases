@@ -3,7 +3,6 @@ alias dl="aria2c -c -s 8 -j 8 -x 8"
 alias rlein="rlwrap lein"
 alias idea="open -a /Applications/IntelliJ*.app"
 alias ast="open -a \"Android Studio\""
-alias e="emacsclient -c"
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -euo pipefail
+set -eo pipefail
 
 function is_macos {
     [[ "$OSTYPE" == "darwin"* ]]
@@ -32,8 +32,22 @@ git config --global user.name "Igor Borges"
 git config --global user.signingkey "7AD24624"
 git config --global core.excludesfile "~/.gitignore"
 
-# mkdir -p "$HOME/.oh-my-zsh/themes"
-# cp "igor.zsh-theme" "$HOME/.oh-my-zsh/themes/"
+is_macos && {
+    brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew install git zsh asdf jq awscli fzf bash-completion
+    
+    asdf --version && \
+        asdf plugin-add lein https://github.com/miorimmax/asdf-lein.git && \
+        asdf plugin-add flutter && \
+        asdf plugin-add dart && \
+        asdf plugin-add golang && \
+        asdf plugin-add nodejs && \
+        asdf plugin-add java
+    
+    asdf install
+}
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 
 # Install zsh spaceship theme
 ZSH_CUSTOM="$HOME/.tmp"
@@ -42,11 +56,6 @@ THEME_DESTINATION="$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$CLONE_PATH" --depth=1 || true
 ln -s "$CLONE_PATH/spaceship.zsh-theme" "$THEME_DESTINATION" || true
 
-is_macos && {
-    mkdir -p "$HOME/Library/Application Support/Code - Insiders/User"
-    rm -f $HOME/Library/Application\ Support/Code\ -\ Insiders/User/*.json
-    ln -s $PWD/vscode/* "$HOME/Library/Application Support/Code - Insiders/User"
-}
 # is_linux && {
 #     # TODO: Move vscode settings to right place
 # }
@@ -56,14 +65,13 @@ is_codespaces && {
     ln -s "$PWD/vscode/*" "$HOME/workspace/$REPO_NAME/.vscode" || true
 }
 
-curl -L 'https://github.com/robbyrussell/oh-my-zsh/compare/master...comigor:magic-patch.patch' > /tmp/magic.patch
-( cd "$HOME/.oh-my-zsh"; git apply /tmp/magic.patch || true )
-
 # Fonts
 is_macos && {
-    JETBRAINSMONO=$(mktemp -d)
-    git clone git@github.com:JetBrains/JetBrainsMono.git $JETBRAINSMONO
-    ( cd "$JETBRAINSMONO/ttf"; cp *.ttf $HOME/Library/Fonts/ )
+    ls $HOME/Library/Fonts/JetBrainsMono* || {
+        JETBRAINSMONO=$(mktemp -d)
+        git clone git@github.com:JetBrains/JetBrainsMono.git $JETBRAINSMONO
+        ( cd "$JETBRAINSMONO/fonts/ttf"; cp *.ttf $HOME/Library/Fonts/ )
+    }
 }
 is_linux && {
     cd /tmp
