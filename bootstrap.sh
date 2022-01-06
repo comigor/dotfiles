@@ -38,6 +38,7 @@ is_macos && {
     
     asdf --version && \
         asdf plugin-add lein https://github.com/miorimmax/asdf-lein.git && \
+        asdf plugin-add clojure https://github.com/asdf-community/asdf-clojure.git && \
         asdf plugin-add flutter && \
         asdf plugin-add dart && \
         asdf plugin-add golang && \
