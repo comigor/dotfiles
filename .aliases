@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 alias dl="aria2c -c -s 8 -j 8 -x 8"
 alias rlein="rlwrap lein"
-alias idea="open -a /Applications/IntelliJ*.app"
-alias ast="open -a \"Android Studio\""
+[[ "$OSTYPE" == "darwin"* ]] && {
+    alias idea="open -a /Applications/IntelliJ*.app"
+    alias ast="open -a \"Android Studio\""
+}
 
 # Easier navigation: .., ..., ...., ....., ~ and -
 alias ..="cd .."

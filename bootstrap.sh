@@ -20,11 +20,7 @@ rsync --exclude ".git/" \
     --exclude "bootstrap.sh" \
     --exclude "README.md" \
     --exclude "LICENSE-MIT.txt" \
-    --exclude "igor.zsh-theme" \
     --exclude "brew.sh" \
-    --exclude "sublime" \
-    --exclude "vscode" \
-    --exclude "kitty.conf" \
     -avh --no-perms . ~;
 
 git config --global user.email "igor@borges.dev"
@@ -49,7 +45,7 @@ is_macos && {
 }
 
 is_linux && {
-    sudo apt install -y zsh jq awscli fzf git
+    sudo apt install -y zsh jq awscli fzf git vim gcc libc6-dev libgl1-mesa-dev xorg-dev kitty
 
     source $HOME/.asdf/asdf.sh || true
     asdf --version || {

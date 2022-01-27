@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $* ;}
+[[ "$OSTYPE" == "darwin"* ]] && {
+    code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $* ;}
+}
+[[ "$OSTYPE" == "linux-gnu"* ]] && {
+    code () { code-insiders $* }
+}
 
 function emu() {
     emulator -avd $(emulator -list-avds | head -n1) >&/dev/null & disown
