@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+export SHELL=/usr/bin/zsh
+
 # Make vim the default editor.
 export EDTOR=vim
 #export EDITOR='emacsclient -c';

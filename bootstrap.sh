@@ -48,6 +48,26 @@ is_macos && {
     asdf install
 }
 
+is_linux && {
+    sudo apt install -y zsh jq awscli fzf git
+
+    source $HOME/.asdf/asdf.sh || true
+    asdf --version || {
+        git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
+    }
+    
+    asdf --version && \
+        asdf plugin-add lein https://github.com/miorimmax/asdf-lein.git && \
+        asdf plugin-add clojure https://github.com/asdf-community/asdf-clojure.git && \
+        asdf plugin-add flutter && \
+        asdf plugin-add dart && \
+        asdf plugin-add golang && \
+        asdf plugin-add nodejs && \
+        asdf plugin-add java
+    
+    asdf install
+}
+
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
 
 # Install zsh spaceship theme
@@ -57,9 +77,6 @@ THEME_DESTINATION="$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$CLONE_PATH" --depth=1 || true
 ln -s "$CLONE_PATH/spaceship.zsh-theme" "$THEME_DESTINATION" || true
 
-# is_linux && {
-#     # TODO: Move vscode settings to right place
-# }
 is_codespaces && {
     REPO_NAME=$(basename "$(ls -d '$HOME/workspace/*' | head -n 1)")
     mkdir -p "$HOME/workspace/$REPO_NAME/.vscode"
@@ -70,15 +87,18 @@ is_codespaces && {
 is_macos && {
     ls $HOME/Library/Fonts/JetBrainsMono* || {
         JETBRAINSMONO=$(mktemp -d)
-        git clone git@github.com:JetBrains/JetBrainsMono.git $JETBRAINSMONO
+        git clone git@github.com:JetBrains/JetBrainsMono.git $JETBRAINSMONO --depth=1
         ( cd "$JETBRAINSMONO/fonts/ttf"; cp *.ttf $HOME/Library/Fonts/ )
     }
 }
 is_linux && {
-    cd /tmp
-    wget https://download.jetbrains.com/fonts/JetBrainsMono-2.001.zip
-    unzip -o JetBrainsMono-2.001.zip -d "$HOME/.local/share/fonts"
-    sudo fc-cache -f -v || true
+    mkdir -p $HOME/.local/share/fonts
+    ls $HOME/.local/share/fonts/JetBrainsMono* || {
+        JETBRAINSMONO=$(mktemp -d)
+        git clone git@github.com:JetBrains/JetBrainsMono.git $JETBRAINSMONO --depth=1
+        ( cd "$JETBRAINSMONO/fonts/ttf"; cp *.ttf $HOME/.local/share/fonts/ )
+        sudo fc-cache -f -v || true
+    }
 }
 
 # Final touches
