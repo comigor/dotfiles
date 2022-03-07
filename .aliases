@@ -24,6 +24,10 @@ alias h="history"
 alias j="jobs"
 alias git-delete-branches='git branch --merged | grep -v "\*" | grep -v master | grep -v dev | xargs -n 1 git branch -d'
 
+# Git (because I'm used too much with them)
+alias gpo='git push origin'
+alias gco='git checkout'
+
 # Detect which `ls` flavor is in use
 if ls --color > /dev/null 2>&1; then # GNU `ls`
 	colorflag="--color"
