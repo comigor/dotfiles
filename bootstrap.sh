@@ -47,10 +47,12 @@ is_macos && {
 is_linux && {
     sudo apt install -y zsh jq awscli fzf git vim gcc libc6-dev libgl1-mesa-dev xorg-dev kitty
 
-    source $HOME/.asdf/asdf.sh || true
+    chsh -s $(which zsh) igor
+
     asdf --version || {
-        git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
+        git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0 || true
     }
+    source $HOME/.asdf/asdf.sh || true
     
     asdf --version && \
         asdf plugin-add lein https://github.com/miorimmax/asdf-lein.git && \
