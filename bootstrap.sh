@@ -45,7 +45,15 @@ is_macos && {
 }
 
 is_linux && {
-    sudo apt install -y zsh jq awscli fzf git vim gcc libc6-dev libgl1-mesa-dev xorg-dev kitty
+    sudo apt install -y zsh jq awscli fzf git vim gcc libc6-dev libgl1-mesa-dev xorg-dev
+
+    which kitty || {
+        # install kitty
+        curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+        cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
+        sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
+        sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
+    }
 
     chsh -s $(which zsh) igor
 
