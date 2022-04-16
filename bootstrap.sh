@@ -55,7 +55,7 @@ is_linux && {
         sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
     }
 
-    chsh -s $(which zsh) igor
+    chsh -s $(which zsh) $USER
 
     asdf --version || {
         git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0 || true
@@ -82,12 +82,6 @@ CLONE_PATH="$ZSH_CUSTOM/themes/spaceship-prompt"
 THEME_DESTINATION="$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$CLONE_PATH" --depth=1 || true
 ln -s "$CLONE_PATH/spaceship.zsh-theme" "$THEME_DESTINATION" || true
-
-is_codespaces && {
-    REPO_NAME=$(basename "$(ls -d '$HOME/workspace/*' | head -n 1)")
-    mkdir -p "$HOME/workspace/$REPO_NAME/.vscode"
-    ln -s "$PWD/vscode/*" "$HOME/workspace/$REPO_NAME/.vscode" || true
-}
 
 # Fonts
 is_macos && {
