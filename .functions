@@ -4,7 +4,13 @@
     code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCodeInsiders" --args $* ;}
 }
 [[ "$OSTYPE" == "linux-gnu"* ]] && {
-    code () { code-insiders $* }
+	code () {
+		flatpak list | grep com.visualstudio.code.insiders && {
+			flatpak run com.visualstudio.code.insiders $*
+		} || {
+			code-insiders $*
+		}
+	}
 }
 
 function emu() {
