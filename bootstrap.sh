@@ -34,7 +34,7 @@ git config --global core.excludesfile "~/.gitignore"
 
 # Required stuff
 is_linux && {
-    sudo apt install -y zsh jq awscli fzf git vim gcc gettext libc6-dev libgl1-mesa-dev xorg-dev
+    sudo apt install -y zsh jq awscli fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
     echo "$SHELL" | grep zsh || {
         chsh -s $(which zsh) $USER
@@ -74,9 +74,11 @@ is_macos && {
 # Linux (with selection)
 is_linux && {
     CHOICES=$(whiptail --separate-output --checklist "Choose software to install" 22 80 15 \
-        "kitty" "Kitty" ON \
+        "kitty" "Kitty (installer)" ON \
+        "docker" "Docker (new repository)" ON \
         "asdf" "ASDF (+ pre-configured software)" ON \
-        "zerotier" "Zerotier" ON \
+        "zerotier" "Zerotier (APT)" ON \
+        "parsec" "Parsec (flatpak)" ON \
         "chrome" "Chrome (flatpak)" ON \
         "vscode-insiders" "VSCode Insiders (flatpak)" ON \
         "jetbrains-mono" "JetBrains Mono Font" ON \
@@ -92,6 +94,18 @@ is_linux && {
                     sed -i "s|Icon=kitty|Icon=/home/$USER/.local/kitty.app/share/icons/hicolor/256x256/apps/kitty.png|g" ~/.local/share/applications/kitty*.desktop
                     sed -i "s|Exec=kitty|Exec=/home/$USER/.local/kitty.app/bin/kitty|g" ~/.local/share/applications/kitty*.desktop
                 }
+                ;;
+            "docker")
+                sudo mkdir -p /etc/apt/keyrings
+                curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --yes --dearmor -o /etc/apt/keyrings/docker.gpg
+                echo \
+                    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+                    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+                sudo apt-get update
+                sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+                sudo groupadd docker || true
+                sudo usermod -aG docker $USER
+                newgrp docker
                 ;;
             "asdf")
                 asdf --version || {
@@ -113,12 +127,13 @@ is_linux && {
             "zerotier")
                 sudo apt install -y zerotier-one
                 ;;
+            "parsec")
+                flatpak install --user flathub com.parsecgaming.parsec
+                ;;
             "chrome")
-                sudo apt install -y flatpak
                 flatpak install --user flathub com.google.Chrome
                 ;;
             "vscode-insiders")
-                sudo apt install -y flatpak
                 flatpak install --user org.freedesktop.Sdk/x86_64/21.08
                 flatpak remote-add --user flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo || true
                 flatpak install --user flathub-beta com.visualstudio.code.insiders
