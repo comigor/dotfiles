@@ -34,7 +34,7 @@ git config --global core.excludesfile "~/.gitignore"
 
 # Required stuff
 is_linux && {
-    sudo apt install -y zsh jq awscli fzf git vim gcc libc6-dev libgl1-mesa-dev xorg-dev
+    sudo apt install -y zsh jq awscli fzf git vim gcc gettext libc6-dev libgl1-mesa-dev xorg-dev
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
     echo "$SHELL" | grep zsh || {
         chsh -s $(which zsh) $USER
@@ -79,13 +79,13 @@ is_linux && {
         "zerotier" "Zerotier" ON \
         "chrome" "Chrome (flatpak)" ON \
         "vscode-insiders" "VSCode Insiders (flatpak)" ON \
-        "jetbrains-mono" "JetBrains Mono Font" ON 3>&1 1>&2 2>&3)
+        "jetbrains-mono" "JetBrains Mono Font" ON \
+        "nubank" "Nubank Stuff" OFF 3>&1 1>&2 2>&3)
 
     if [ ! -z "$CHOICES" ]; then
         for CHOICE in $CHOICES; do
             case "$CHOICE" in
             "kitty")
-                echo installing kitty
                 which kitty || {
                     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
                     cp ~/.local/kitty.app/share/applications/kitty.desktop ~/.local/share/applications/
@@ -94,7 +94,6 @@ is_linux && {
                 }
                 ;;
             "asdf")
-                echo installing asdf
                 asdf --version || {
                     git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0 || true
                 }
@@ -112,23 +111,19 @@ is_linux && {
                 asdf install
                 ;;
             "zerotier")
-                echo installing zer
                 sudo apt install -y zerotier-one
                 ;;
             "chrome")
-                echo installing chrome
                 sudo apt install -y flatpak
                 flatpak install --user flathub com.google.Chrome
                 ;;
             "vscode-insiders")
-                echo installing vsco
                 sudo apt install -y flatpak
                 flatpak install --user org.freedesktop.Sdk/x86_64/21.08
                 flatpak remote-add --user flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo || true
                 flatpak install --user flathub-beta com.visualstudio.code.insiders
                 ;;
             "jetbrains-mono")
-                echo installing jet
                 mkdir -p $HOME/.local/share/fonts
                 ls $HOME/.local/share/fonts/JetBrainsMono* || {
                     JETBRAINSMONO=$(mktemp -d)
@@ -136,6 +131,13 @@ is_linux && {
                     ( cd "$JETBRAINSMONO/fonts/ttf"; cp *.ttf $HOME/.local/share/fonts/ )
                     sudo fc-cache -f -v || true
                 }
+                ;;
+            "nubank")
+                sudo apt install -y libnss3-tools openfortivpn
+                flatpak install --user flathub us.zoom.Zoom
+                flatpak install --user flathub com.jetbrains.IntelliJ-IDEA-Community
+                echo
+                echo "Now copy Nu dotfiles and install nucli"
                 ;;
             *)
                 echo "Unsupported item $CHOICE!" >&2
