@@ -5,10 +5,18 @@
 }
 [[ "$OSTYPE" == "linux-gnu"* ]] && {
 	code () {
-		flatpak list | grep com.visualstudio.code.insiders && {
+		flatpak list | grep com.visualstudio.code.insiders > /dev/null && {
 			flatpak run com.visualstudio.code.insiders $*
 		} || {
 			code-insiders $*
+		}
+	}
+	idea () {
+		flatpak list | grep com.jetbrains.IntelliJ-IDEA-Community > /dev/null && {
+			nohup flatpak run com.jetbrains.IntelliJ-IDEA-Community $* >&/dev/null &
+			disown
+		} || {
+			intellij-idea $*
 		}
 	}
 }
