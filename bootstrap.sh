@@ -22,6 +22,7 @@ function copy_files () {
         --exclude "README.md" \
         --exclude "LICENSE-MIT.txt" \
         --exclude "brew.sh" \
+        --exclude "dell.sh" \
         -avh --no-perms . ~;
 }
 
@@ -39,6 +40,8 @@ is_linux && {
     echo "$SHELL" | grep zsh || {
         chsh -s $(which zsh) $USER
     }
+    sudo apt remove -y geary 'libreoffice*' || true
+    sudo apt autoremove
 }
 
 # Install zsh spaceship theme
@@ -81,6 +84,7 @@ is_linux && {
         "parsec" "Parsec (flatpak)" ON \
         "chrome" "Chrome (flatpak)" ON \
         "vscode-insiders" "VSCode Insiders (flatpak)" ON \
+        "vlc" "VLC (flatpak)" ON \
         "jetbrains-mono" "JetBrains Mono Font" ON \
         "nubank" "Nubank Stuff" OFF 3>&1 1>&2 2>&3)
 
@@ -137,6 +141,9 @@ is_linux && {
                 flatpak install --user org.freedesktop.Sdk/x86_64/21.08
                 flatpak remote-add --user flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo || true
                 flatpak install --user flathub-beta com.visualstudio.code.insiders
+                ;;
+            "vlc")
+                flatpak install --user flathub org.videolan.VLC
                 ;;
             "jetbrains-mono")
                 mkdir -p $HOME/.local/share/fonts
