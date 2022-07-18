@@ -13,20 +13,14 @@ function is_codespaces {
     [[ "$CODESPACES" == "true" ]]
 }
 
-function copy_files () {
-    rsync --exclude ".git/" \
-        --exclude ".DS_Store" \
-        --exclude ".macos" \
-        --exclude ".ubuntu" \
-        --exclude "bootstrap.sh" \
-        --exclude "README.md" \
-        --exclude "LICENSE-MIT.txt" \
-        --exclude "brew.sh" \
-        --exclude "dell.sh" \
-        -avh --no-perms . ~;
+function symlink_files () {
+    (
+        cd dots/
+        find . -type f -exec ln -sf "$PWD/{}" "$HOME/{}" \;
+    )
 }
 
-copy_files
+symlink_files
 
 git config --global user.email "igor@borges.dev"
 git config --global user.name "Igor Borges"
@@ -91,6 +85,7 @@ is_linux && {
 
     if [ ! -z "$CHOICES" ]; then
         for CHOICE in $CHOICES; do
+            echo "Installing ${CHOICE}..."
             case "$CHOICE" in
             "keyboard_mod")
                 sudo perl -0777 -i.bak -pe 's/(US, intl\., with dead keys)(\).*?\n)/\1, igor\2    key <CAPS> { [ dead_grave, dead_tilde ] };\n/s' /usr/share/X11/xkb/symbols/us
@@ -112,8 +107,7 @@ is_linux && {
                 sudo apt-get update
                 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
                 sudo groupadd docker || true
-                sudo usermod -aG docker $USER
-                newgrp docker
+                sudo usermod -aG docker $USER || true
                 ;;
             "asdf")
                 asdf --version || {
@@ -146,7 +140,7 @@ is_linux && {
                     "$HOME/.local/share/flatpak/exports/share/applications/com.google.Chrome.desktop"
                 ;;
             "vscode-insiders")
-                flatpak install --user org.freedesktop.Sdk/x86_64/21.08
+                flatpak install --user flathub org.freedesktop.Sdk/x86_64/21.08
                 flatpak remote-add --user flathub-beta https://flathub.org/beta-repo/flathub-beta.flatpakrepo || true
                 flatpak install --user flathub-beta com.visualstudio.code.insiders
                 ;;
@@ -167,12 +161,13 @@ is_linux && {
                 flatpak install --user flathub us.zoom.Zoom
                 flatpak install --user flathub com.jetbrains.IntelliJ-IDEA-Community
 
-                mkdir -p "$USER/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2022.1/"
-                echo 'idea.config.path=${user.home}/.config/JetBrains/Idea' >> "$USER/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2022.1/idea.properties"
+                mkdir -p "$HOME/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2022.1/"
+                echo 'idea.config.path=${user.home}/.config/JetBrains/Idea' >> "$HOME/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2022.1/idea.properties"
 
                 mkdir -p "$HOME/.config/JetBrains/Idea/keymaps/"
                 cp IDEAKeymap.xml "$HOME/.config/JetBrains/Idea/keymaps/"
 
+                echo
                 echo "Now copy Nu dotfiles and install nucli"
                 ;;
             *)
@@ -190,7 +185,5 @@ is_codespaces && {
     git config --global commit.gpgsign false
 }
 
-copy_files
-
-clear
-zsh
+echo
+echo "Check log above for possible errors, and then open a new terminal"
