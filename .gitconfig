@@ -162,6 +162,8 @@
 	default = simple
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
+	# No more "--set-upstream origin"
+	autoSetupRemote = true
 
 # URL shorthands
 

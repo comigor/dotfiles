@@ -77,6 +77,7 @@ is_macos && {
 # Linux (with selection)
 is_linux && {
     CHOICES=$(whiptail --separate-output --checklist "Choose software to install" 22 80 15 \
+        "keyboard_mod" "CAPS_LOCK mod to US, intl., with dead keys" ON \
         "kitty" "Kitty (installer)" ON \
         "docker" "Docker (new repository)" ON \
         "asdf" "ASDF (+ pre-configured software)" ON \
@@ -91,6 +92,9 @@ is_linux && {
     if [ ! -z "$CHOICES" ]; then
         for CHOICE in $CHOICES; do
             case "$CHOICE" in
+            "keyboard_mod")
+                sudo perl -0777 -i.bak -pe 's/(US, intl\., with dead keys)(\).*?\n)/\1, igor\2    key <CAPS> { [ dead_grave, dead_tilde ] };\n/s' /usr/share/X11/xkb/symbols/us
+                ;;
             "kitty")
                 which kitty || {
                     curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
@@ -136,6 +140,10 @@ is_linux && {
                 ;;
             "chrome")
                 flatpak install --user flathub com.google.Chrome
+                sed -i \
+                    -e 's; com.google.Chrome; com.google.Chrome --enable-features=WebUIDarkMode --force-dark-mode;g' \
+                    -e 's;flatpak run;flatpak run --filesystem=~/.pki/nssdb;g' \
+                    "$HOME/.local/share/flatpak/exports/share/applications/com.google.Chrome.desktop"
                 ;;
             "vscode-insiders")
                 flatpak install --user org.freedesktop.Sdk/x86_64/21.08
@@ -158,7 +166,13 @@ is_linux && {
                 sudo apt install -y libnss3-tools openfortivpn
                 flatpak install --user flathub us.zoom.Zoom
                 flatpak install --user flathub com.jetbrains.IntelliJ-IDEA-Community
-                echo
+
+                mkdir -p "$USER/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2022.1/"
+                echo 'idea.config.path=${user.home}/.config/JetBrains/Idea' >> "$USER/.var/app/com.jetbrains.IntelliJ-IDEA-Community/config/JetBrains/IdeaIC2022.1/idea.properties"
+
+                mkdir -p "$HOME/.config/JetBrains/Idea/keymaps/"
+                cp IDEAKeymap.xml "$HOME/.config/JetBrains/Idea/keymaps/"
+
                 echo "Now copy Nu dotfiles and install nucli"
                 ;;
             *)
