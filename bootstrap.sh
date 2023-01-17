@@ -30,6 +30,7 @@ git config --global core.excludesfile "~/.gitignore"
 # Required stuff
 is_linux && {
     sudo apt install -y zsh jq awscli fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
+    sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
     echo "$SHELL" | grep zsh || {
         chsh -s $(which zsh) $USER
@@ -131,12 +132,15 @@ is_linux && {
                 ;;
             "parsec")
                 flatpak install --user flathub com.parsecgaming.parsec
+                sed -i \
+                    -e 's;flatpak run;flatpak run --filesystem=/run/udev;g' \
+                    "$HOME/.local/share/flatpak/exports/share/applications/com.parsecgaming.parsec.desktop"
                 ;;
             "chrome")
                 flatpak install --user flathub com.google.Chrome
                 sed -i \
                     -e 's; com.google.Chrome; com.google.Chrome --enable-features=WebUIDarkMode --force-dark-mode;g' \
-                    -e 's;flatpak run;flatpak run --filesystem=~/.pki/nssdb;g' \
+                    -e 's;flatpak run;flatpak run --filesystem=/run/udev --filesystem=~/.pki/nssdb;g' \
                     "$HOME/.local/share/flatpak/exports/share/applications/com.google.Chrome.desktop"
                 ;;
             "vscode-insiders")
@@ -166,6 +170,14 @@ is_linux && {
 
                 mkdir -p "$HOME/.config/JetBrains/Idea/keymaps/"
                 cp IDEAKeymap.xml "$HOME/.config/JetBrains/Idea/keymaps/"
+
+                sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 3EFE0E0A2F2F60AA
+                echo "deb http://ppa.launchpad.net/tektoncd/cli/ubuntu jammy main"|sudo tee /etc/apt/sources.list.d/tektoncd-ubuntu-cli.list
+                sudo apt update && sudo apt install -y tektoncd-cli
+
+                mkdir -p "$HOME/bin"
+                curl -L -o "$HOME/bin/aws-iam-authenticator" "https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.5.9/aws-iam-authenticator_0.5.9_linux_amd64"
+                chmod +x "$HOME/bin/aws-iam-authenticator"
 
                 echo
                 echo "Now copy Nu dotfiles and install nucli"
