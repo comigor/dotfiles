@@ -16,6 +16,7 @@ function is_codespaces {
 function symlink_files () {
     (
         cd dots/
+        find . -type d -exec mkdir "$HOME/{}" \;
         find . -type f -exec ln -sf "$PWD/{}" "$HOME/{}" \;
     )
 }
@@ -29,7 +30,7 @@ git config --global core.excludesfile "~/.gitignore"
 
 # Required stuff
 is_linux && {
-    sudo apt install -y zsh jq awscli fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
+    sudo apt install -y unzip zsh jq awscli fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
     sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
     echo "$SHELL" | grep zsh || {
@@ -82,6 +83,7 @@ is_linux && {
         "vscode-insiders" "VSCode Insiders (flatpak)" ON \
         "vlc" "VLC (flatpak)" ON \
         "jetbrains-mono" "JetBrains Mono Font" ON \
+        "android" "Android SDK" OFF \
         "nubank" "Nubank Stuff" OFF 3>&1 1>&2 2>&3)
 
     if [ ! -z "$CHOICES" ]; then
@@ -159,6 +161,18 @@ is_linux && {
                     ( cd "$JETBRAINSMONO/fonts/ttf"; cp *.ttf $HOME/.local/share/fonts/ )
                     sudo fc-cache -f -v || true
                 }
+                ;;
+            "android")
+                mkdir -p $HOME/Android/cmdline-tools
+                (
+                    cd $HOME/Android/cmdline-tools
+                    wget https://dl.google.com/android/repository/commandlinetools-linux-6858069_latest.zip -O latest.zip
+                    unzip latest.zip
+                    mv cmdline-tools latest
+                    rm -rf latest.zip
+                    yes | sdkmanager --install "platform-tools" "platforms;android-31" "build-tools;33.0.2"
+                    yes | sdkmanager --licenses
+                )
                 ;;
             "nubank")
                 sudo apt install -y libnss3-tools openfortivpn

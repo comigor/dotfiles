@@ -1,7 +1,6 @@
 lein 2.9.8
-flutter 3.0.2-stable
-dart 2.17.3
-golang 1.17.5
+flutter 3.3.10
+dart 2.18.7
 java openjdk-11.0.2
 nodejs 11.15.0
 clojure 1.10.3.1093
