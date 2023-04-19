@@ -24,6 +24,9 @@ export PATH="$PATH:$JAVA_HOME/bin"
 export ENABLE_FLUTTER_DESKTOP=true
 export PATH="$PATH:$FLUTTER_HOME/bin:$HOME/.pub-cache/bin"
 
+# Python shit
+export PATH="$PATH:$HOME/.local/bin"
+
 # ASDF-VM
 [[ "$OSTYPE" == "darwin"* ]] && {
     echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
