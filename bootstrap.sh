@@ -59,7 +59,8 @@ is_macos && {
         asdf plugin-add dart && \
         asdf plugin-add golang && \
         asdf plugin-add nodejs && \
-        asdf plugin-add java
+        asdf plugin-add java && \
+        asdf plugin-add rust
     
     asdf install
 
