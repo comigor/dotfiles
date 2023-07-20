@@ -30,6 +30,7 @@ git config --global core.excludesfile "~/.gitignore"
 
 # Required stuff
 is_linux && {
+    sudo locale-gen en_US.UTF-8
     sudo apt install -y unzip zsh jq awscli fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
     sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
@@ -77,14 +78,16 @@ is_linux && {
         "keyboard_mod" "CAPS_LOCK mod to US, intl., with dead keys" ON \
         "kitty" "Kitty (installer)" ON \
         "docker" "Docker (new repository)" ON \
-        "asdf" "ASDF (+ pre-configured software)" ON \
+        "rtx" "RTX (ASDF) (+ pre-configured software)" ON \
         "zerotier" "Zerotier (APT)" ON \
+        "tailscale" "Tailscale" ON \
         "parsec" "Parsec (flatpak)" ON \
         "chrome" "Chrome (flatpak)" ON \
         "vscode-insiders" "VSCode Insiders (flatpak)" ON \
         "vlc" "VLC (flatpak)" ON \
         "jetbrains-mono" "JetBrains Mono Font" ON \
         "android" "Android SDK" OFF \
+        "python" "Python (Rye, actually)" OFF \
         "nubank" "Nubank Stuff" OFF 3>&1 1>&2 2>&3)
 
     if [ ! -z "$CHOICES" ]; then
@@ -113,25 +116,29 @@ is_linux && {
                 sudo groupadd docker || true
                 sudo usermod -aG docker $USER || true
                 ;;
-            "asdf")
-                asdf --version || {
-                    git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0 || true
+            "rtx")
+                rtx --version || {
+                    curl https://rtx.pub/rtx-latest-linux-x64 > ~/bin/rtx
+                    chmod +x ~/bin/rtx
+                    eval "$(~/bin/rtx activate zsh)"
                 }
-                source $HOME/.asdf/asdf.sh || true
-                
-                asdf --version && \
-                    asdf plugin-add lein https://github.com/miorimmax/asdf-lein.git && \
-                    asdf plugin-add clojure https://github.com/asdf-community/asdf-clojure.git && \
-                    asdf plugin-add flutter && \
-                    asdf plugin-add dart && \
-                    asdf plugin-add golang && \
-                    asdf plugin-add nodejs && \
-                    asdf plugin-add java
-                
-                asdf install
+
+                rtx --version && \
+                    rtx plugins install lein https://github.com/miorimmax/asdf-lein.git && \
+                    rtx plugins install clojure https://github.com/asdf-community/asdf-clojure.git && \
+                    rtx plugins install flutter && \
+                    rtx plugins install dart && \
+                    rtx plugins install golang && \
+                    rtx plugins install java
+
+                rtx install
+                rtx reshim
                 ;;
             "zerotier")
                 sudo apt install -y zerotier-one
+                ;;
+            "tailscale")
+                curl -fsSL https://tailscale.com/install.sh | sh
                 ;;
             "parsec")
                 flatpak install --user flathub com.parsecgaming.parsec
@@ -174,6 +181,9 @@ is_linux && {
                     yes | sdkmanager --install "platform-tools" "platforms;android-31" "build-tools;33.0.2"
                     yes | sdkmanager --licenses
                 )
+                ;;
+            "python")
+                curl -sSf https://rye-up.com/get | RYE_INSTALL_OPTION="--yes" bash
                 ;;
             "nubank")
                 sudo apt install -y libnss3-tools openfortivpn
