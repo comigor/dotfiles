@@ -30,8 +30,9 @@ git config --global core.excludesfile "~/.gitignore"
 
 # Required stuff
 is_linux && {
+    sudo apt update
     sudo locale-gen en_US.UTF-8
-    sudo apt install -y unzip zsh jq awscli fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
+    sudo apt install -y unzip zsh jq fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
     sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
     echo "$SHELL" | grep zsh || {
@@ -75,19 +76,19 @@ is_macos && {
 # Linux (with selection)
 is_linux && {
     CHOICES=$(whiptail --separate-output --checklist "Choose software to install" 22 80 15 \
-        "keyboard_mod" "CAPS_LOCK mod to US, intl., with dead keys" ON \
-        "kitty" "Kitty (installer)" ON \
-        "docker" "Docker (new repository)" ON \
+        "keyboard_mod" "CAPS_LOCK mod to US, intl., with dead keys" OFF \
+        "kitty" "Kitty (installer)" OFF \
+        "docker" "Docker (new repository)" OFF \
         "rtx" "RTX (ASDF) (+ pre-configured software)" ON \
-        "zerotier" "Zerotier (APT)" ON \
-        "tailscale" "Tailscale" ON \
-        "parsec" "Parsec (flatpak)" ON \
-        "chrome" "Chrome (flatpak)" ON \
-        "vscode-insiders" "VSCode Insiders (flatpak)" ON \
-        "vlc" "VLC (flatpak)" ON \
-        "jetbrains-mono" "JetBrains Mono Font" ON \
+        "zerotier" "Zerotier (APT)" OFF \
+        "tailscale" "Tailscale" OFF \
+        "parsec" "Parsec (flatpak)" OFF \
+        "chrome" "Chrome (flatpak)" OFF \
+        "vscode-insiders" "VSCode Insiders (flatpak)" OFF \
+        "vlc" "VLC (flatpak)" OFF \
+        "jetbrains-mono" "JetBrains Mono Font" OFF \
         "android" "Android SDK" OFF \
-        "python" "Python (Rye, actually)" OFF \
+        "python" "Python (Rye, actually)" ON \
         "nubank" "Nubank Stuff" OFF 3>&1 1>&2 2>&3)
 
     if [ ! -z "$CHOICES" ]; then
@@ -118,6 +119,7 @@ is_linux && {
                 ;;
             "rtx")
                 rtx --version || {
+                    mkdir -p ~/bin
                     curl https://rtx.pub/rtx-latest-linux-x64 > ~/bin/rtx
                     chmod +x ~/bin/rtx
                     eval "$(~/bin/rtx activate zsh)"
