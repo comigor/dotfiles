@@ -1,7 +1,7 @@
-lein 2.9.8
-flutter 3.3.10
-dart 2.18.7
-java openjdk-11.0.2
-nodejs 11.15.0
+lein    2.9.8
+flutter 3.7.12-stable
+dart    3
+java    openjdk-11.0.2
+nodejs  11.15.0
 clojure 1.10.3.1093
-rust stable
+rust    stable
