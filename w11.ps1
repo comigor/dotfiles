@@ -6,3 +6,6 @@ Get-Service ssh-agent | Set-Service -StartupType Automatic
 Start-Service ssh-agent
 Get-Service ssh-agent
 ssh-add C:\Users\igor\.ssh\id_rsa
+
+# Other
+REG DELETE "HKCU\SOFTWARE\Microsoft\Windows Script Host\Settings" /v Enabled /f
