@@ -13,6 +13,10 @@ function is_codespaces {
     [[ "$CODESPACES" == "true" ]]
 }
 
+function is_wsl {
+    [ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ]
+}
+
 function symlink_files () {
     (
         cd dots/
@@ -222,6 +226,10 @@ is_linux && {
 is_codespaces && {
     git config --global --unset user.signingkey
     git config --global commit.gpgsign false
+}
+
+is_wsl && {
+    git config --global core.sshcommand "ssh.exe"
 }
 
 echo
