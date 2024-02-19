@@ -1,4 +1,4 @@
-lein    2.9.8
+lein    2.10
 flutter 3.7.12-stable
 java    openjdk-11.0.2
 nodejs  11.15.0
