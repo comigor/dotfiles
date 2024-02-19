@@ -34,5 +34,5 @@ export PATH="$PATH:$HOME/.rye/shims"
     echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 }
 [[ "$OSTYPE" == "linux-gnu"* ]] && {
-    eval "$(~/bin/rtx activate zsh)"
+    eval "$($HOME/.local/bin/mise activate zsh)"
 }

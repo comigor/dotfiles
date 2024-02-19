@@ -83,7 +83,7 @@ is_linux && {
         "keyboard_mod" "CAPS_LOCK mod to US, intl., with dead keys" OFF \
         "kitty" "Kitty (installer)" OFF \
         "docker" "Docker (new repository)" OFF \
-        "rtx" "RTX (ASDF) (+ pre-configured software)" ON \
+        "mise" "mise (RTX/ASDF) (+ pre-configured software)" ON \
         "zerotier" "Zerotier (APT)" OFF \
         "tailscale" "Tailscale" OFF \
         "parsec" "Parsec (flatpak)" OFF \
@@ -121,24 +121,23 @@ is_linux && {
                 sudo groupadd docker || true
                 sudo usermod -aG docker $USER || true
                 ;;
-            "rtx")
-                rtx --version || {
+            "mise")
+                mise --version || {
                     mkdir -p ~/bin
-                    curl https://rtx.pub/rtx-latest-linux-x64 > ~/bin/rtx
-                    chmod +x ~/bin/rtx
-                    eval "$(~/bin/rtx activate zsh)"
+                    curl https://mise.run | sh
+                    eval "$($HOME/.local/bin/mise activate zsh)"
                 }
 
-                rtx --version && \
-                    rtx plugins install lein https://github.com/miorimmax/asdf-lein.git && \
-                    rtx plugins install clojure https://github.com/asdf-community/asdf-clojure.git && \
-                    rtx plugins install flutter && \
-                    rtx plugins install dart && \
-                    rtx plugins install golang && \
-                    rtx plugins install java
+                mise --version && \
+                    mise plugins install lein https://github.com/miorimmax/asdf-lein.git && \
+                    mise plugins install clojure https://github.com/asdf-community/asdf-clojure.git && \
+                    mise plugins install flutter && \
+                    mise plugins install dart && \
+                    mise plugins install golang && \
+                    mise plugins install java
 
-                rtx install
-                rtx reshim
+                mise install
+                mise reshim
                 ;;
             "zerotier")
                 sudo apt install -y zerotier-one
