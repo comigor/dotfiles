@@ -36,7 +36,7 @@ git config --global core.excludesfile "~/.gitignore"
 is_linux && {
     sudo apt update
     sudo locale-gen en_US.UTF-8
-    sudo apt install -y unzip zsh jq fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release
+    sudo apt install -y unzip zsh jq fzf git vim flatpak gcc gettext libc6-dev libgl1-mesa-dev xorg-dev ca-certificates curl gnupg lsb-release libssl-dev libbz2-dev
     sudo apt install -y clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" || true
     echo "$SHELL" | grep zsh || {
@@ -132,9 +132,7 @@ is_linux && {
                     mise plugins install lein https://github.com/miorimmax/asdf-lein.git && \
                     mise plugins install clojure https://github.com/asdf-community/asdf-clojure.git && \
                     mise plugins install flutter && \
-                    mise plugins install dart && \
-                    mise plugins install golang && \
-                    mise plugins install java
+                    mise plugins install dart
 
                 mise install
                 mise reshim
@@ -188,7 +186,9 @@ is_linux && {
                 )
                 ;;
             "python")
-                curl -sSf https://rye-up.com/get | RYE_INSTALL_OPTION="--yes" bash
+                mise settings set python_compile 1
+                pip install poetry
+                poetry config --local virtualenvs.in-project true
                 ;;
             "nubank")
                 sudo apt install -y libnss3-tools openfortivpn

@@ -27,7 +27,7 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 
 # Python shit
 export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/.rye/shims"
+# export PATH="$PATH:$HOME/.rye/shims"
 
 # ASDF-VM
 [[ "$OSTYPE" == "darwin"* ]] && {

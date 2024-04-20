@@ -4,4 +4,4 @@ java    openjdk-11.0.2
 nodejs  11.15.0
 clojure 1.10.3.1093
 rust    stable
-python  3.9
+python  3.12.1
