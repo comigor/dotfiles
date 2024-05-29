@@ -5,3 +5,4 @@ nodejs  11.15.0
 clojure 1.10.3.1093
 rust    stable
 python  3.12.1
+go      1.22.0
