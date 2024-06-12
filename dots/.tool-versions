@@ -1,6 +1,6 @@
 lein    2.10
 flutter 3.7.12-stable
-java    openjdk-11.0.2
+java    corretto-11.0.19.7.1
 nodejs  11.15.0
 clojure 1.10.3.1093
 rust    stable
