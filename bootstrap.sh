@@ -228,7 +228,7 @@ is_codespaces && {
 }
 
 is_wsl && {
-    git config --global core.sshcommand "ssh.exe"
+    # git config --global credential.helper "$(which git-credential-manager.exe)"
 }
 
 echo

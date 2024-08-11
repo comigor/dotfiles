@@ -29,10 +29,14 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 export PATH="$PATH:$HOME/.local/bin"
 # export PATH="$PATH:$HOME/.rye/shims"
 
-# ASDF-VM
+# mise-en-place
 [[ "$OSTYPE" == "darwin"* ]] && {
     echo -e "\n. $(brew --prefix asdf)/libexec/asdf.sh" >> ${ZDOTDIR:-~}/.zshrc
 }
 [[ "$OSTYPE" == "linux-gnu"* ]] && {
     eval "$($HOME/.local/bin/mise activate zsh)"
+}
+[ -f "/proc/sys/fs/binfmt_misc/WSLInterop" ] && {
+    export GIT_SSH=$(which ssh.exe)
+    eval "$(ssh-agent.exe -s)"
 }
