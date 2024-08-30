@@ -27,7 +27,6 @@ export PATH="$PATH:$HOME/.pub-cache/bin"
 
 # Python shit
 export PATH="$PATH:$HOME/.local/bin"
-# export PATH="$PATH:$HOME/.rye/shims"
 
 # mise-en-place
 [[ "$OSTYPE" == "darwin"* ]] && {
