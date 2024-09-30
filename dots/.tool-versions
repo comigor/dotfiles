@@ -4,5 +4,4 @@ java    corretto-11.0.19.7.1
 nodejs  11.15.0
 clojure 1.11.3.1463
 rust    stable
-python  3.12.1
 go      1.22.0

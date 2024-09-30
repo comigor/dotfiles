@@ -186,9 +186,7 @@ is_linux && {
                 )
                 ;;
             "python")
-                mise settings set python_compile 1
-                pip install poetry
-                poetry config --local virtualenvs.in-project true
+                curl -LsSf https://astral.sh/uv/install.sh | sh
                 ;;
             "nubank")
                 sudo apt install -y libnss3-tools openfortivpn
