@@ -2,8 +2,6 @@
 
 export GTK_IM_MODULE=cedilla
 
-export SHELL=/usr/bin/zsh
-
 export TERM=vt100
 
 # Make vim the default editor.

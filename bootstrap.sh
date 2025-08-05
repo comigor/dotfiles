@@ -46,36 +46,27 @@ is_linux && {
     sudo apt autoremove
 }
 
+# MacOS
+is_macos && {
+    brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+    # configure fzf
+    $(brew --prefix)/opt/fzf/install
+
+    # .gnupg/gpg-agent
+
+    # install vscode
+    # brew install --cask iterm firefox tailscale maccy dropbox zed docker
+}
+
 # Install zsh spaceship theme
 ZSH_CUSTOM="$HOME/.tmp"
 CLONE_PATH="$ZSH_CUSTOM/themes/spaceship-prompt"
 THEME_DESTINATION="$HOME/.oh-my-zsh/themes/spaceship.zsh-theme"
 git clone https://github.com/denysdovhan/spaceship-prompt.git "$CLONE_PATH" --depth=1 || true
 ln -s "$CLONE_PATH/spaceship.zsh-theme" "$THEME_DESTINATION" || true
-
-# MacOS
-is_macos && {
-    brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    brew install git zsh asdf jq awscli fzf bash-completion
-    
-    asdf --version && \
-        asdf plugin-add lein https://github.com/miorimmax/asdf-lein.git && \
-        asdf plugin-add clojure https://github.com/asdf-community/asdf-clojure.git && \
-        asdf plugin-add flutter && \
-        asdf plugin-add dart && \
-        asdf plugin-add golang && \
-        asdf plugin-add nodejs && \
-        asdf plugin-add java && \
-        asdf plugin-add rust
-    
-    asdf install
-
-    ls $HOME/Library/Fonts/JetBrainsMono* || {
-        JETBRAINSMONO=$(mktemp -d)
-        git clone git@github.com:JetBrains/JetBrainsMono.git $JETBRAINSMONO --depth=1
-        ( cd "$JETBRAINSMONO/fonts/ttf"; cp *.ttf $HOME/Library/Fonts/ )
-    }
-}
 
 # Linux (with selection)
 is_linux && {
@@ -92,7 +83,7 @@ is_linux && {
         "vlc" "VLC (flatpak)" OFF \
         "jetbrains-mono" "JetBrains Mono Font" OFF \
         "android" "Android SDK" OFF \
-        "python" "Python (Rye, actually)" ON \
+        "python" "Python" ON \
         "nubank" "Nubank Stuff" OFF 3>&1 1>&2 2>&3)
 
     if [ ! -z "$CHOICES" ]; then
