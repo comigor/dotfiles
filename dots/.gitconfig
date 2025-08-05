@@ -193,6 +193,9 @@
 	process = git-lfs filter-process
 	required = true
 
+[pull]
+	rebase = true
+
 [user]
 	email = igor@borges.dev
 	name = Igor Borges
