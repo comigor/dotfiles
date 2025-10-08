@@ -2,7 +2,7 @@
 
 export GTK_IM_MODULE=cedilla
 
-export TERM=vt100
+export TERM=xterm-256color
 
 # Make vim the default editor.
 export EDITOR=vim
@@ -49,3 +49,5 @@ export LEIN_SUPPRESS_USER_LEVEL_REPO_WARNINGS=1;
 
 # Hide the “default interactive shell is now zsh” warning on macOS.
 export BASH_SILENCE_DEPRECATION_WARNING=1;
+
+export MISE_GO_SET_GOPATH=true

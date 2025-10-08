@@ -200,3 +200,6 @@
 	email = igor@borges.dev
 	name = Igor Borges
 	signingkey = 7AD24624
+
+[url "ssh://git@github.com/"]
+	insteadOf = https://github.com/

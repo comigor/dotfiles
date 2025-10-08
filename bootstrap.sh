@@ -49,7 +49,7 @@ is_linux && {
 # MacOS
 is_macos && {
     brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac
+    brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac ripgrep coreutils
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
     # configure fzf
@@ -58,7 +58,7 @@ is_macos && {
     # .gnupg/gpg-agent
 
     # install vscode
-    # brew install --cask iterm firefox tailscale maccy dropbox zed docker
+    # brew install --cask iterm firefox tailscale maccy dropbox zed docker beeper rustdesk
 }
 
 # Install zsh spaceship theme

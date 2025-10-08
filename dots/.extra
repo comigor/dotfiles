@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # Go shit
-export GOPATH=$HOME/gopath
-export PATH="$GOPATH/bin:$PATH"
+# export GOPATH=$HOME/gopath
+# export PATH="$PATH:$GOBIN"
 
 # Android shit
 export ANDROID_HOME="$HOME/Android"
@@ -30,9 +30,9 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # mise-en-place
 [[ "$OSTYPE" == "darwin"* ]] && {
-    eval "$(mise activate zsh)"
+    eval "$(mise activate zsh --shims)"
     export SSH_AUTH_SOCK=/Users/igor/.bitwarden-ssh-agent.sock
-    export SHELL=/usr/zsh
+    export SHELL=/bin/zsh
 }
 [[ "$OSTYPE" == "linux-gnu"* ]] && {
     eval "$($HOME/.local/bin/mise activate zsh)"
