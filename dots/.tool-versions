@@ -1,7 +1,4 @@
-lein    2.10
-flutter 3.7.12-stable
-java    corretto-11.0.19.7.1
-nodejs  11.15.0
-clojure 1.11.3.1463
+java    corretto-21
+nodejs  24
 rust    stable
-go      1.22.0
+go      1.25.1
