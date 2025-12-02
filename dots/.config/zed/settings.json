@@ -11,7 +11,7 @@
     "dock": "bottom"
   },
   "features": {
-    "edit_prediction_provider": "copilot"
+    "edit_prediction_provider": "supermaven"
   },
   "context_servers": {
     "mcp-server-context7": {

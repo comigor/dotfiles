@@ -1,0 +1,54 @@
+{
+  "$schema": "https://charm.land/crush.json",
+  "lsp": {
+    "go": {
+      "command": "gopls",
+      "env": {
+        "GOTOOLCHAIN": "go1.25.1"
+      }
+    }
+  },
+  "mcp": {
+    "context7": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@upstash/context7-mcp@latest"]
+    }
+  },
+  "models": {
+    "large": {
+      "model": "gemini-3-pro-preview",
+      "provider": "gemini",
+      "max_tokens": 64000
+    },
+    "small": {
+      "model": "gemini-2.5-flash",
+      "provider": "gemini",
+      "max_tokens": 50000
+    }
+  },
+  "recent_models": {
+    "large": [{ "model": "gemini-3-pro-preview", "provider": "gemini" }],
+    "small": [{ "model": "gemini-2.5-flash", "provider": "gemini" }]
+  },
+  "options": {
+    "disabled_tools": [],
+    "tui": {
+      "compact_mode": true,
+      "completions": {}
+    }
+  },
+  "permissions": {
+    "allowed_tools": [
+      "view",
+      "ls",
+      "grep",
+      "rg",
+      "edit",
+      "mcp_context7_get-library-doc"
+    ]
+  },
+  "tools": {
+    "ls": {}
+  }
+}
