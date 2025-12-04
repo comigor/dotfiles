@@ -746,7 +746,7 @@
                         ]
                     },
                     {
-                        "description": "Terminal: Shift+Enter → Option+Enter (Like igor2+Enter)",
+                        "description": "Terminal: Shift+Enter → Ctrl+J (Multiline input)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -772,8 +772,8 @@
                                 },
                                 "to": [
                                     {
-                                        "key_code": "return_or_enter",
-                                        "modifiers": ["option"]
+                                        "key_code": "j",
+                                        "modifiers": ["control"]
                                     }
                                 ],
                                 "type": "basic"

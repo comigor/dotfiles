@@ -17,24 +17,20 @@
   },
   "models": {
     "large": {
-      "model": "gemini-3-pro-preview",
-      "provider": "gemini",
+      "model": "google/gemini-3-pro-preview",
+      "provider": "openrouter",
       "max_tokens": 64000
     },
     "small": {
-      "model": "gemini-2.5-flash",
-      "provider": "gemini",
+      "model": "google/gemini-2.5-flash",
+      "provider": "openrouter",
       "max_tokens": 50000
     }
-  },
-  "recent_models": {
-    "large": [{ "model": "gemini-3-pro-preview", "provider": "gemini" }],
-    "small": [{ "model": "gemini-2.5-flash", "provider": "gemini" }]
   },
   "options": {
     "disabled_tools": [],
     "tui": {
-      "compact_mode": true,
+      "compact_mode": false,
       "completions": {}
     }
   },
@@ -47,8 +43,5 @@
       "edit",
       "mcp_context7_get-library-doc"
     ]
-  },
-  "tools": {
-    "ls": {}
   }
 }
