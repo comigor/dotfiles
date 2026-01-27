@@ -60,3 +60,31 @@ bindkey "^E" vi-end-of-line
 
 # Redo some exports
 source "$HOME/.zprofile"
+
+# ============================================================================
+# Async loading of cosmo env (slow due to network/auth)
+# ============================================================================
+if [[ ! -d ~/.zsh-async ]]; then
+  git clone --depth 1 -b 'v1.8.6' https://github.com/mafredri/zsh-async.git ~/.zsh-async 2>/dev/null
+fi
+
+if [[ -f ~/.zsh-async/async.zsh ]]; then
+  source ~/.zsh-async/async.zsh
+  async_init
+
+  _cosmo_env_load() {
+    local parent_path="$1"
+    export PATH="$parent_path"
+    command -v cosmo &>/dev/null && cosmo env
+  }
+
+  _cosmo_env_callback() {
+    local stdout=$3
+    [[ -n "$stdout" ]] && eval "$stdout"
+    async_stop_worker cosmo_worker 2>/dev/null
+  }
+
+  async_start_worker cosmo_worker -n
+  async_register_callback cosmo_worker _cosmo_env_callback
+  async_job cosmo_worker _cosmo_env_load "$PATH"
+fi

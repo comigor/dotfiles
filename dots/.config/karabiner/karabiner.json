@@ -863,30 +863,46 @@
                         {
                             "from": { "apple_vendor_top_case_key_code": "keyboard_fn" },
                             "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "left_command" },
+                            "to": [{ "key_code": "left_control" }]
+                        },
+                        {
+                            "from": { "key_code": "left_control" },
+                            "to": [{ "key_code": "left_command" }]
+                        },
+                        {
+                            "from": { "key_code": "right_command" },
+                            "to": [{ "key_code": "right_control" }]
+                        },
+                        {
+                            "from": { "key_code": "right_control" },
+                            "to": [{ "key_code": "right_command" }]
                         }
                     ]
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "is_pointing_device": true,
+                        "product_id": 65136,
+                        "vendor_id": 6645
+                    },
+                    "ignore": false,
+                    "manipulate_caps_lock_led": false
+                },
+                {
+                    "identifiers": {
+                        "is_keyboard": true,
+                        "product_id": 65136,
+                        "vendor_id": 6645
+                    },
+                    "manipulate_caps_lock_led": false
                 }
             ],
             "name": "Default profile",
             "selected": true,
-            "simple_modifications": [
-                {
-                    "from": { "key_code": "left_command" },
-                    "to": [{ "key_code": "left_control" }]
-                },
-                {
-                    "from": { "key_code": "left_control" },
-                    "to": [{ "key_code": "left_command" }]
-                },
-                {
-                    "from": { "key_code": "right_command" },
-                    "to": [{ "key_code": "right_control" }]
-                },
-                {
-                    "from": { "key_code": "right_control" },
-                    "to": [{ "key_code": "right_command" }]
-                }
-            ],
             "virtual_hid_keyboard": { "keyboard_type_v2": "ansi" }
         }
     ]

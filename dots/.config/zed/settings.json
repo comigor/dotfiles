@@ -7,33 +7,35 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "icon_theme": "Catppuccin Mocha",
   "debugger": {
-    "dock": "bottom"
+    "dock": "bottom",
   },
   "features": {
-    "edit_prediction_provider": "supermaven"
+    "edit_prediction_provider": "supermaven",
   },
   "context_servers": {
     "mcp-server-context7": {
-      "source": "extension",
       "enabled": true,
       "settings": {
-        "default_minimum_tokens": "10000"
-      }
-    }
+        "default_minimum_tokens": "10000",
+      },
+    },
   },
   "agent": {
+    "always_allow_tool_actions": true,
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-sonnet-4-5-thinking-latest"
-    }
+      "model": "claude-sonnet-4-5-thinking-latest",
+    },
   },
   "ui_font_size": 16,
   "buffer_font_size": 15,
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "One Dark"
+    "dark": "One Dark",
   },
-  "autosave": "on_focus_change"
+  "autosave": "on_focus_change",
+  "preferred_line_length": 120,
 }
