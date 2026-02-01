@@ -55,6 +55,18 @@ is_macos && {
     # configure fzf
     $(brew --prefix)/opt/fzf/install
 
+    # mise tools
+    mise install
+    rustup default stable
+    rustup update stable
+
+    # zerobrew
+    which zb || {
+        curl -sSL https://raw.githubusercontent.com/lucasgelfond/zerobrew/main/install.sh | bash
+        sudo mkdir -p /opt/zerobrew
+        sudo chown -R $USER:staff /opt/zerobrew
+    }
+
     # .gnupg/gpg-agent
 
     # install vscode

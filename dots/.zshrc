@@ -77,3 +77,5 @@ if [[ -f ~/.zsh-async/async.zsh ]]; then
   async_register_callback cosmo_worker _cosmo_env_callback
   async_job cosmo_worker _cosmo_env_load "$PATH"
 fi
+# zerobrew
+export PATH="$HOME/.local/bin:/opt/zerobrew/prefix/bin:$PATH"
