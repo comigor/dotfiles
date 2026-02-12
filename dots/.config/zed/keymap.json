@@ -9,21 +9,21 @@
   {
     "context": "Workspace",
     "bindings": {
-      "shift shift": "file_finder::Toggle"
-    }
+      "shift shift": "file_finder::Toggle",
+    },
   },
   {
     "context": "Pane",
     "bindings": {
       // "cmd-[": "pane::GoBack",
       // "cmd-]": "pane::GoForward"
-    }
+    },
   },
   {
     "context": "Editor",
     "bindings": {
       "cmd-[": "pane::GoBack",
-      "cmd-]": "pane::GoForward"
-    }
-  }
+      "cmd-]": "pane::GoForward",
+    },
+  },
 ]

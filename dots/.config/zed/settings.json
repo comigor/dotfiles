@@ -7,10 +7,17 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "edit_predictions": {
+    "ollama": {
+      "max_output_tokens": 1024,
+      "model": "nishtahir/zeta:7b-q4_K_M",
+    },
+    "provider": "supermaven",
+  },
   "agent_servers": {
     "opencode": {
-      "type": "registry"
-    }
+      "type": "registry",
+    },
   },
   "icon_theme": "Catppuccin Mocha",
   "debugger": {
@@ -20,18 +27,30 @@
     "edit_prediction_provider": "supermaven",
   },
   "context_servers": {
-    "mcp-server-context7": {
+    "websearch": {
+      "settings": {},
+
       "enabled": true,
-      "settings": {
-        "default_minimum_tokens": "10000",
-      },
+      "url": "https://mcp.exa.ai/mcp?tools=web_search_exa",
+    },
+    "context7": {
+      "settings": {},
+
+      "enabled": true,
+      "url": "https://mcp.context7.com/mcp",
+    },
+    "grep_app": {
+      "settings": {},
+
+      "enabled": true,
+      "url": "https://mcp.grep.app",
     },
   },
   "agent": {
     "always_allow_tool_actions": true,
     "default_model": {
       "provider": "anthropic",
-      "model": "claude-sonnet-4-5-thinking-latest",
+      "model": "claude-opus-4-6",
     },
   },
   "ui_font_size": 16,
