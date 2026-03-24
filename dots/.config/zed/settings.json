@@ -7,12 +7,20 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "git_panel": {
+    "tree_view": true
+  },
   "edit_predictions": {
-    "ollama": {
-      "max_output_tokens": 1024,
-      "model": "nishtahir/zeta:7b-q4_K_M",
+    "sweep": {
+      "privacy_mode": false
     },
-    "provider": "supermaven",
+    "provider": "sweep",
+    // "open_ai_compatible_api": {
+    //   "api_url": "http://localhost:1234/v1/completions",
+    //   "model": "qwen/qwen3.5-35b-a3b",
+    //   "prompt_format": "qwen",
+    // },
+    // "provider": "open_ai_compatible_api",
   },
   "agent_servers": {
     "opencode": {
@@ -23,9 +31,9 @@
   "debugger": {
     "dock": "bottom",
   },
-  "features": {
-    "edit_prediction_provider": "supermaven",
-  },
+  // "features": {
+  //   "edit_prediction_provider": "supermaven",
+  // },
   "context_servers": {
     "websearch": {
       "settings": {},
@@ -47,7 +55,9 @@
     },
   },
   "agent": {
-    "always_allow_tool_actions": true,
+    "tool_permissions": {
+      "default": "allow"
+    },
     "default_model": {
       "provider": "anthropic",
       "model": "claude-opus-4-6",
