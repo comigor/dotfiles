@@ -2,11 +2,15 @@
 {{- $email := promptStringOnce . "email" "Email address" "igor@borges.dev" -}}
 {{- $signingkey := promptStringOnce . "signingkey" "GPG signing key" "7AD24624" -}}
 
+{{- $sourceDir := promptStringOnce . "sourceDir" "Dotfiles repo path" (joinPath .chezmoi.homeDir "Projects/dotfiles") -}}
+
 {{- $is_codespaces := env "CODESPACES" | not | not -}}
 {{- $is_wsl := false -}}
 {{- if stat "/proc/sys/fs/binfmt_misc/WSLInterop" -}}
 {{-   $is_wsl = true -}}
 {{- end -}}
+
+sourceDir = {{ $sourceDir | quote }}
 
 [data]
     name = {{ $name | quote }}

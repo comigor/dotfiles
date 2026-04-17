@@ -1,0 +1,77 @@
+{
+  // Mirrors the author's $30 preset (docs/thirty-dollars-preset.md):
+  // GPT-5.4 for reasoning, Gemini 3.1 Pro for design, GPT-5.4-mini for breadth.
+  // Non-Anthropic models routed via OpenRouter; Anthropic direct used as native fallback.
+  "preset": "author",
+  "presets": {
+    "author": {
+      "orchestrator": {
+        "model": "anthropic/claude-opus-4-6",
+        "skills": ["*"],
+        "mcps": ["*", "websearch"],
+      },
+      "oracle": {
+        "model": "openrouter/openai/gpt-5.4",
+        "variant": "high",
+        "skills": [],
+        "mcps": [],
+      },
+      "librarian": {
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": ["websearch", "context7", "grep_app"],
+      },
+      "explorer": {
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": [],
+      },
+      "designer": {
+        "model": "openrouter/google/gemini-3.1-pro-preview",
+        "skills": ["agent-browser"],
+        "mcps": [],
+      },
+      "fixer": {
+        "model": "openrouter/openai/gpt-5.4-mini",
+        "variant": "low",
+        "skills": [],
+        "mcps": [],
+      },
+    },
+  },
+
+  // Council — plugin defaults reference direct openai/*, which isn't configured.
+  // Override with providers you actually have (Anthropic + OpenRouter).
+  "council": {
+    "master": { "model": "anthropic/claude-opus-4-6" },
+    "presets": {
+      "default": {
+        "alpha": { "model": "anthropic/claude-opus-4-6" },
+        "beta": { "model": "openrouter/google/gemini-3.1-pro-preview" },
+        "gamma": { "model": "openrouter/openai/gpt-5.4" },
+      },
+    },
+  },
+
+  "fallback": {
+    "enabled": true,
+    "timeoutMs": 15000,
+    "retryDelayMs": 500,
+    "chains": {
+      "orchestrator": ["anthropic/claude-opus-4-6", "openrouter/openai/gpt-5.4"],
+      "oracle": ["openrouter/openai/gpt-5.4", "anthropic/claude-opus-4-6"],
+      "librarian": ["openrouter/openai/gpt-5.4-mini", "anthropic/claude-haiku-4-5"],
+      "explorer": ["openrouter/openai/gpt-5.4-mini", "anthropic/claude-haiku-4-5"],
+      "designer": ["openrouter/google/gemini-3.1-pro-preview", "anthropic/claude-sonnet-4-6"],
+      "fixer": ["openrouter/openai/gpt-5.4-mini", "anthropic/claude-haiku-4-5"],
+    },
+  },
+
+  "tmux": {
+    "enabled": true,
+    "layout": "main-vertical",
+    "main_pane_size": 60,
+  },
+}

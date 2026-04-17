@@ -1,0 +1,50 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/claude-opus-4-6",
+  "plugin": ["opencode-beads@latest", "true-mem@1.0.14", "oh-my-opencode-slim"],
+  "mcp": {},
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "{env:ANTHROPIC_API_KEY}",
+      },
+    },
+    "openrouter": {
+      "npm": "@openrouter/ai-sdk-provider",
+      "name": "OpenRouter",
+      "options": {
+        "apiKey": "{env:OPENROUTER_API_KEY}",
+      },
+      "models": {
+        "moonshotai/kimi-k2": {
+          "name": "Kimi K2",
+        },
+        "z-ai/glm-4.6": {
+          "name": "GLM 4.6",
+        },
+      },
+    },
+  },
+  "permission": {
+    "bash": {
+      "rm -rf *": "deny",
+      "sudo *": "deny",
+      "git push --force*": "ask",
+      "*": "allow",
+    },
+  },
+  "agent": {
+    "build": {
+      "disable": true,
+    },
+    "plan": {
+      "disable": true,
+    },
+    "explore": {
+      "disable": true,
+    },
+    "general": {
+      "disable": true,
+    },
+  },
+}

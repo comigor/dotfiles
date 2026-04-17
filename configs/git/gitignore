@@ -1,6 +1,13 @@
 .DS_Store
 .idea
+.zed
 node_modules
 .#*
+
+# AI
 .sisyphus
 .claude
+.bd/
+.dolt/
+*.db
+.beads-credential-key
