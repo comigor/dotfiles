@@ -1,8 +1,6 @@
-# Igor's dotfiles
+# comigor's dotfiles
 
-![Screenshot of my shell prompt](https://i.imgur.com/EkEtphC.png)
-
-Managed with [chezmoi](https://chezmoi.io/).
+Managed with [chezmoi](https://chezmoi.io/). Secrets via [Bitwarden](https://bitwarden.com/).
 
 ## Quick start
 
@@ -12,7 +10,7 @@ On a fresh machine:
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply comigor
 ```
 
-This installs chezmoi, clones this repo, prompts for your name/email/GPG key, and applies everything.
+This installs chezmoi, clones this repo, prompts for your name/email/GPG key/repo path, and applies everything.
 
 ## Updating
 
@@ -22,80 +20,91 @@ chezmoi update
 
 ## What's managed
 
-| Category | Files |
+| Category | What |
 |---|---|
-| Shell | `.zshrc`, `.zprofile`, `.aliases`, `.functions`, `.exports`, `.extra` |
-| Git | `.gitconfig` (templated), `.gitignore`, `.gitattributes` |
-| Terminals | Ghostty, Kitty |
-| Editors | Zed |
-| Tools | mise, pypoetry, karabiner (macOS), GPG agent (macOS) |
+| Shell | zsh, oh-my-zsh, spaceship prompt, aliases, functions, exports |
+| Git | `.gitconfig` (templated per OS), `.gitignore`, `.gitattributes` |
+| Terminal | Ghostty |
+| Editor | Zed |
+| Tools | mise, opencode, karabiner (macOS), GPG agent (macOS) |
 | Secrets | `.secrets`, `.frontierrc` (via Bitwarden) |
 | Other | `.curlrc`, `.wgetrc`, `.inputrc`, `.screenrc`, `.editorconfig`, `.hushlogin`, `.Xmodmap`, `.tool-versions` |
 
-## OS support
+## How it works
 
-Templates handle differences between macOS, Linux, Codespaces, and WSL. Files that only apply to one OS are excluded via `.chezmoiignore`.
+Most files are **symlinked** from `$HOME` back into this repo, so edits in either place are reflected immediately. Only files that need per-machine differences use chezmoi templates (copied, not symlinked):
+
+| Type | Files | Edit workflow |
+|---|---|---|
+| Symlinks | aliases, exports, zshrc, zprofile, all `.config/*`, gitignore, gitattributes, etc. | Edit anywhere |
+| Templates | `.gitconfig`, `.extra`, `.functions` | Edit in `home/`, run `chezmoi apply` |
+| Secrets | `.secrets`, `.frontierrc` | Stored in Bitwarden, pulled at apply time |
 
 ## Secrets (Bitwarden)
 
-Secret files (`.secrets`, `.frontierrc`) are stored as Bitwarden Secure Notes and pulled at apply time.
-
-Setup:
 ```bash
 bw login
 export BW_SESSION=$(bw unlock --raw)
 chezmoi apply
 ```
 
-Store your secrets in Bitwarden items named `dotfiles/secrets` and `dotfiles/frontierrc`, then edit the templates in `home/private_dot_secrets.tmpl` and `home/private_dot_frontierrc.tmpl` to reference them.
+Secrets are stored as Bitwarden Secure Notes named `dotfiles/secrets` and `dotfiles/frontierrc`.
+
+## OS support
+
+Templates handle differences between macOS, Linux, Codespaces, and WSL. OS-only files are excluded via `.chezmoiignore`.
 
 ## Bootstrap scripts
 
-chezmoi runs these automatically on first apply (in order):
+Run automatically on first `chezmoi apply`:
 
-| Script | What it does |
+| Script | What |
 |---|---|
-| `00-install-packages-darwin` | Homebrew + core packages (macOS) |
-| `01-install-packages-linux` | apt + core packages (Linux) |
-| `02-install-oh-my-zsh` | oh-my-zsh |
-| `03-install-spaceship-theme` | Spaceship prompt theme |
-| `04-install-mise` | mise + language runtimes |
-| `05-install-docker-linux` | Docker (Linux) |
-| `06-install-python` | uv (Python installer) |
+| `00` | Homebrew + core packages (macOS) |
+| `01` | apt + core packages (Linux) |
+| `02` | oh-my-zsh |
+| `03` | Spaceship prompt theme |
+| `04` | mise + language runtimes |
+| `05` | Docker (Linux) |
+| `06` | uv (Python) |
 
 ## Common commands
 
 ```bash
-chezmoi diff              # preview changes before applying
-chezmoi apply             # apply changes to $HOME
-chezmoi edit ~/.zshrc     # edit a managed file
-chezmoi add ~/.some-file  # start managing a new file
-chezmoi cd                # cd into the source directory
-chezmoi git status        # run git in the source dir
+chezmoi diff              # preview changes
+chezmoi apply             # apply to $HOME
+chezmoi cd                # cd into source dir
+chezmoi managed           # list all managed files
 ```
 
 ## Repository structure
 
 ```
-.
-├── .chezmoiroot              # points chezmoi at home/
-├── home/
-│   ├── .chezmoi.toml.tmpl    # chezmoi config (prompts for name/email/gpg)
-│   ├── .chezmoiignore        # OS-specific file exclusions
-│   ├── .chezmoiscripts/      # run_once install scripts
-│   ├── dot_zshrc             # -> ~/.zshrc
-│   ├── dot_zprofile          # -> ~/.zprofile
-│   ├── dot_aliases           # -> ~/.aliases
-│   ├── dot_exports           # -> ~/.exports
-│   ├── dot_extra.tmpl        # -> ~/.extra (templated for OS)
-│   ├── dot_functions.tmpl    # -> ~/.functions (templated for OS)
-│   ├── dot_gitconfig.tmpl    # -> ~/.gitconfig (templated)
-│   ├── dot_config/           # -> ~/.config/*
-│   ├── private_dot_secrets.tmpl    # -> ~/.secrets (Bitwarden)
-│   └── private_dot_frontierrc.tmpl # -> ~/.frontierrc (Bitwarden)
-├── brew.sh                   # legacy Homebrew script (reference only)
-├── dell.sh                   # legacy Dell/Ubuntu script (reference only)
-└── bootstrap.sh              # legacy bootstrap (replaced by chezmoi)
+.chezmoiroot            # tells chezmoi source is in home/
+home/
+  .chezmoi.toml.tmpl    # config: prompts for name/email/gpg/repo path
+  .chezmoiignore        # OS-specific exclusions
+  .chezmoiscripts/      # run_once install scripts
+  dot_extra.tmpl        # -> ~/.extra (templated)
+  dot_functions.tmpl    # -> ~/.functions (templated)
+  dot_gitconfig.tmpl    # -> ~/.gitconfig (templated)
+  symlink_dot_*         # -> ~/.<file> (symlinks to configs/)
+  dot_config/
+    symlink_*           # -> ~/.config/<dir> (symlinks to configs/)
+  dot_gnupg/
+    symlink_*           # -> ~/.gnupg/gpg-agent.conf (symlink)
+  private_dot_secrets.tmpl    # -> ~/.secrets (Bitwarden)
+  private_dot_frontierrc.tmpl # -> ~/.frontierrc (Bitwarden)
+configs/                # actual config file contents (symlink targets)
+  ghostty/
+  karabiner/
+  mise/
+  opencode/
+  shell/                # aliases, exports, zprofile, zshrc
+  git/                  # gitignore, gitattributes
+  gnupg/
+  zed/
+  ...
 ```
 
 ## Originally based on

@@ -8,13 +8,10 @@
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
   "git_panel": {
-    "tree_view": true
+    "tree_view": true,
   },
   "edit_predictions": {
-    "sweep": {
-      "privacy_mode": false
-    },
-    "provider": "sweep",
+    "provider": "zed",
     // "open_ai_compatible_api": {
     //   "api_url": "http://localhost:1234/v1/completions",
     //   "model": "qwen/qwen3.5-35b-a3b",
@@ -36,27 +33,21 @@
   // },
   "context_servers": {
     "websearch": {
-      "settings": {},
-
       "enabled": true,
       "url": "https://mcp.exa.ai/mcp?tools=web_search_exa",
     },
     "context7": {
-      "settings": {},
-
       "enabled": true,
       "url": "https://mcp.context7.com/mcp",
     },
     "grep_app": {
-      "settings": {},
-
       "enabled": true,
       "url": "https://mcp.grep.app",
     },
   },
   "agent": {
     "tool_permissions": {
-      "default": "allow"
+      "default": "allow",
     },
     "default_model": {
       "provider": "anthropic",
