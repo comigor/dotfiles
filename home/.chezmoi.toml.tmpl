@@ -1,0 +1,16 @@
+{{- $name := promptStringOnce . "name" "Full name" "Igor Borges" -}}
+{{- $email := promptStringOnce . "email" "Email address" "igor@borges.dev" -}}
+{{- $signingkey := promptStringOnce . "signingkey" "GPG signing key" "7AD24624" -}}
+
+{{- $is_codespaces := env "CODESPACES" | not | not -}}
+{{- $is_wsl := false -}}
+{{- if stat "/proc/sys/fs/binfmt_misc/WSLInterop" -}}
+{{-   $is_wsl = true -}}
+{{- end -}}
+
+[data]
+    name = {{ $name | quote }}
+    email = {{ $email | quote }}
+    signingkey = {{ $signingkey | quote }}
+    is_codespaces = {{ $is_codespaces }}
+    is_wsl = {{ $is_wsl }}

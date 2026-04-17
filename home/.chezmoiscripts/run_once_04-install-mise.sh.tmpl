@@ -1,0 +1,21 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+set -eo pipefail
+
+mise install
+rustup default stable
+rustup update stable
+
+{{ end -}}
+{{- if eq .chezmoi.os "linux" -}}
+#!/usr/bin/env bash
+set -eo pipefail
+
+mise --version 2>/dev/null || {
+    curl https://mise.run | sh
+}
+
+eval "$($HOME/.local/bin/mise activate bash)"
+mise install
+
+{{ end -}}

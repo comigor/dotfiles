@@ -1,0 +1,13 @@
+README.md
+LICENSE-MIT.txt
+
+# macOS-only files
+{{ if ne .chezmoi.os "darwin" }}
+.config/karabiner/
+.gnupg/gpg-agent.conf
+{{ end }}
+
+# Linux-only files
+{{ if ne .chezmoi.os "linux" }}
+.Xmodmap
+{{ end }}

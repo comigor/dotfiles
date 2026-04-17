@@ -1,0 +1,4 @@
+java    corretto-21
+nodejs  24
+rust    stable
+go      1.25.1
