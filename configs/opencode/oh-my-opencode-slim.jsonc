@@ -1,7 +1,5 @@
 {
-  // Mirrors the author's $30 preset (docs/thirty-dollars-preset.md):
-  // GPT-5.4 for reasoning, Gemini 3.1 Pro for design, GPT-5.4-mini for breadth.
-  // Non-Anthropic models routed via OpenRouter; Anthropic direct used as native fallback.
+  "$schema": "https://unpkg.com/oh-my-opencode-slim@latest/oh-my-opencode-slim.schema.json",
   "preset": "author",
   "presets": {
     "author": {

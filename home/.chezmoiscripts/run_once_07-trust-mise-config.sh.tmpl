@@ -1,0 +1,6 @@
+{{- if ne .chezmoi.os "" -}}
+#!/usr/bin/env bash
+set -eo pipefail
+
+mise trust {{ .chezmoi.sourceDir }}/../configs/mise/config.toml 2>/dev/null || true
+{{ end -}}
