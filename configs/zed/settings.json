@@ -32,6 +32,11 @@
   },
   "agent_servers": {
     "opencode": {
+      "favorite_config_option_values": {
+        "mode": [
+          "orchestrator"
+        ]
+      },
       "type": "registry",
     },
   },
