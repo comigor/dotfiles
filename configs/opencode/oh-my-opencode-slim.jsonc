@@ -4,13 +4,14 @@
   "presets": {
     "author": {
       "orchestrator": {
-        "model": "openrouter/moonshotai/kimi-k2.6",
+        "model": "anthropic/claude-opus-4-7",
+        "variant": "xhigh",
         "skills": ["*"],
         "mcps": ["*", "websearch"],
       },
       "oracle": {
-        "model": "openrouter/moonshotai/kimi-k2.6",
-        "variant": "high",
+        "model": "anthropic/claude-opus-4-7",
+        "variant": "xhigh",
         "skills": [],
         "mcps": [],
       },
@@ -43,12 +44,12 @@
   // Council — plugin defaults reference direct openai/*, which isn't configured.
   // Override with providers you actually have (Anthropic + OpenRouter).
   "council": {
-    "master": { "model": "openrouter/moonshotai/kimi-k2.6" },
+    "master": { "model": "openrouter/openai/gpt-5.5-pro" },
     "presets": {
       "default": {
         "alpha": { "model": "openrouter/moonshotai/kimi-k2.6" },
         "beta": { "model": "openrouter/google/gemini-3.1-pro-preview" },
-        "gamma": { "model": "openrouter/openai/gpt-5.4" },
+        "gamma": { "model": "openrouter/openai/gpt-5.5" },
       },
     },
   },
@@ -58,12 +59,13 @@
     "timeoutMs": 15000,
     "retryDelayMs": 500,
     "chains": {
-      "orchestrator": ["openrouter/openai/gpt-5.4"],
-      "oracle": ["openrouter/openai/gpt-5.4"],
-      "librarian": ["openrouter/openai/gpt-5.4-mini"],
-      "explorer": ["openrouter/openai/gpt-5.4-mini"],
+      "orchestrator": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"],
+      "council": ["anthropic/claude-opus-4-7", "openrouter/moonshotai/kimi-k2.6"],
+      "oracle": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"],
+      "librarian": ["openrouter/openai/gpt-5.5"],
+      "explorer": ["openrouter/openai/gpt-5.5"],
       "designer": ["anthropic/claude-sonnet-4-6"],
-      "fixer": ["openrouter/openai/gpt-5.4-mini"],
+      "fixer": ["openrouter/openai/gpt-5.5"],
     },
   },
 
