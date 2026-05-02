@@ -22,6 +22,15 @@
     "tree_view": true,
   },
   "edit_predictions": {
+    "ollama": {
+      "api_url": "http://localhost:11434/v1"
+    },
+    "open_ai_compatible_api": {
+      "max_output_tokens": 128,
+      "prompt_format": "zeta2",
+      "model": "zeta-2",
+      "api_url": "https://frontier--zeta-2-serve.modal.run/v1/completions"
+    },
     "provider": "zed",
     // "open_ai_compatible_api": {
     //   "api_url": "http://localhost:1234/v1/completions",
