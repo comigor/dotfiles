@@ -4,7 +4,8 @@
 
 - No emoji in code or commit messages.
 - Concise commit messages; imperative mood.
-- If a project has its own `AGENTS.md`, it takes precedence over this file.
+
+- ALWAYS create a new git branch for each change/PR.
 
 - NEVER `git push` without being asked.
 - NEVER `git commit` or `git push` on main/master branch.

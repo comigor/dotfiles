@@ -1,0 +1,4 @@
+name: "<domain>"
+namespace: "<domain>"
+# additionalNamespaces:
+#   - "<extra-ns>"

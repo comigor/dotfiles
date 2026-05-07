@@ -1,0 +1,15 @@
+name: Promote
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+  actions: write
+
+jobs:
+  promote:
+    uses: decade-eng/github-actions/.github/workflows/org-promote.yaml@main
+    with:
+      working-directory: .
+    secrets: inherit

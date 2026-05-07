@@ -1,25 +1,6 @@
 {
   "version": 3,
-  "skills": {
-    "simplify": {
-      "source": "brianlovin/claude-config",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/brianlovin/claude-config.git",
-      "skillPath": "skills/simplify/SKILL.md",
-      "skillFolderHash": "83566973442dc05bcf5abbe83053e8a8e5f50b6b",
-      "installedAt": "2026-04-16T23:05:23.589Z",
-      "updatedAt": "2026-04-16T23:05:23.589Z"
-    },
-    "agent-browser": {
-      "source": "vercel-labs/agent-browser",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/vercel-labs/agent-browser.git",
-      "skillPath": "skills/agent-browser/SKILL.md",
-      "skillFolderHash": "121eecacd86c0aab06aef5cd4663e80c5397cd41",
-      "installedAt": "2026-04-16T23:05:26.121Z",
-      "updatedAt": "2026-04-16T23:05:26.121Z"
-    }
-  },
+  "skills": {},
   "dismissed": {
     "findSkillsPrompt": true
   },
