@@ -1,1 +1,0 @@
-/Users/igor/Projects/browser-harness/SKILL.md

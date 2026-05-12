@@ -1,6 +1,124 @@
 {
   "version": 3,
-  "skills": {},
+  "skills": {
+    "analyze-brazilian-fund-regulation": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/analyze-brazilian-fund-regulation/SKILL.md",
+      "skillFolderHash": "427a1df19b99bc3de31fdd466e6c4394904816eb",
+      "installedAt": "2026-05-07T22:37:43.256Z",
+      "updatedAt": "2026-05-07T22:37:43.256Z"
+    },
+    "context-manager-integration": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/context-manager-integration/SKILL.md",
+      "skillFolderHash": "5946f7a0af3bbded2fb641e9bb0e434b4bccfc16",
+      "installedAt": "2026-05-07T22:37:43.259Z",
+      "updatedAt": "2026-05-07T22:37:43.259Z"
+    },
+    "explore-clickhouse-warehouse": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/explore-clickhouse-warehouse/SKILL.md",
+      "skillFolderHash": "28313469aff9b89bf24170a320af76dedf8a8a9c",
+      "installedAt": "2026-05-07T22:37:43.260Z",
+      "updatedAt": "2026-05-07T22:37:43.260Z"
+    },
+    "iniciador-client-api": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/iniciador-client-api/SKILL.md",
+      "skillFolderHash": "898c860aef46657f6622bb7de92913bacdc6daa9",
+      "installedAt": "2026-05-07T22:37:43.260Z",
+      "updatedAt": "2026-05-07T22:37:43.260Z"
+    },
+    "iniciador-client-wiki": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/iniciador-client-wiki/SKILL.md",
+      "skillFolderHash": "762f95eb6fc3e4f2c55b1f17bcceec997c844350",
+      "installedAt": "2026-05-07T22:37:43.261Z",
+      "updatedAt": "2026-05-07T22:37:43.261Z"
+    },
+    "modelrpc": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/modelrpc/SKILL.md",
+      "skillFolderHash": "73939a723d3f0b3035bcb7225697c8e1973daf4e",
+      "installedAt": "2026-05-07T22:37:43.261Z",
+      "updatedAt": "2026-05-07T22:37:43.261Z"
+    },
+    "of-databricks-snapshot-tracer": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/of-databricks-snapshot-tracer/SKILL.md",
+      "skillFolderHash": "1d0ccde6e928f4d82747f25e67ecab42d85351c8",
+      "installedAt": "2026-05-07T22:37:43.262Z",
+      "updatedAt": "2026-05-07T22:37:43.262Z"
+    },
+    "opatest-migration": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/opatest-migration/SKILL.md",
+      "skillFolderHash": "23aee29cb2375b923db94827d7d4b8b2904e4c3b",
+      "installedAt": "2026-05-07T22:37:43.262Z",
+      "updatedAt": "2026-05-07T22:37:43.262Z"
+    },
+    "openfinance-cache-lookup": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/openfinance-cache-lookup/SKILL.md",
+      "skillFolderHash": "2d1c28bcc301168d33cceb2ff4049dc7bb09caa8",
+      "installedAt": "2026-05-07T22:37:43.263Z",
+      "updatedAt": "2026-05-07T22:37:43.263Z"
+    },
+    "openfinance-investigator": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/openfinance-investigator/SKILL.md",
+      "skillFolderHash": "42d1c4c71b76208f81ab975bb289b354fb2f752a",
+      "installedAt": "2026-05-07T22:37:43.263Z",
+      "updatedAt": "2026-05-07T22:37:43.263Z"
+    },
+    "openfinance-tester": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/openfinance-tester/SKILL.md",
+      "skillFolderHash": "aaa8ba06022b96c4ba8ccc694b7a99cb67d9439b",
+      "installedAt": "2026-05-07T22:37:43.264Z",
+      "updatedAt": "2026-05-07T22:37:43.264Z"
+    },
+    "signoz-dashboards": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/signoz-dashboards/SKILL.md",
+      "skillFolderHash": "44442afb182b6b571d75825c3496e291c99b3c51",
+      "installedAt": "2026-05-07T22:37:43.264Z",
+      "updatedAt": "2026-05-07T22:37:43.264Z"
+    },
+    "text-to-sql": {
+      "source": "decade-eng/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/decade-eng/skills.git",
+      "skillPath": "skills/text-to-sql/SKILL.md",
+      "skillFolderHash": "a033c1101267abe727f8a8810206ab1f90f144c2",
+      "installedAt": "2026-05-07T22:37:43.264Z",
+      "updatedAt": "2026-05-07T22:37:43.264Z"
+    }
+  },
   "dismissed": {
     "findSkillsPrompt": true
   },
