@@ -6,27 +6,32 @@ DISABLE_MAGIC_FUNCTIONS="true"
 ZSH_DISABLE_COMPFIX="true"  # Skip compaudit security check
 
 export ZSH=$HOME/.oh-my-zsh
-ZSH_THEME="spaceship"
 
-# Spaceship: only enable sections you actually use
-SPACESHIP_PROMPT_ORDER=(
-  time          # Time stamps
-  user          # Username
-  dir           # Current directory
-  host          # Hostname
-  git           # Git branch and status
-  node          # Node.js version (comment out if not needed)
-  exec_time     # Execution time of last command
-  line_sep      # Line break
-  jobs          # Background jobs
-  exit_code     # Exit code of last command
-  char          # Prompt character
-)
-SPACESHIP_RPROMPT_ORDER=()  # Disable right prompt entirely
-SPACESHIP_TIME_SHOW=true
-SPACESHIP_DIR_TRUNC_REPO=false
-SPACESHIP_PROMPT_ASYNC=true
-SPACESHIP_PROMPT_ADD_NEWLINE=true
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  ZSH_THEME="spaceship"
+
+  # Spaceship: only enable sections you actually use
+  SPACESHIP_PROMPT_ORDER=(
+    time          # Time stamps
+    user          # Username
+    dir           # Current directory
+    host          # Hostname
+    git           # Git branch and status
+    node          # Node.js version (comment out if not needed)
+    exec_time     # Execution time of last command
+    line_sep      # Line break
+    jobs          # Background jobs
+    exit_code     # Exit code of last command
+    char          # Prompt character
+  )
+  SPACESHIP_RPROMPT_ORDER=()  # Disable right prompt entirely
+  SPACESHIP_TIME_SHOW=true
+  SPACESHIP_DIR_TRUNC_REPO=false
+  SPACESHIP_PROMPT_ASYNC=true
+  SPACESHIP_PROMPT_ADD_NEWLINE=true
+else
+  ZSH_THEME=""
+fi
 
 # Autosuggest performance
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
@@ -38,11 +43,13 @@ plugins=(gitfast macos)
 # Let oh-my-zsh handle compinit (don't call it twice)
 source $ZSH/oh-my-zsh.sh
 
-# VCS info for prompt (lighter than full git plugin)
-autoload -U add-zsh-hook
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' enable git
-precmd() { vcs_info }
+if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
+  # VCS info for prompt (lighter than full git plugin)
+  autoload -U add-zsh-hook
+  autoload -Uz vcs_info
+  zstyle ':vcs_info:*' enable git
+  precmd() { vcs_info }
+fi
 
 bindkey "^A" vi-beginning-of-line
 bindkey "^E" vi-end-of-line
