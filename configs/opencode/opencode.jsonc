@@ -1,7 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
   "model": "anthropic/claude-opus-4-7",
-  "plugin": ["openrtk", "opencode-beads@latest", "true-mem@1.0.14", "oh-my-opencode-slim"],
+  "plugin": [
+    "openrtk",
+    "opencode-beads@latest",
+    "true-mem@1.0.14",
+    "oh-my-opencode-slim",
+    "@warp-dot-dev/opencode-warp",
+  ],
   "mcp": {
     "deepwiki": {
       "type": "remote",
@@ -15,7 +21,16 @@
       "type": "remote",
       "url": "https://mcp.exa.ai/mcp",
     },
+    "signoz": {
+      "type": "remote",
+      "url": "https://mcp.us.signoz.cloud/mcp",
+    },
+    "yfmcp": {
+      "type": "local",
+      "command": ["uvx", "yfmcp"],
+    },
   },
+  "formatter": true,
   "provider": {
     "anthropic": {
       "options": {
@@ -27,11 +42,6 @@
       "name": "OpenRouter",
       "options": {
         "apiKey": "{env:OPENROUTER_API_KEY}",
-      },
-      "models": {
-        "moonshotai/kimi-k2.6": {
-          "name": "Kimi K2.6",
-        },
       },
     },
   },
@@ -61,6 +71,23 @@
       "kubectl wait*": "allow",
       "kubectl events*": "allow",
 
+      "rtx kubectl get*": "allow",
+      "rtx kubectl describe*": "allow",
+      "rtx kubectl logs*": "allow",
+      "rtx kubectl top*": "allow",
+      "rtx kubectl explain*": "allow",
+      "rtx kubectl version*": "allow",
+      "rtx kubectl cluster-info*": "allow",
+      "rtx kubectl api-resources*": "allow",
+      "rtx kubectl api-versions*": "allow",
+      "rtx kubectl config view*": "allow",
+      "rtx kubectl config get-*": "allow",
+      "rtx kubectl config current-context*": "allow",
+      "rtx kubectl auth can-i*": "allow",
+      "rtx kubectl diff*": "allow",
+      "rtx kubectl wait*": "allow",
+      "rtx kubectl events*": "allow",
+
       // kubectl: mutating / destructive / privileged verbs require confirmation
       "kubectl apply*": "ask",
       "kubectl create*": "ask",
@@ -89,11 +116,39 @@
       "kubectl config delete-*": "ask",
       "kubectl config rename-context*": "ask",
 
+      "rtx kubectl apply*": "ask",
+      "rtx kubectl create*": "ask",
+      "rtx kubectl delete*": "ask",
+      "rtx kubectl edit*": "ask",
+      "rtx kubectl patch*": "ask",
+      "rtx kubectl replace*": "ask",
+      "rtx kubectl scale*": "ask",
+      "rtx kubectl rollout*": "ask",
+      "rtx kubectl drain*": "ask",
+      "rtx kubectl cordon*": "ask",
+      "rtx kubectl uncordon*": "ask",
+      "rtx kubectl taint*": "ask",
+      "rtx kubectl label*": "ask",
+      "rtx kubectl annotate*": "ask",
+      "rtx kubectl exec*": "ask",
+      "rtx kubectl attach*": "ask",
+      "rtx kubectl cp*": "ask",
+      "rtx kubectl port-forward*": "ask",
+      "rtx kubectl proxy*": "ask",
+      "rtx kubectl run*": "ask",
+      "rtx kubectl set*": "ask",
+      "rtx kubectl debug*": "ask",
+      "rtx kubectl config set*": "ask",
+      "rtx kubectl config use-context*": "ask",
+      "rtx kubectl config delete-*": "ask",
+      "rtx kubectl config rename-context*": "ask",
+
       "*": "allow",
     },
     "external_directory": {
       "~/Projects/**": "allow",
       "/tmp/**": "allow",
+      "~/.local/share/mise/installs/go/**": "allow",
     },
   },
   "agent": {

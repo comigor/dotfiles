@@ -1,18 +1,12 @@
 {
   "defaultProvider": "anthropic",
   "defaultModel": "claude-opus-4-7",
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": false,
   "theme": "dark",
   "quietStartup": true,
   "collapseChangelog": true,
   "doubleEscapeAction": "tree",
-  "enabledModels": [
-    "claude-opus-*",
-    "claude-sonnet-*",
-    "gpt-5*",
-    "gemini-*"
-  ],
   "warnings": {
     "anthropicExtraUsage": true
   },
@@ -37,6 +31,44 @@
     "showImages": true,
     "imageWidthCells": 60
   },
-  "packages": [],
-  "lastChangelogVersion": "0.74.0"
+  "npmCommand": ["npm", "--registry=https://registry.npmjs.org/"],
+  "packages": [
+    "npm:pi-web-access",
+    "npm:pi-subagents",
+    "npm:pi-mcp-adapter",
+    "npm:pi-lens",
+    "npm:pi-btw",
+    "npm:@mazli/pi-ask-user-question",
+    "npm:pi-beads-extension",
+    "npm:@llblab/pi-telegram",
+    "npm:pi-perms",
+    "npm:pi-powerline-footer",
+    "npm:context-mode",
+    "npm:pi-hermes-memory"
+  ],
+  "lastChangelogVersion": "0.75.5",
+  "subagents": {
+    "agentOverrides": {
+      "oracle": {
+        "model": "openrouter/anthropic/claude-opus-4-7",
+        "thinking": "xhigh",
+        "fallbackModels": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"]
+      },
+      "researcher": {
+        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "thinking": "low",
+        "fallbackModels": ["openrouter/openai/gpt-5.5"]
+      },
+      "scout": {
+        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "thinking": "low",
+        "fallbackModels": ["openrouter/openai/gpt-5.5"]
+      },
+      "worker": {
+        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "thinking": "low",
+        "fallbackModels": ["openrouter/openai/gpt-5.5"]
+      }
+    }
+  }
 }

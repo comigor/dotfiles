@@ -1,0 +1,18 @@
+{
+  "yfmcp": {
+    "command": "uvx",
+    "args": ["yfmcp"]
+  },
+  "signoz": {
+    "url": "https://mcp.us.signoz.cloud/mcp"
+  },
+  "deepwiki": {
+    "url": "https://mcp.deepwiki.com/mcp"
+  },
+  "websearch": {
+    "url": "https://mcp.exa.ai/mcp"
+  },
+  "context7": {
+    "url": "https://mcp.context7.com/mcp"
+  }
+}

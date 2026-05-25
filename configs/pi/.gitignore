@@ -1,5 +1,3 @@
-# Runtime state written by pi — not tracked
-auth.json
-bin/
-sessions/
-skills/
+*
+
+!settings.json

@@ -40,6 +40,9 @@
     // "provider": "open_ai_compatible_api",
   },
   "agent_servers": {
+    "pi-acp": {
+      "type": "registry"
+    },
     "opencode": {
       "favorite_config_option_values": {
         "mode": [
