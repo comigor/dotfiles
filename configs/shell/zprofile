@@ -1,3 +1,7 @@
+# Keep PATH/fpath entries unique; zshrc re-sources this file, so without
+# this every re-source duplicates entries (mise shims, ~/bin, etc.)
+typeset -U path fpath
+
 # Add `~/bin` to the `$PATH`
 export PATH="$HOME/bin:$PATH";
 

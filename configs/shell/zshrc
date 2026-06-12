@@ -67,3 +67,7 @@ export PATH="/Users/igor/.shorebird/bin:$PATH"
 # mise: full activation for interactive shells (keeps PATH and env vars in
 # sync per directory); shims for non-interactive shells come from ~/.extra
 command -v mise >/dev/null && eval "$(mise activate zsh)"
+
+# Dedupe PATH last: scalar `export PATH=...` assignments above bypass the
+# array's unique attribute, so re-apply after all entries are added
+typeset -U path fpath
