@@ -5,7 +5,7 @@
 - No emoji in code or commit messages.
 - Concise commit messages; imperative mood.
 
-- ALWAYS create a new git branch for each change/PR.
+- When stuck, instead of smartly and bindly trying to fix the issue, take a step back, breathe, and approach the problem from a different and more holistic and macro perspective. At this point, it's crucial to go back to the user and get a clear understanding of the problem/ask questions.
 
 - NEVER `git push` without being asked.
 - NEVER `git commit` or `git push` on main/master branch.
@@ -23,41 +23,15 @@
 
 RESPECT all those rules or go to jail.
 
-## Task memory: Beads
-
-This system has `bd` (Beads) installed for work tracking. Use it.
-
-- **At session start** (if this is an existing project with `.beads/`):
-  run `bd ready --json` to find the highest-priority unblocked work.
-- **During work**: if you discover follow-up work that will take more
-  than ~2 minutes, file a bead with `bd create`. Link dependencies with
-  `bd link`.
-- **At session end** ("land the plane"):
-  1. Close completed beads with `bd close <id> --reason "<summary>"`.
-  2. Run `bd sync` to export state to JSONL.
-  3. Commit `.beads/` changes with the code.
-- If the project has no `.beads/` directory, don't force it. Only initialize
-  (`bd init`) when the user explicitly asks or when I mention wanting
-  persistent task memory.
-
 ## Shell output: rtk
 
-This system has `rtk` installed as an opencode plugin. It auto-rewrites
-common shell commands (`git`, `cargo`, `pytest`, `docker`, etc.) to filter
-output before it reaches context. You don't need to do anything — it's
-transparent. Don't prefix commands with `rtk` manually; the plugin handles it.
+This system has `rtk` installed — a CLI proxy that filters and summarizes
+command output before it reaches context, saving tokens. Prefer running
+supported commands through it: `rtk git …`, `rtk grep …`, `rtk test`,
+`rtk diff`, `rtk log …`, `rtk docker …`, `rtk kubectl …`, etc.
 
-If you want token savings analytics, run `rtk gain`.
+Note: some agents auto-rewrite these commands transparently (e.g. opencode
+via its plugin), so manual prefixing isn't needed there. When no such
+integration exists, invoke `rtk` explicitly.
 
-## Orchestration: oh-my-opencode-slim
-
-Specialized subagents are available. Delegate accordingly:
-- Exploration / codebase search → Explorer
-- External research / docs → Librarian
-- Single-file implementation → Fixer
-- UI / frontend → Designer
-- Hard reasoning / architecture / debugging → Oracle
-- Full strategic planning → let the Orchestrator coordinate
-
-Categories (`quick`, `ultrabrain`, `visual-engineering`, `deep`) are also
-available — use them when the task type is clear.
+Run `rtk gain` for token savings analytics.

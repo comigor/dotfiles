@@ -419,7 +419,7 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp.*$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -514,7 +514,7 @@
                         ]
                     },
                     {
-                        "description": "Terminal: Cmd+A → Ctrl+A (Preserve beginning of line)",
+                        "description": "Terminal: Cmd+A → Ctrl+A (Preserve beginning of line) - Exclude Warp (Select All)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -526,8 +526,7 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^co\\.zeit\\.hyper$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }

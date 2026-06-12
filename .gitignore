@@ -1,3 +1,6 @@
+# Karabiner automatic backups
+configs/karabiner/automatic_backups/
+
 # Created by https://www.toptal.com/developers/gitignore/api/rust,node,go,godot,linux,macos,windows
 # Edit at https://www.toptal.com/developers/gitignore?templates=rust,node,go,godot,linux,macos,windows
 

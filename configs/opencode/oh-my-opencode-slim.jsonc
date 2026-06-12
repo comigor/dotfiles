@@ -4,13 +4,13 @@
   "presets": {
     "author": {
       "orchestrator": {
-        "model": "anthropic/claude-opus-4-7",
+        "model": "anthropic/claude-opus-4-8",
         "variant": "xhigh",
         "skills": ["*"],
         "mcps": ["*", "websearch"],
       },
       "oracle": {
-        "model": "anthropic/claude-opus-4-7",
+        "model": "anthropic/claude-opus-4-8",
         "variant": "xhigh",
         "skills": [],
         "mcps": [],
@@ -60,7 +60,7 @@
     "retryDelayMs": 500,
     "chains": {
       "orchestrator": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"],
-      "council": ["anthropic/claude-opus-4-7", "openrouter/moonshotai/kimi-k2.6"],
+      "council": ["anthropic/claude-opus-4-8", "openrouter/moonshotai/kimi-k2.6"],
       "oracle": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"],
       "librarian": ["openrouter/openai/gpt-5.5"],
       "explorer": ["openrouter/openai/gpt-5.5"],

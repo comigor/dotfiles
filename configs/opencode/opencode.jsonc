@@ -1,12 +1,13 @@
 {
   "$schema": "https://opencode.ai/config.json",
-  "model": "anthropic/claude-opus-4-7",
+  "model": "anthropic/claude-opus-4-8",
+  "instructions": ["~/.agents/AGENTS.md"],
   "plugin": [
     "openrtk",
     "opencode-beads@latest",
     "true-mem@1.0.14",
     "oh-my-opencode-slim",
-    "@warp-dot-dev/opencode-warp",
+    "@warp-dot-dev/opencode-warp@0.1.5",
   ],
   "mcp": {
     "deepwiki": {
