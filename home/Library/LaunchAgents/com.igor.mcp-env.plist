@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.igor.mcp-env</string>
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/zsh</string>
+        <string>-c</string>
+        <string>. "$HOME/.secrets" 2>/dev/null; for v in SLACK_MCP_TOKEN SLACK_MCP_ADD_MESSAGE_TOOL SIGNOZ_API_KEY SIGNOZ_URL; do val=${(P)v}; [ -n "$val" ] && launchctl setenv "$v" "$val"; done</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+</dict>
+</plist>

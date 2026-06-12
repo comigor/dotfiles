@@ -1,0 +1,11 @@
+---
+"terminal:scroll_to_bottom_of_selected_block": none
+"pane_group:add_down": ctrl-shift-cmd-down
+"workspace:toggle_left_panel": cmd-b
+"workspace:toggle_command_palette": shift-cmd-P
+"editor:edit_link": none
+"pane_group:add_right": ctrl-shift-cmd-right
+"workspace:toggle_vertical_tabs_panel": shift-cmd-B
+"ai_assistant_panel:reset_context": none
+"editor_view:select_to_line_end": none
+"workspace:toggle_navigation_palette": shift-cmd-O

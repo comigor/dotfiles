@@ -1,18 +1,42 @@
 {
-  "yfmcp": {
-    "command": "uvx",
-    "args": ["yfmcp"]
-  },
-  "signoz": {
-    "url": "https://mcp.us.signoz.cloud/mcp"
-  },
-  "deepwiki": {
-    "url": "https://mcp.deepwiki.com/mcp"
-  },
-  "websearch": {
-    "url": "https://mcp.exa.ai/mcp"
-  },
-  "context7": {
-    "url": "https://mcp.context7.com/mcp"
+  "mcpServers": {
+    "yfmcp": {
+      "command": "uvx",
+      "args": ["yfmcp"]
+    },
+    "signoz": {
+      "url": "https://mcp.us.signoz.cloud/mcp",
+      "headers": {
+        "SIGNOZ-API-KEY": "${SIGNOZ_API_KEY}",
+        "X-SigNoz-URL": "${SIGNOZ_URL}"
+      }
+    },
+    "deepwiki": {
+      "url": "https://mcp.deepwiki.com/mcp"
+    },
+    "websearch": {
+      "url": "https://mcp.exa.ai/mcp"
+    },
+    "context7": {
+      "url": "https://mcp.context7.com/mcp"
+    },
+    "temporal": {
+      "command": "uvx",
+      "args": ["temporal-mcp-server"],
+      "env": {
+        "TEMPORAL_HOST": "communications-prod.kivwz.tmprl.cloud:7233",
+        "TEMPORAL_NAMESPACE": "communications-prod.kivwz",
+        "TEMPORAL_TLS_CLIENT_CERT_PATH": "/Users/igor/Downloads/temporal-cert.pem",
+        "TEMPORAL_TLS_CLIENT_KEY_PATH": "/Users/igor/Downloads/temporal-key.pem"
+      }
+    },
+    "slack": {
+      "command": "/Users/igor/.local/share/mise/shims/npx",
+      "args": ["-y", "slack-mcp-server@latest", "--transport", "stdio"],
+      "env": {
+        "SLACK_MCP_XOXP_TOKEN": "${SLACK_MCP_TOKEN}",
+        "SLACK_MCP_ADD_MESSAGE_TOOL": "${SLACK_MCP_ADD_MESSAGE_TOOL}"
+      }
+    }
   }
 }
