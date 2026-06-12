@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Python shit
-export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.pub-cache/bin:$HOME/.shorebird/bin"
 
 # mise-en-place
 {{ if eq .chezmoi.os "darwin" }}
@@ -10,7 +10,7 @@ export SSH_AUTH_SOCK={{ .chezmoi.homeDir }}/.bitwarden-ssh-agent.sock
 export SHELL=/bin/zsh
 {{ end }}
 {{ if eq .chezmoi.os "linux" }}
-eval "$($HOME/.local/bin/mise activate zsh)"
+eval "$($HOME/.local/bin/mise activate zsh --shims)"
 {{ end }}
 {{ if .is_wsl }}
 export GIT_SSH=$(which ssh.exe)
