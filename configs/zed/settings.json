@@ -24,13 +24,13 @@
   },
   "edit_predictions": {
     "ollama": {
-      "api_url": "http://localhost:11434/v1"
+      "api_url": "http://localhost:11434/v1",
     },
     "open_ai_compatible_api": {
       "max_output_tokens": 128,
       "prompt_format": "zeta2",
       "model": "zeta-2",
-      "api_url": "https://frontier--zeta-2-serve.modal.run/v1/completions"
+      "api_url": "https://frontier--zeta-2-serve.modal.run/v1/completions",
     },
     "provider": "zed",
     // "open_ai_compatible_api": {
@@ -42,20 +42,16 @@
   },
   "agent_servers": {
     "pi-acp": {
-      "type": "registry"
+      "type": "registry",
     },
     "opencode": {
       "default_config_options": {
         "effort": "xhigh",
-        "model": "anthropic/claude-fable-5"
+        "model": "anthropic/claude-opus-4-8",
       },
       "favorite_config_option_values": {
-        "effort": [
-          "xhigh"
-        ],
-        "mode": [
-          "orchestrator"
-        ]
+        "effort": ["xhigh"],
+        "mode": ["orchestrator"],
       },
       "type": "registry",
     },

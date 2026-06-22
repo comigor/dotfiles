@@ -9,3 +9,13 @@
 "ai_assistant_panel:reset_context": none
 "editor_view:select_to_line_end": none
 "workspace:toggle_navigation_palette": shift-cmd-O
+# --- Terminal control keys via igor1 (cmd-*) ---
+# Warp ignores Karabiner's synthesized Ctrl events (Warp issue #2182), so igor1+C and igor1+R
+# arrive as plain cmd-c / cmd-r. Bind Warp's own actions to those so igor1 works like a real Ctrl.
+# Real Ctrl (igor3) keeps its defaults where the action differs (clear_buffer on ctrl-c, etc.).
+# Note: igor1+D (EOF) is intentionally NOT here - Warp has no EOF/send-Ctrl-D action and ignores
+# Karabiner-synthesized Ctrl (Warp issue #2182). Use igor3+D (real Ctrl-D) for EOF / exit shell.
+"terminal:cancel_command": cmd-c # igor1+C -> interrupt running command (SIGINT)
+"input:search_command_history": cmd-r # igor1+R -> reverse history search
+"terminal:copy": shift-cmd-C # copy moves to igor1+Shift+C since cmd-c is now interrupt
+"terminal:copy_commands": none # free shift-cmd-C (was Copy Command) for the copy binding above

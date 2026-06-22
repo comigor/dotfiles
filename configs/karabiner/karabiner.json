@@ -406,7 +406,7 @@
                         ]
                     },
                     {
-                        "description": "Terminal: Cmd+C → Ctrl+C (Preserve SIGINT)",
+                        "description": "Terminal: Cmd+C → Ctrl+C (Preserve SIGINT) - Exclude Warp (cmd-c bound in Warp keybindings)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -418,8 +418,7 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp.*$"
+                                            "^co\\.zeit\\.hyper$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -478,7 +477,7 @@
                         ]
                     },
                     {
-                        "description": "Terminal: Cmd+R → Ctrl+R (Preserve Reverse Search)",
+                        "description": "Terminal: Cmd+R → Ctrl+R (Preserve Reverse Search) - Exclude Warp (cmd-r bound in Warp keybindings)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -490,8 +489,7 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^co\\.zeit\\.hyper$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -801,7 +799,7 @@
                         ]
                     },
                     {
-                        "description": "Terminal: Cmd+Shift+C → Cmd+C (Copy - igor1+shift+c)",
+                        "description": "Terminal: Cmd+Shift+C → Cmd+C (Copy - igor1+shift+c) - Exclude Warp (copy on cmd-shift-c)",
                         "manipulators": [
                             {
                                 "conditions": [
@@ -813,8 +811,7 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^co\\.zeit\\.hyper$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }

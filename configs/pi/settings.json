@@ -1,12 +1,12 @@
 {
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-8",
-  "defaultThinkingLevel": "xhigh",
+  "defaultProvider": "openrouter",
+  "defaultModel": "z-ai/glm-5.2",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "theme": "dark",
   "quietStartup": true,
   "collapseChangelog": true,
-  "doubleEscapeAction": "tree",
+  "doubleEscapeAction": "none",
   "warnings": {
     "anthropicExtraUsage": true
   },
@@ -29,58 +29,51 @@
   },
   "terminal": {
     "showImages": true,
-    "imageWidthCells": 60
+    "imageWidthCells": 60,
+    "showTerminalProgress": true
   },
-  "npmCommand": [
-    "npm",
-    "--registry=https://registry.npmjs.org/"
-  ],
+  "npmCommand": ["npm", "--registry=https://registry.npmjs.org/"],
   "packages": [
     "npm:pi-web-access",
-    "npm:pi-subagents",
     "npm:pi-mcp-adapter",
-    "npm:pi-lens",
     "npm:pi-btw",
     "npm:@mazli/pi-ask-user-question",
-    "npm:pi-beads-extension",
-    "npm:@llblab/pi-telegram",
-    "npm:pi-perms",
     "npm:pi-powerline-footer",
-    "npm:context-mode",
-    "npm:pi-hermes-memory"
+    "npm:pi-hermes-memory",
+    "npm:@pi-unipi/notify",
+    "npm:@sherif-fanous/pi-rtk",
+    "../../Projects/jong-pi-extensions/packages/diff-review",
+    "../../Projects/pi-roaming",
+    "npm:pi-hashline-edit",
+    "npm:pi-lens",
+    "npm:pi-edit-session-in-place",
+    "npm:@zosmaai/pi-llm-wiki"
   ],
-  "lastChangelogVersion": "0.79.0",
+  "lastChangelogVersion": "0.79.9",
   "subagents": {
     "agentOverrides": {
       "oracle": {
-        "model": "openrouter/anthropic/claude-opus-4-7",
+        "model": "anthropic/claude-opus-4-8",
         "thinking": "xhigh",
-        "fallbackModels": [
-          "openrouter/openai/gpt-5.5-pro",
-          "openrouter/moonshotai/kimi-k2.6"
-        ]
+        "fallbackModels": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"]
       },
       "researcher": {
-        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "model": "anthropic/claude-sonnet-4-6",
         "thinking": "low",
-        "fallbackModels": [
-          "openrouter/openai/gpt-5.5"
-        ]
+        "fallbackModels": ["openrouter/openai/gpt-5.5"]
       },
       "scout": {
-        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "model": "anthropic/claude-sonnet-4-6",
         "thinking": "low",
-        "fallbackModels": [
-          "openrouter/openai/gpt-5.5"
-        ]
+        "fallbackModels": ["openrouter/openai/gpt-5.5"]
       },
       "worker": {
-        "model": "openrouter/anthropic/claude-sonnet-4-6",
+        "model": "anthropic/claude-sonnet-4-6",
         "thinking": "low",
-        "fallbackModels": [
-          "openrouter/openai/gpt-5.5"
-        ]
+        "fallbackModels": ["openrouter/openai/gpt-5.5"]
       }
     }
-  }
+  },
+  "enableSkillCommands": false,
+  "enableInstallTelemetry": false
 }
