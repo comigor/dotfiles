@@ -1,7 +1,7 @@
 {
-  "defaultProvider": "openrouter",
-  "defaultModel": "z-ai/glm-5.2",
-  "defaultThinkingLevel": "high",
+  "defaultProvider": "anthropic",
+  "defaultModel": "claude-opus-4-8",
+  "defaultThinkingLevel": "xhigh",
   "hideThinkingBlock": false,
   "theme": "dark",
   "quietStartup": true,
@@ -34,12 +34,10 @@
   },
   "npmCommand": ["npm", "--registry=https://registry.npmjs.org/"],
   "packages": [
-    "npm:pi-web-access",
     "npm:pi-mcp-adapter",
     "npm:pi-btw",
     "npm:@mazli/pi-ask-user-question",
     "npm:pi-powerline-footer",
-    "npm:pi-hermes-memory",
     "npm:@pi-unipi/notify",
     "npm:@sherif-fanous/pi-rtk",
     "../../Projects/jong-pi-extensions/packages/diff-review",
@@ -47,9 +45,11 @@
     "npm:pi-hashline-edit",
     "npm:pi-lens",
     "npm:pi-edit-session-in-place",
-    "npm:@zosmaai/pi-llm-wiki"
+    "npm:@open-pets/pi",
+    "npm:pi-subagents"
   ],
-  "lastChangelogVersion": "0.79.9",
+  "extensions": ["/Users/igor/Projects/pi-brain-memory"],
+  "lastChangelogVersion": "0.80.3",
   "subagents": {
     "agentOverrides": {
       "oracle": {
@@ -74,6 +74,6 @@
       }
     }
   },
-  "enableSkillCommands": false,
+  "enableSkillCommands": true,
   "enableInstallTelemetry": false
 }

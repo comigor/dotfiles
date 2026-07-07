@@ -1,5 +1,18 @@
 {
   "mcpServers": {
+    "invisible-playwright": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "/Users/igor/Projects/invisible-playwright-mcp",
+        "python",
+        "-m",
+        "invisible_playwright_mcp"
+      ],
+      "lifecycle": "lazy",
+      "idleTimeout": 0
+    },
     "yfmcp": {
       "command": "uvx",
       "args": ["yfmcp"]

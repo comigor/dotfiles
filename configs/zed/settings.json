@@ -42,6 +42,7 @@
   },
   "agent_servers": {
     "pi-acp": {
+      "default_mode": "xhigh",
       "type": "registry",
     },
     "opencode": {
