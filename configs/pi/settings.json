@@ -1,7 +1,7 @@
 {
-  "defaultProvider": "anthropic",
-  "defaultModel": "claude-opus-4-8",
-  "defaultThinkingLevel": "xhigh",
+  "defaultProvider": "openrouter",
+  "defaultModel": "openai/gpt-5.6-sol",
+  "defaultThinkingLevel": "medium",
   "hideThinkingBlock": false,
   "theme": "dark",
   "quietStartup": true,
@@ -32,7 +32,10 @@
     "imageWidthCells": 60,
     "showTerminalProgress": true
   },
-  "npmCommand": ["npm", "--registry=https://registry.npmjs.org/"],
+  "npmCommand": [
+    "npm",
+    "--registry=https://registry.npmjs.org/"
+  ],
   "packages": [
     "npm:pi-mcp-adapter",
     "npm:pi-btw",
@@ -48,29 +51,40 @@
     "npm:@open-pets/pi",
     "npm:pi-subagents"
   ],
-  "extensions": ["/Users/igor/Projects/pi-brain-memory"],
-  "lastChangelogVersion": "0.80.3",
+  "extensions": [
+    "/Users/igor/Projects/pi-brain-memory"
+  ],
+  "lastChangelogVersion": "0.80.6",
   "subagents": {
     "agentOverrides": {
       "oracle": {
         "model": "anthropic/claude-opus-4-8",
         "thinking": "xhigh",
-        "fallbackModels": ["openrouter/openai/gpt-5.5-pro", "openrouter/moonshotai/kimi-k2.6"]
+        "fallbackModels": [
+          "openrouter/openai/gpt-5.5-pro",
+          "openrouter/moonshotai/kimi-k2.6"
+        ]
       },
       "researcher": {
         "model": "anthropic/claude-sonnet-4-6",
         "thinking": "low",
-        "fallbackModels": ["openrouter/openai/gpt-5.5"]
+        "fallbackModels": [
+          "openrouter/openai/gpt-5.5"
+        ]
       },
       "scout": {
         "model": "anthropic/claude-sonnet-4-6",
         "thinking": "low",
-        "fallbackModels": ["openrouter/openai/gpt-5.5"]
+        "fallbackModels": [
+          "openrouter/openai/gpt-5.5"
+        ]
       },
       "worker": {
         "model": "anthropic/claude-sonnet-4-6",
         "thinking": "low",
-        "fallbackModels": ["openrouter/openai/gpt-5.5"]
+        "fallbackModels": [
+          "openrouter/openai/gpt-5.5"
+        ]
       }
     }
   },

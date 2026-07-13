@@ -1,0 +1,22 @@
+{{- if ne .chezmoi.os "" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+install_dir="$HOME/.local/bin"
+
+if command -v stift >/dev/null 2>&1; then
+    stift_bin="$(command -v stift)"
+else
+    curl -fsSL https://stift.sh/install.sh | STIFT_INSTALL_DIR="$install_dir" sh
+    stift_bin="$install_dir/stift"
+fi
+
+# Credentials are intentionally machine-local. Set STIFT_TOKEN before the
+# first chezmoi apply; stift stores the verified login with mode 0600.
+if [[ -n "${STIFT_TOKEN:-}" ]]; then
+    "$stift_bin" login "${STIFT_SERVER:-https://stift.borges.dev}" --token "$STIFT_TOKEN"
+else
+    printf '%s\n' \
+        'stift installed; run `stift login https://stift.borges.dev --token …` to enable sync' >&2
+fi
+{{ end -}}

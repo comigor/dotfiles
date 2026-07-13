@@ -3,14 +3,15 @@
 # Python shit
 export PATH="$PATH:$HOME/.local/bin:$HOME/.pub-cache/bin:$HOME/.shorebird/bin"
 
-# mise-en-place
+# Keep mise-managed tools available to non-interactive login shells, IDEs,
+# and other processes that cannot run shell hooks. Interactive zsh uses full
+# activation in ~/.zshrc so project env vars and hooks stay in sync.
+if [[ $- != *i* ]]; then
+  export PATH="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/shims:$PATH"
+fi
 {{ if eq .chezmoi.os "darwin" }}
-eval "$(mise activate zsh --shims)"
 export SSH_AUTH_SOCK={{ .chezmoi.homeDir }}/.bitwarden-ssh-agent.sock
 export SHELL=/bin/zsh
-{{ end }}
-{{ if eq .chezmoi.os "linux" }}
-eval "$($HOME/.local/bin/mise activate zsh --shims)"
 {{ end }}
 {{ if .is_wsl }}
 export GIT_SSH=$(which ssh.exe)

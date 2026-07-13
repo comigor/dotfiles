@@ -1,0 +1,6 @@
+[
+  {
+    "name": "pi",
+    "sessions": "~/.pi/agent/sessions/*"
+  }
+]
