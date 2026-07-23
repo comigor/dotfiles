@@ -13,3 +13,5 @@ node_modules
 .beads-credential-key
 .pi-lens/
 .omp/
+.pi-subagents/
+.scratch/

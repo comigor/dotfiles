@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>dev.ai-memory</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/opt/homebrew/bin/zsh</string>
+    <string>-lc</string>
+    <string>export LLM_API_KEY="$('{{ .chezmoi.homeDir }}/.bun/bin/omp' token openrouter --raw)"; export AI_MEMORY_LLM_PROVIDER=openai-compat; export AI_MEMORY_LLM_BASE_URL=https://openrouter.ai/api/v1; export AI_MEMORY_LLM_MODEL=openai/gpt-5.4-mini; export AI_MEMORY_LLM_COMPAT_STRICT=true; exec '{{ .chezmoi.homeDir }}/Applications/ai-memory/ai-memory' serve --transport http --bind 127.0.0.1:49374</string>
+  </array>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>{{ .chezmoi.homeDir }}/Library/Application Support/ai-memory/logs/launchd.out.log</string>
+  <key>StandardErrorPath</key>
+  <string>{{ .chezmoi.homeDir }}/Library/Application Support/ai-memory/logs/launchd.err.log</string>
+</dict>
+</plist>

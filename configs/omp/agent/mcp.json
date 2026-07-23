@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "ai-memory": {
+      "type": "http",
+      "url": "http://127.0.0.1:49374/mcp",
+      "enabled": true
+    }
+  }
+}

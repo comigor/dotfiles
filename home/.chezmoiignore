@@ -6,6 +6,7 @@ LICENSE-MIT.txt
 .config/karabiner/
 .gnupg/gpg-agent.conf
 Library/LaunchAgents/com.igor.mcp-env.plist
+Library/LaunchAgents/dev.ai-memory.plist
 {{ end }}
 
 # Linux-only files

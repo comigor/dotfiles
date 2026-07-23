@@ -1,12 +1,12 @@
 {
   "defaultProvider": "openrouter",
   "defaultModel": "openai/gpt-5.6-sol",
-  "defaultThinkingLevel": "medium",
+  "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "theme": "dark",
   "quietStartup": true,
   "collapseChangelog": true,
-  "doubleEscapeAction": "none",
+  "doubleEscapeAction": "tree",
   "warnings": {
     "anthropicExtraUsage": true
   },
@@ -38,7 +38,6 @@
   ],
   "packages": [
     "npm:pi-mcp-adapter",
-    "npm:pi-btw",
     "npm:@mazli/pi-ask-user-question",
     "npm:pi-powerline-footer",
     "npm:@pi-unipi/notify",
@@ -48,42 +47,68 @@
     "npm:pi-hashline-edit",
     "npm:pi-lens",
     "npm:pi-edit-session-in-place",
-    "npm:@open-pets/pi",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:@codexstar/pi-side-chat",
+    "npm:@zosmaai/pi-llm-wiki"
   ],
   "extensions": [
     "/Users/igor/Projects/pi-brain-memory"
   ],
-  "lastChangelogVersion": "0.80.6",
+  "lastChangelogVersion": "0.80.9",
   "subagents": {
+    "defaultModel": "modal-glm/nvidia/GLM-5.2-NVFP4",
     "agentOverrides": {
-      "oracle": {
-        "model": "anthropic/claude-opus-4-8",
-        "thinking": "xhigh",
+      "reviewer": {
+        "model": "openrouter-half/moonshotai/kimi-k3",
+        "thinking": "high",
         "fallbackModels": [
-          "openrouter/openai/gpt-5.5-pro",
-          "openrouter/moonshotai/kimi-k2.6"
+          "openrouter-half/openai/gpt-5.6-sol",
+          "openrouter-half/anthropic/claude-fable-5",
+          "modal-glm/nvidia/GLM-5.2-NVFP4"
+        ]
+      },
+      "oracle": {
+        "model": "openrouter-half/moonshotai/kimi-k3",
+        "thinking": "high",
+        "fallbackModels": [
+          "openrouter-half/openai/gpt-5.6-sol",
+          "openrouter-half/anthropic/claude-fable-5",
+          "modal-glm/nvidia/GLM-5.2-NVFP4"
         ]
       },
       "researcher": {
-        "model": "anthropic/claude-sonnet-4-6",
-        "thinking": "low",
+        "model": "modal-glm/nvidia/GLM-5.2-NVFP4",
+        "thinking": "high",
         "fallbackModels": [
-          "openrouter/openai/gpt-5.5"
+          "openrouter-half/openai/gpt-5.6-terra",
+          "openrouter/z-ai/glm-5.2",
+          "openrouter-half/anthropic/claude-opus-4.8"
         ]
       },
       "scout": {
-        "model": "anthropic/claude-sonnet-4-6",
-        "thinking": "low",
+        "model": "modal-glm/nvidia/GLM-5.2-NVFP4",
+        "thinking": "high",
         "fallbackModels": [
-          "openrouter/openai/gpt-5.5"
+          "openrouter-half/openai/gpt-5.6-luna",
+          "openrouter/anthropic/claude-sonnet-5"
         ]
       },
       "worker": {
-        "model": "anthropic/claude-sonnet-4-6",
-        "thinking": "low",
+        "model": "modal-glm/nvidia/GLM-5.2-NVFP4",
+        "thinking": "high",
         "fallbackModels": [
-          "openrouter/openai/gpt-5.5"
+          "openrouter-half/openai/gpt-5.6-terra",
+          "openrouter/z-ai/glm-5.2",
+          "openrouter-half/anthropic/claude-opus-4.8"
+        ]
+      },
+      "tdd-worker": {
+        "model": "modal-glm/nvidia/GLM-5.2-NVFP4",
+        "thinking": "high",
+        "fallbackModels": [
+          "openrouter-half/openai/gpt-5.6-terra",
+          "openrouter/z-ai/glm-5.2",
+          "openrouter-half/anthropic/claude-opus-4.8"
         ]
       }
     }

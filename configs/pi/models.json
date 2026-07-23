@@ -1,11 +1,28 @@
 {
   "providers": {
+    "anthropic": {
+      "models": [
+        {
+          "id": "claude-fable-5",
+          "name": "Claude Fabio 5 (custom)",
+          "contextWindow": 500000,
+          "maxTokens": 65536,
+          "reasoning": true,
+          "compat": {
+            "forceAdaptiveThinking": true
+          },
+          "thinkingLevelMap": {
+            "xhigh": "max"
+          }
+        }
+      ]
+    },
     "openrouter": {
       "models": [
         {
           "id": "z-ai/glm-5.2",
-          "name": "Z.ai GLM 5.2",
-          "contextWindow": 1000000,
+          "name": "Z.ai GLM 5.2 (custom)",
+          "contextWindow": 500000,
           "maxTokens": 65536,
           "reasoning": true,
           "compat": {
@@ -14,6 +31,45 @@
               "allow_fallbacks": false
             }
           }
+        },
+        {
+          "id": "openai/gpt-5.6-sol",
+          "name": "GPT-5.6 Sol (custom)",
+          "contextWindow": 500000,
+          "maxTokens": 65536,
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "order": ["azure"],
+              "allow_fallbacks": false
+            }
+          }
+        },
+        {
+          "id": "openai/gpt-5.6-terra",
+          "name": "GPT-5.6 Terra (custom)",
+          "contextWindow": 500000,
+          "maxTokens": 65536,
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "order": ["azure"],
+              "allow_fallbacks": false
+            }
+          }
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "name": "Kimi K3 (custom)",
+          "contextWindow": 500000,
+          "maxTokens": 65536,
+          "reasoning": true
+        },
+        {
+          "id": "anthropic/claude-sonnet-5",
+          "name": "Claude Sonnet 5 (custom)",
+          "contextWindow": 300000,
+          "maxTokens": 65536
         }
       ]
     }
