@@ -101,7 +101,25 @@ providers:
           cacheWrite: 6.25
         contextWindow: 500000
         maxTokens: 128000
-  modal-glm:
+  anthropic-half:
+    baseUrl: https://api.anthropic.com
+    api: anthropic-messages
+    auth: none
+    headers:
+      x-api-key: ANTHROPIC_API_KEY
+    models:
+      - id: claude-opus-5
+        name: Claude Opus 5 (Half Context)
+        reasoning: true
+        input: [text, image]
+        cost:
+          input: 5
+          output: 25
+          cacheRead: 0.5
+          cacheWrite: 6.25
+        contextWindow: 500000
+        maxTokens: 128000
+  modal:
     baseUrl: https://frontier-dev--ep-glm-5-2-server.us-east.modal.direct/v1
     apiKey: MODAL_PROXY_TOKEN_ID
     api: openai-completions

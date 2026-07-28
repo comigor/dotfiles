@@ -2,8 +2,14 @@
   "mcpServers": {
     "ai-memory": {
       "type": "http",
-      "url": "http://127.0.0.1:49374/mcp",
+      "url": "http://127.0.0.1:49374/mcp?flavor=moonshot",
       "enabled": true
+    },
+    "voleeo": {
+      "command": "/Applications/Voleeo.app/Contents/MacOS/voleeo-mcp-bridge",
+      "env": {
+        "VOLEEO_MCP_TOKEN": "f55732384df757303ab16e2f0fc7d9fd4eb9f9e7f1f36583b5cbebe736aefcc9"
+      }
     }
   }
 }

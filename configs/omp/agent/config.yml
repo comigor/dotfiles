@@ -1,64 +1,82 @@
-modelRoles:
+modelRoles: 
   slow: openrouter-half/moonshotai/kimi-k3:high
-  advisor: openrouter-half/moonshotai/kimi-k3:high
-  plan: modal-glm/nvidia/GLM-5.2-NVFP4:high
-  task: modal-glm/nvidia/GLM-5.2-NVFP4:high
-  commit: modal-glm/nvidia/GLM-5.2-NVFP4:high
-  smol: modal-glm/nvidia/GLM-5.2-NVFP4:high
-  tiny: modal-glm/nvidia/GLM-5.2-NVFP4:high
-  default: openrouter-half/moonshotai/kimi-k3
-extensions:
+  advisor: modal/nvidia/GLM-5.2-NVFP4:high
+  plan: modal/nvidia/GLM-5.2-NVFP4:high
+  task: modal/nvidia/GLM-5.2-NVFP4:high
+  commit: modal/nvidia/GLM-5.2-NVFP4:high
+  smol: modal/nvidia/GLM-5.2-NVFP4:high
+  tiny: modal/nvidia/GLM-5.2-NVFP4:high
+  default: anthropic-half/claude-opus-5
+task: 
+  agentModelOverrides: 
+    code-reviewer: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    code-simplifier: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    comment-analyzer: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    pr-test-analyzer: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    silent-failure-hunter: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    type-design-analyzer: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    scout: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    designer: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    reviewer: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    librarian: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    task: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+    sonic: "modal/nvidia/GLM-5.2-NVFP4:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
+extensions: 
   - ~/Projects/jong-pi-extensions/packages/diff-review
-browser:
+browser: 
   headless: false
 defaultThinkingLevel: xhigh
 autoResume: true
-memory:
+advisor: 
+  enabled: true
+memory: 
   backend: local
-edit:
+edit: 
   mode: hashline
-github:
+github: 
   enabled: true
-secrets:
+secrets: 
   enabled: true
-theme:
+theme: 
   dark: titanium
-statusLine:
+statusLine: 
   sessionAccent: true
   showHookStatus: true
-terminal:
+terminal: 
   showImages: true
-images:
+images: 
   autoResize: true
-display:
+display: 
   showTokenUsage: false
 setupVersion: 1
-retry:
+retry: 
   maxRetries: 3
   modelFallback: true
   fallbackRevertPolicy: cooldown-expiry
-  fallbackChains:
-    default:
+  fallbackChains: 
+    default: 
       &default
+      - openrouter-half/moonshotai/kimi-k3:high
       - openrouter-half/openai/gpt-5.6-sol:high
-      - openrouter-half/anthropic/claude-fable-5:high
-      - modal-glm/nvidia/GLM-5.2-NVFP4:high
-    slow:
+      - modal/nvidia/GLM-5.2-NVFP4:high
+    slow: 
       *default
-    advisor:
+    advisor: 
       *default
-    plan:
+    plan: 
       &plan
       - openrouter-half/openai/gpt-5.6-terra:high
       - openrouter/z-ai/glm-5.2:high
       - openrouter-half/anthropic/claude-opus-4.8:high
-    task:
+    task: 
       *plan
-    commit:
+    commit: 
       *plan
-    smol:
+    smol: 
       &smol
       - openrouter-half/openai/gpt-5.6-luna:high
       - openrouter/anthropic/claude-sonnet-5:high
-    tiny:
+    tiny: 
       *smol
+dev: 
+  autoqaConsent: denied

@@ -8,3 +8,4 @@
 - NEVER suppress linters with comment directives (`//nolint:`); fix the root cause.
 - NEVER guess code works; verify (lsp, compile, run tests).
 - No emoji in code or commit messages.
+- NEVER narrate behavior the code already shows in comments, or reference the session/plan/process (`// Phase A`, `// per review`, `// as we discussed`).
