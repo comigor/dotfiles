@@ -1,11 +1,12 @@
 modelRoles: 
   slow: modal-k3/moonshotai/Kimi-K3:high
   advisor: modal/nvidia/GLM-5.2-NVFP4:high
-  plan: modal/nvidia/GLM-5.2-NVFP4:high
-  task: modal/nvidia/GLM-5.2-NVFP4:high
+  plan: modal-k3/moonshotai/Kimi-K3:high
+  task: modal-k3/moonshotai/Kimi-K3:high
   commit: modal/nvidia/GLM-5.2-NVFP4:high
   smol: modal/nvidia/GLM-5.2-NVFP4:high
   tiny: modal/nvidia/GLM-5.2-NVFP4:high
+  default: modal-k3/moonshotai/Kimi-K3
 task: 
   agentModelOverrides: 
     code-reviewer: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
@@ -65,13 +66,16 @@ retry:
       *default
     plan: 
       &plan
+      - modal-k3/moonshotai/Kimi-K3:high
+      - openrouter-half/moonshotai/kimi-k3:high
       - openrouter-half/openai/gpt-5.6-terra:high
-      - openrouter/z-ai/glm-5.2:high
-      - openrouter-half/anthropic/claude-opus-4.8:high
+      - modal/nvidia/GLM-5.2-NVFP4:high
     task: 
       *plan
     commit: 
-      *plan
+      - openrouter-half/openai/gpt-5.6-terra:high
+      - openrouter/z-ai/glm-5.2:high
+      - openrouter-half/anthropic/claude-opus-4.8:high
     smol: 
       &smol
       - openrouter-half/openai/gpt-5.6-luna:high
