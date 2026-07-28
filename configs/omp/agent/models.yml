@@ -158,3 +158,42 @@ providers:
           supportsStrictMode: false
           extraBody:
             tool_stream: true
+  modal-k3:
+    baseUrl: https://frontier-dev--ep-kimi-k3-server.us-east.modal.direct/v1
+    apiKey: MODAL_PROXY_TOKEN_ID
+    api: openai-completions
+    headers:
+      Modal-Key: MODAL_PROXY_TOKEN_ID
+      Modal-Secret: MODAL_PROXY_TOKEN_SECRET
+    discovery:
+      type: openai-models-list
+    models:
+      - id: moonshotai/Kimi-K3
+        name: Kimi K3 on Modal
+        reasoning: true
+        thinking:
+          mode: effort
+          efforts: [minimal, low, medium, high, xhigh, max]
+          defaultLevel: high
+          supportsDisplay: true
+        input: [text, image]
+        cost:
+          input: 0
+          output: 0
+          cacheRead: 0
+          cacheWrite: 0
+        contextWindow: 524288
+        maxTokens: 131072
+        compat:
+          thinkingFormat: openai
+          reasoningEffortMap:
+            minimal: low
+            low: low
+            medium: high
+            high: high
+            xhigh: max
+            max: max
+          reasoningContentField: reasoning_content
+          supportsStrictMode: false
+          extraBody:
+            tool_stream: true
