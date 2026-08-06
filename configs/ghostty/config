@@ -1,6 +1,9 @@
 window-height = 34
 window-width = 130
 
+# Left Option acts as Alt (ESC-prefixed sequences for TUIs); right Option keeps macOS special-char typing
+macos-option-as-alt = left
+
 # Config reload
 keybind = super+shift+r=reload_config
 

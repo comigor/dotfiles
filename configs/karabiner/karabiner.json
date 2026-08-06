@@ -769,7 +769,6 @@
                                 "conditions": [
                                     {
                                         "bundle_identifiers": [
-                                            "^com\\.mitchellh\\.ghostty$",
                                             "^com\\.googlecode\\.iterm2$",
                                             "^com\\.apple\\.Terminal$",
                                             "^com\\.github\\.wez\\.wezterm$",

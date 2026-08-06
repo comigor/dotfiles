@@ -5,10 +5,35 @@
       "url": "http://127.0.0.1:49374/mcp?flavor=moonshot",
       "enabled": true
     },
+    "notion": {
+      "type": "http",
+      "url": "https://mcp.notion.com/mcp",
+      "enabled": true
+    },
     "voleeo": {
       "command": "/Applications/Voleeo.app/Contents/MacOS/voleeo-mcp-bridge",
       "env": {
         "VOLEEO_MCP_TOKEN": "f55732384df757303ab16e2f0fc7d9fd4eb9f9e7f1f36583b5cbebe736aefcc9"
+      }
+    },
+    "signoz": {
+      "type": "http",
+      "enabled": true,
+      "url": "https://mcp.us.signoz.cloud/mcp",
+      "headers": {
+        "SIGNOZ-API-KEY": "${SIGNOZ_API_KEY}",
+        "X-SigNoz-URL": "${SIGNOZ_URL}"
+      }
+    },
+    "argocd-mcp": {
+      "command": "npx",
+      "args": [
+        "argocd-mcp@latest",
+        "stdio"
+      ],
+      "env": {
+        "ARGOCD_BASE_URL": "${ARGOCD_MCP_URL}",
+        "ARGOCD_API_TOKEN": "${ARGOCD_MCP_TOKEN}"
       }
     }
   }

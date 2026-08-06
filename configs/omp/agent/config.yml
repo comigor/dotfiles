@@ -1,4 +1,4 @@
-modelRoles: 
+modelRoles:
   slow: modal-k3/moonshotai/Kimi-K3:high
   advisor: modal/nvidia/GLM-5.2-NVFP4:high
   plan: modal-k3/moonshotai/Kimi-K3:high
@@ -7,8 +7,8 @@ modelRoles:
   smol: modal/nvidia/GLM-5.2-NVFP4:high
   tiny: modal/nvidia/GLM-5.2-NVFP4:high
   default: modal-k3/moonshotai/Kimi-K3
-task: 
-  agentModelOverrides: 
+task:
+  agentModelOverrides:
     code-reviewer: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
     code-simplifier: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
     comment-analyzer: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
@@ -21,66 +21,66 @@ task:
     librarian: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
     task: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
     sonic: "modal/nvidia/GLM-5.2-NVFP4:high, modal-k3/moonshotai/Kimi-K3:high, openrouter-half/moonshotai/kimi-k3:high, openrouter-half/openai/gpt-5.6-sol:high"
-extensions: 
+extensions:
   - ~/Projects/jong-pi-extensions/packages/diff-review
-browser: 
+browser:
   headless: false
 defaultThinkingLevel: xhigh
 autoResume: true
-advisor: 
+advisor:
   enabled: true
-memory: 
+memory:
   backend: local
-edit: 
+edit:
   mode: hashline
-github: 
+github:
   enabled: true
-secrets: 
+secrets:
   enabled: true
-theme: 
+theme:
   dark: titanium
-statusLine: 
+statusLine:
   sessionAccent: true
   showHookStatus: true
-terminal: 
+terminal:
   showImages: true
-images: 
+images:
   autoResize: true
-display: 
+display:
   showTokenUsage: false
 setupVersion: 1
-retry: 
+retry:
   maxRetries: 3
   modelFallback: true
   fallbackRevertPolicy: cooldown-expiry
-  fallbackChains: 
-    default: 
+  fallbackChains:
+    default:
       &default
       - modal-k3/moonshotai/Kimi-K3:high
       - openrouter-half/moonshotai/kimi-k3:high
       - openrouter-half/openai/gpt-5.6-sol:high
       - modal/nvidia/GLM-5.2-NVFP4:high
-    slow: 
+    slow:
       *default
-    advisor: 
+    advisor:
       *default
-    plan: 
+    plan:
       &plan
       - modal-k3/moonshotai/Kimi-K3:high
       - openrouter-half/moonshotai/kimi-k3:high
       - openrouter-half/openai/gpt-5.6-terra:high
       - modal/nvidia/GLM-5.2-NVFP4:high
-    task: 
+    task:
       *plan
-    commit: 
+    commit:
       - openrouter-half/openai/gpt-5.6-terra:high
       - openrouter/z-ai/glm-5.2:high
       - openrouter-half/anthropic/claude-opus-4.8:high
-    smol: 
+    smol:
       &smol
       - openrouter-half/openai/gpt-5.6-luna:high
       - openrouter/anthropic/claude-sonnet-5:high
-    tiny: 
+    tiny:
       *smol
-dev: 
+dev:
   autoqaConsent: denied
