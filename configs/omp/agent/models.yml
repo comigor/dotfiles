@@ -132,6 +132,22 @@ providers:
           cacheWrite: 2.5
         contextWindow: 500000
         maxTokens: 131072
+      - id: z-ai/glm-5.3
+        name: GLM 5.3 (Half Context)
+        reasoning: true
+        thinking:
+          mode: effort
+          efforts: [low, high, max]
+          defaultLevel: high
+          supportsDisplay: true
+        input: [text]
+        cost:
+          input: 1.4
+          output: 4.4
+          cacheRead: 0.26
+          cacheWrite: 0
+        contextWindow: 524288
+        maxTokens: 131072
   anthropic-half:
     baseUrl: https://api.anthropic.com
     api: anthropic-messages
