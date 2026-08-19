@@ -25,9 +25,9 @@ extensions:
   - ~/Projects/jong-pi-extensions/packages/diff-review
   - ~/Projects/omp-modal-handoff
 browser:
-  headless: false
+  headless: true
 defaultThinkingLevel: xhigh
-autoResume: true
+autoResume: false
 advisor:
   enabled: true
 memory:
@@ -85,3 +85,20 @@ retry:
       *smol
 dev:
   autoqaConsent: denied
+startup:
+  quiet: true
+bash:
+  autoBackground:
+    enabled: true
+eval:
+  js: false
+checkpoint:
+  enabled: true
+commands:
+  enableClaudeUser: false
+  enableClaudeProject: false
+  enableOpencodeUser: false
+  enableOpencodeProject: false
+disabledProviders:
+  - claude
+  - opencode

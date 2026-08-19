@@ -3,22 +3,23 @@
     "notion": {
       "type": "http",
       "url": "https://mcp.notion.com/mcp",
-      "enabled": true
+      "enabled": false
     },
     "voleeo": {
       "command": "/Applications/Voleeo.app/Contents/MacOS/voleeo-mcp-bridge",
       "env": {
         "VOLEEO_MCP_TOKEN": "${VOLEEO_MCP_TOKEN}"
-      }
+      },
+      "enabled": false
     },
     "signoz": {
       "type": "http",
-      "enabled": true,
       "url": "https://mcp.us.signoz.cloud/mcp",
       "headers": {
         "SIGNOZ-API-KEY": "${SIGNOZ_API_KEY}",
         "X-SigNoz-URL": "${SIGNOZ_URL}"
-      }
+      },
+      "enabled": false
     },
     "argocd-mcp": {
       "command": "npx",
@@ -29,7 +30,13 @@
       "env": {
         "ARGOCD_BASE_URL": "${ARGOCD_MCP_URL}",
         "ARGOCD_API_TOKEN": "${ARGOCD_MCP_TOKEN}"
-      }
+      },
+      "enabled": false
+    },
+    "mcp-gateway": {
+      "type": "http",
+      "url": "http://127.0.0.1:8765/",
+      "enabled": true
     }
   }
 }

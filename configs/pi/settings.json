@@ -54,7 +54,7 @@
   "extensions": [
     "/Users/igor/Projects/pi-brain-memory"
   ],
-  "lastChangelogVersion": "0.80.9",
+  "lastChangelogVersion": "0.83.0",
   "subagents": {
     "defaultModel": "modal-glm/nvidia/GLM-5.2-NVFP4",
     "agentOverrides": {
