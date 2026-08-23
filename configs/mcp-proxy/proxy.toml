@@ -1,6 +1,7 @@
 [proxy]
 name = "igor-mcp-gateway"
-tool_discovery = true
+tool_exposure = "search"
+hot_reload = true
 
 [proxy.listen]
 host = "127.0.0.1"
@@ -11,16 +12,6 @@ name = "signoz"
 transport = "http"
 url = "https://mcp.us.signoz.cloud/mcp"
 bearer_token = "${SIGNOZ_API_KEY}"
-expose_tools = [
-  "signoz_search_traces",
-  "signoz_search_logs",
-  "signoz_query_metrics",
-  "signoz_list_metrics",
-  "signoz_aggregate_logs",
-  "signoz_aggregate_traces",
-  "signoz_get_trace_details",
-  "signoz_get_field_values",
-]
 
 [backends.headers]
 "SIGNOZ-API-KEY" = "${SIGNOZ_API_KEY}"
@@ -31,12 +22,9 @@ name = "argocd"
 transport = "stdio"
 command = "/Users/igor/.local/share/mise/installs/node/latest/bin/argocd-mcp"
 args = ["stdio"]
-expose_tools = [
-  "get_application",
-  "get_application_resource_tree",
-  "list_applications",
-]
 
 [backends.env]
 ARGOCD_BASE_URL = "${ARGOCD_MCP_URL}"
 ARGOCD_API_TOKEN = "${ARGOCD_MCP_TOKEN}"
+
+# reload-probe

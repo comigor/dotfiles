@@ -20,8 +20,8 @@
 - NEVER guess the code will work. Always check lsp, compile, run tests, etc.
 - NEVER use git worktrees. If there are untracked or staged changes, stash them before proceeding.
 
-- AVOID using go workspace. It sucks. When you need to point to a local dependency, use replace directive in go.mod.
-- Always prefer `samber/lo` over hand-rolled `make` + `append` for loops: `lo.Map`/`lo.FilterMap` for transforms, `lo.MapErr` for error-producing transforms (short-circuits on first error), `lo.Count`/`lo.CountBy` for counting. See https://github.com/samber/lo.
+- AVOID using go workspace. It sucks. When you need to point to a local dependency, use `replace` directive in go.mod.
+- Always prefer `samber/lo` over hand-rolled `make` and slice `append` for loops: `lo.Map`/`lo.FilterMap` for transforms, `lo.MapErr` for error-producing transforms (short-circuits on first error), `lo.Count`/`lo.CountBy` for counting. See https://github.com/samber/lo.
 - AVOID over-engineering. Simple code is almost always better. Less code is almost always better.
 - AVOID defensive programming. Validate inputs at the boundary (config parsing, settings loading, request decoding) and fail loudly there. Downstream code should assume inputs are valid — never re-check for states the boundary already guaranteed. A nil-check or empty-string-check deep in the call stack for a value that was already validated upstream is useless noise: if it fires, the boundary is broken (fix the boundary, don't patch downstream); if it never fires, it's dead code. Silent degradation (returning without the header, defaulting to empty, skipping the step) is the worst outcome — it hides the bug instead of surfacing it. Fail fast, fail loud.
 - AVOID doing any change when the user only wants an answer. Example: when user asks "question: why this code was done this way?", "why is this variable here instead of there?" you should just answer them, but not "fix" the imaginaty problem. Sometimes user wants to understand the code, not to fix it. The user could also write [QUESTION], then you answer.
@@ -38,15 +38,27 @@ keep grilling/PRD/issue-writing here. Parallelize read-only subagents
 (scout/reviewer/researcher) freely; run implementation workers sequentially —
 no worktrees.
 
-## Shell output: rtk
+## MCP tools: gateway in search mode
 
-This system has `rtk` installed — a CLI proxy that filters and summarizes
-command output before it reaches context, saving tokens. Prefer running
-supported commands through it: `rtk git …`, `rtk grep …`, `rtk test`,
-`rtk diff`, `rtk log …`, `rtk docker …`, `rtk kubectl …`, etc.
+MCP servers (signoz, argocd) sit behind a local mcp-proxy gateway in
+`tool_exposure = "search"` mode. You do NOT have direct signoz/argocd tools —
+the full catalog (43 signoz + 16 argocd tools) is hidden to keep context lean,
+and everything is reachable on demand:
 
-Note: some agents auto-rewrite these commands transparently (e.g. opencode
-via its plugin), so manual prefixing isn't needed there. When no such
-integration exists, invoke `rtk` explicitly.
-
-Run `rtk gain` for token savings analytics.
+- Find a tool: `proxy/search_tools` with a natural-language query (e.g.
+  "dashboard alerts", "sync application"). BM25 over the FULL catalog; returns
+  tool ids, descriptions, scores.
+- Invoke ANY tool: `proxy/call_tool` with `{"name": "<server>/<tool>",
+  "arguments": {...}}` — e.g. `signoz/signoz_list_dashboards`. Note the
+  double prefix for signoz (`signoz/signoz_...`); argocd is `argocd/<tool>`.
+  No config change, no reload — just call it.
+- Correct schemas WITHOUT trial and error: search results carry only
+  descriptions. Before guessing parameters, read the tool's docs — SigNoz
+  exposes 22 MCP resources (query-builder guides, metrics aggregation guide,
+  schemas per signal): `resources/list`, then `resources/read` with the
+  gateway-namespaced URI `signoz/signoz://metrics-aggregation-guide` (NOT
+  omp's `mcp://` scheme). argocd exposes no resources.
+- `proxy/list_backends` / `proxy/health_check` diagnose gateway issues.
+- Gateway config: `configs/mcp-proxy/proxy.toml`; daemon: launchd
+  `dev.mcp-proxy` (binary `~/.local/bin/mcp-proxy`, source build from
+  `~/Projects/mcp-proxy`, PR #238 branch).

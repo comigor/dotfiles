@@ -10,7 +10,7 @@ if [[ $- != *i* ]]; then
   export PATH="${MISE_DATA_DIR:-${XDG_DATA_HOME:-$HOME/.local/share}/mise}/shims:$PATH"
 fi
 {{ if eq .chezmoi.os "darwin" }}
-export SSH_AUTH_SOCK="{{ .chezmoi.homeDir }}/Library/Group Containers/com.artemchep.keyguard/ssh-agent.sock"
+export SSH_AUTH_SOCK="${TMPDIR:-/tmp}/rbw-${UID}/ssh-agent-socket"
 export SHELL=/bin/zsh
 {{ end }}
 {{ if .is_wsl }}

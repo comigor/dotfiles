@@ -84,8 +84,10 @@
       "default": "allow",
     },
     "default_model": {
+      "effort": "high",
+      "enable_thinking": true,
       "provider": "anthropic",
-      "model": "claude-opus-4-6",
+      "model": "claude-fable-5",
     },
   },
   "ui_font_size": 16,

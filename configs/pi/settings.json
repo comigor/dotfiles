@@ -114,5 +114,17 @@
     }
   },
   "enableSkillCommands": true,
-  "enableInstallTelemetry": false
+  "enableInstallTelemetry": false,
+  "little_coder": {
+    "model_profiles": {
+      "llamacpp/Qwen3.8-27B-Q4_K_M.gguf": {
+        "max_tokens": 8192,
+        "thinking_budget": 2048,
+        "skill_token_budget": 300,
+        "knowledge_token_budget": 200,
+        "max_retries": 1,
+        "temperature": 0.3
+      }
+    }
+  }
 }
