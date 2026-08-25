@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+# chezmoi manages .gnupg/gpg-agent.conf, which makes it track the parent dir
+# with default 755; gpg requires 700.
+chmod 700 ~/.gnupg
+{{ end -}}

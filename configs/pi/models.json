@@ -79,6 +79,52 @@
           "name": "Claude Sonnet 5 (custom)"
         }
       ]
+    },
+    "mtplx": {
+      "api": "openai-completions",
+      "baseUrl": "http://127.0.0.1:8001/v1",
+      "apiKey": "MTPLX_API_KEY",
+      "models": [
+        {
+          "id": "qwen3.8-27b-abliterated-mtplx-optimized-speed",
+          "name": "Qwen3.8-27B Abliterated (local MTPLX, 32K, MTP)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 32768,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    "llamacpp": {
+      "api": "openai-completions",
+      "baseUrl": "http://127.0.0.1:8899/v1",
+      "apiKey": "LLAMACPP_API_KEY",
+      "models": [
+        {
+          "id": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+          "name": "Qwen3.6-35B-A3B Abliterated (local llama.cpp, 128K, MTP)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
     }
   }
 }

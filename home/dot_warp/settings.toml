@@ -102,3 +102,8 @@ async_find_enabled = true
 
 [text_editing]
 autocomplete_symbols = false
+
+[warpify]
+
+[warpify.ssh]
+ssh_extension_install_mode = "never_install"

@@ -1,0 +1,22 @@
+{{- if eq .chezmoi.os "darwin" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+SRC="{{ .chezmoi.homeDir }}/.local/share/rbw-screen-lock/lock-on-screen-lock.swift"
+BIN="{{ .chezmoi.homeDir }}/.local/share/rbw-screen-lock/rbw-screen-lock"
+LABEL="dev.borges.rbw-screen-lock"
+PLIST="{{ .chezmoi.homeDir }}/Library/LaunchAgents/$LABEL.plist"
+
+if ! command -v swiftc >/dev/null 2>&1; then
+  echo "swiftc not available (Xcode CLT), skipping rbw-screen-lock build" >&2
+  exit 0
+fi
+
+if [[ ! -f "$BIN" || "$SRC" -nt "$BIN" ]]; then
+  swiftc -O -o "$BIN" "$SRC"
+fi
+
+if ! launchctl list "$LABEL" >/dev/null 2>&1; then
+  launchctl load "$PLIST"
+fi
+{{ end -}}

@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "openrouter",
-  "defaultModel": "openai/gpt-5.6-sol",
+  "defaultProvider": "llamacpp",
+  "defaultModel": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "theme": "dark",
@@ -118,6 +118,22 @@
   "little_coder": {
     "model_profiles": {
       "llamacpp/Qwen3.8-27B-Q4_K_M.gguf": {
+        "max_tokens": 8192,
+        "thinking_budget": 2048,
+        "skill_token_budget": 300,
+        "knowledge_token_budget": 200,
+        "max_retries": 1,
+        "temperature": 0.3
+      },
+      "mtplx/qwen3.8-27b-abliterated-mtplx-optimized-speed": {
+        "max_tokens": 8192,
+        "thinking_budget": 2048,
+        "skill_token_budget": 300,
+        "knowledge_token_budget": 200,
+        "max_retries": 1,
+        "temperature": 0.3
+      },
+      "llamacpp/Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf": {
         "max_tokens": 8192,
         "thinking_budget": 2048,
         "skill_token_budget": 300,
