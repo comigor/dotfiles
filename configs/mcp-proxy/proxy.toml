@@ -9,13 +9,13 @@ port = 8765
 
 [[backends]]
 name = "signoz"
-transport = "http"
-url = "https://mcp.us.signoz.cloud/mcp"
-bearer_token = "${SIGNOZ_API_KEY}"
+transport = "stdio"
+command = "/Users/igor/.local/bin/signoz-mcp-server"
 
-[backends.headers]
-"SIGNOZ-API-KEY" = "${SIGNOZ_API_KEY}"
-"X-SigNoz-URL" = "${SIGNOZ_URL}"
+[backends.env]
+SIGNOZ_URL = "${SIGNOZ_URL}"
+SIGNOZ_API_KEY = "${SIGNOZ_API_KEY}"
+LOG_LEVEL = "warn"
 
 [[backends]]
 name = "argocd"

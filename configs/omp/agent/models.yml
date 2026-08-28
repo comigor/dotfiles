@@ -244,24 +244,3 @@ providers:
           supportsStrictMode: false
           extraBody:
             tool_stream: true
-  mtplx-local:
-    baseUrl: http://127.0.0.1:8001/v1
-    api: openai-completions
-    auth: none
-    models:
-      - id: qwen3.8-27b-abliterated-mtplx-optimized-speed
-        name: Qwen3.8-27B Abliterated (Local MTPLX)
-        reasoning: true
-        input: [text]
-        cost:
-          input: 0
-          output: 0
-          cacheRead: 0
-          cacheWrite: 0
-        contextWindow: 32768
-        maxTokens: 8192
-        compat:
-          reasoningContentField: reasoning_content
-          extraBody:
-            chat_template_kwargs:
-              enable_thinking: false

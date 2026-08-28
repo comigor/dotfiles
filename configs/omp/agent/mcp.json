@@ -12,15 +12,6 @@
       },
       "enabled": false
     },
-    "signoz": {
-      "type": "http",
-      "url": "https://mcp.us.signoz.cloud/mcp",
-      "headers": {
-        "SIGNOZ-API-KEY": "${SIGNOZ_API_KEY}",
-        "X-SigNoz-URL": "${SIGNOZ_URL}"
-      },
-      "enabled": false
-    },
     "argocd-mcp": {
       "command": "npx",
       "args": [
