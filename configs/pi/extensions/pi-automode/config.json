@@ -12,9 +12,8 @@
     ],
     "allow": [
       "$defaults",
-      "Creating, modifying, and deleting local files within the current Git repository or worktree, including source code, migrations, tests, and documentation. Excludes files outside the repository, credentials, safety controls, and Git history changes.",
-      "Read-only infrastructure CLI operations are routine work: kubectl get/describe/logs/top/api-*/config get-contexts/current-context; aws describe-*/list-*/get-*, s3 ls, logs tail, sts get-caller-identity; helm list/status; kubectl port-forward.",
-      "Removing a single explicitly named file inside the working directory (e.g. rm CLAUDE.md) is routine cleanup, not mass deletion."
+      "All local development operations inside the working tree are routine and allowed: running build/test/lint/tooling commands (go test, go vet, go build, go generate, npm, pnpm, bun, pytest, make, cargo); running python/node/shell scripts (including heredocs) that read or modify project files; refactoring and renaming symbols across the project; editing or deleting any file inside the working tree.",
+      "Read-only infrastructure CLI operations are routine work: kubectl get/describe/logs/top/api-*/config get-contexts/current-context; aws describe-*/list-*/get-*, s3 ls, logs tail, sts get-caller-identity; helm list/status; kubectl port-forward."
     ],
     "environment": [
       "$defaults",
@@ -22,7 +21,13 @@
     ],
     "protectedPaths": ["$defaults"],
     "soft_deny": [
-      "$defaults",
+      "Force pushing, deleting remote branches, rewriting remote history, or pushing directly to main, master, or the repository default branch.",
+      "Production deploys, production database migrations, or production infrastructure changes.",
+      "Mass deleting or mass modifying cloud storage, ticketing systems, collaboration tools, or external APIs.",
+      "Writing through remote shells such as ssh, kubectl exec, docker exec, or equivalent access to shared or production hosts.",
+      "Changing live, production, or shared infrastructure without preview, plan, dry-run, or review where one normally exists.",
+      "Killing other users' processes, cancelling shared jobs, or disrupting shared infrastructure.",
+      "Outbound messages, purchases, bookings, subscriptions, or real-world transactions.",
       "Mutating infrastructure operations require explicit, specific user intent naming the target: kubectl apply/create/delete/replace/edit/patch/scale/rollout/drain/cordon/uncordon/label/annotate/taint/exec; aws operations that are not describe/list/get (delete-*, terminate-*, stop-*, reboot-*, create-*, put-*, modify-*, update-*, attach-*, detach-*, revoke-*, authorize-*, deauthorize-*, enable-*, disable-*, deregister-*); helm install/upgrade/rollback/uninstall; terraform apply/destroy."
     ],
     "hard_deny": [
