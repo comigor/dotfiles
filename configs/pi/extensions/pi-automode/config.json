@@ -1,6 +1,8 @@
 {
   "autoMode": {
     "classifierModel": "ollama/qwen2.5:3b-instruct",
+    "maxUserTranscriptTokens": 2000,
+    "maxToolTranscriptTokens": 2000,
     "allowInsideWorkingDirectory": true,
     "deniedPaths": [
       "~/.ssh/**",
@@ -11,7 +13,8 @@
     "allow": [
       "$defaults",
       "Creating, modifying, and deleting local files within the current Git repository or worktree, including source code, migrations, tests, and documentation. Excludes files outside the repository, credentials, safety controls, and Git history changes.",
-      "Read-only infrastructure CLI operations are routine work: kubectl get/describe/logs/top/api-*/config get-contexts/current-context; aws describe-*/list-*/get-*, s3 ls, logs tail, sts get-caller-identity; helm list/status; kubectl port-forward."
+      "Read-only infrastructure CLI operations are routine work: kubectl get/describe/logs/top/api-*/config get-contexts/current-context; aws describe-*/list-*/get-*, s3 ls, logs tail, sts get-caller-identity; helm list/status; kubectl port-forward.",
+      "Removing a single explicitly named file inside the working directory (e.g. rm CLAUDE.md) is routine cleanup, not mass deletion."
     ],
     "environment": [
       "$defaults",

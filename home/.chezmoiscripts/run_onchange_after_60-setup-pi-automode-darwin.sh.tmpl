@@ -16,3 +16,8 @@ ext="$HOME/.omp/plugins/node_modules/@czottmann/pi-automode/extensions/auto-mode
 if [ -f "$ext" ] && grep -q 'ctx.isProjectTrusted(),' "$ext"; then
   /usr/bin/sed -i '' 's/ctx\.isProjectTrusted(),/typeof ctx.isProjectTrusted === "function" ? ctx.isProjectTrusted() : false,/g' "$ext"
 fi
+
+cls="$HOME/.omp/plugins/node_modules/@czottmann/pi-automode/extensions/auto-mode/classifier.ts"
+if [ -f "$cls" ] && ! grep -q 'fixedInputTokens' "$cls"; then
+  perl -0pi -e 's/const availableActionBytes = Math\.max\(/const fixedInputTokens = Math.ceil(fixedInputUpperBound \/ 3.5);\n  const availableActionBytes = Math.max(/; s/^      fixedInputUpperBound,$/      fixedInputTokens,/m' "$cls"
+fi
