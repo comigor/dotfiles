@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -eo pipefail
+
+brew services start ollama 2>/dev/null || true
+for i in $(seq 1 30); do
+  curl -sf http://127.0.0.1:11434/api/version >/dev/null && break
+  sleep 1
+done
+
+ollama pull qwen2.5:3b-instruct
+
+export PATH="$HOME/.bun/bin:$PATH"
+omp plugin install @czottmann/pi-automode || true
+
+ext="$HOME/.omp/plugins/node_modules/@czottmann/pi-automode/extensions/auto-mode/extension.ts"
+if [ -f "$ext" ] && grep -q 'ctx.isProjectTrusted(),' "$ext"; then
+  /usr/bin/sed -i '' 's/ctx\.isProjectTrusted(),/typeof ctx.isProjectTrusted === "function" ? ctx.isProjectTrusted() : false,/g' "$ext"
+fi

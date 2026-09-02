@@ -5,7 +5,7 @@ set -eo pipefail
 brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 GIT_CONFIG_GLOBAL=/dev/null GIT_CONFIG_SYSTEM=/dev/null brew tap pppobear/tap && brew trust pppobear/tap
-brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac ripgrep coreutils rbw pinentry-rbw-macos
+brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac ripgrep coreutils rbw pinentry-rbw-macos ollama
 
 
 {{ end -}}

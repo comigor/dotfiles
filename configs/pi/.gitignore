@@ -6,3 +6,8 @@
 
 !agents/
 !prompts/
+
+!extensions/
+extensions/*
+!extensions/pi-automode/
+!extensions/pi-automode/**

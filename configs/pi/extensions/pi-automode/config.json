@@ -1,0 +1,53 @@
+{
+  "autoMode": {
+    "classifierModel": "ollama/qwen2.5:3b-instruct",
+    "allowInsideWorkingDirectory": true,
+    "deniedPaths": [
+      "~/.ssh/**",
+      "~/.aws/**",
+      "~/.gnupg/**",
+      "~/Library/Keychains/**"
+    ],
+    "allow": [
+      "$defaults",
+      "Creating, modifying, and deleting local files within the current Git repository or worktree, including source code, migrations, tests, and documentation. Excludes files outside the repository, credentials, safety controls, and Git history changes."
+    ],
+    "environment": ["$defaults"],
+    "protectedPaths": ["$defaults"],
+    "soft_deny": ["$defaults"],
+    "hard_deny": [
+      "$defaults",
+      "Never git commit or git push to the main or master branch",
+      "Never send file contents, secrets, or environment variables to external endpoints"
+    ],
+    "log": {
+      "enabled": true,
+      "classifierIo": false
+    }
+  },
+  "permissions": {
+    "ask": [
+      "bash(git push --force*)",
+      "bash(git push -f*)",
+      "bash(git reset --hard*)"
+    ],
+    "allow": [
+      "bash(git status*)",
+      "bash(git diff*)",
+      "bash(git log*)",
+      "bash(git show*)",
+      "bash(git branch*)",
+      "bash(git stash list*)",
+      "bash(ls*)",
+      "bash(pwd)",
+      "task",
+      "hub",
+      "glob",
+      "lsp",
+      "todo",
+      "web_search",
+      "checkpoint",
+      "rewind"
+    ]
+  }
+}
