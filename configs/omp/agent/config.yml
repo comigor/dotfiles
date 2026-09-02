@@ -135,6 +135,34 @@ bash:
       approval: prompt
     - match: "chown -R * /*"
       approval: prompt
+    - match: "kubectl delete *"
+      approval: prompt
+    - match: "kubectl apply *"
+      approval: prompt
+    - match: "kubectl replace *"
+      approval: prompt
+    - match: "kubectl patch *"
+      approval: prompt
+    - match: "kubectl scale *"
+      approval: prompt
+    - match: "kubectl drain *"
+      approval: prompt
+    - match: "kubectl cordon *"
+      approval: prompt
+    - match: "kubectl edit *"
+      approval: prompt
+    - match: "kubectl create *"
+      approval: prompt
+    - match: "aws * delete-*"
+      approval: prompt
+    - match: "aws * terminate-*"
+      approval: prompt
+    - match: "aws * stop-*"
+      approval: prompt
+    - match: "aws * reboot-*"
+      approval: prompt
+    - match: "aws * deregister-*"
+      approval: prompt
 eval:
   js: false
 checkpoint:
