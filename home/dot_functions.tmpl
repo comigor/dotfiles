@@ -125,6 +125,32 @@ function gz() {
 	printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio";
 }
 
+# Decode a JWT (argument or stdin) and show epoch timestamps as ISO8601
+jwtdecode() {
+	local token="${1:-$(cat)}"
+	python3 - "$token" <<'PYTHON'
+import base64, datetime, json, sys
+
+TIMESTAMP_KEYS = {"exp", "iat", "nbf", "auth_time", "iat_ts", "orig_iat"}
+
+def decode(part):
+    part += "=" * (-len(part) % 4)
+    return json.loads(base64.urlsafe_b64decode(part))
+
+def annotate(obj):
+    if isinstance(obj, dict):
+        return {k: (f"{v} ({datetime.datetime.fromtimestamp(v, datetime.timezone.utc).isoformat()})"
+                    if k in TIMESTAMP_KEYS and isinstance(v, (int, float))
+                    else annotate(v)) for k, v in obj.items()}
+    return obj
+
+parts = sys.argv[1].strip().split(".")
+if len(parts) < 2:
+    sys.exit("ERROR: not a JWT (expected header.payload[.signature])")
+print(json.dumps({"header": annotate(decode(parts[0])), "payload": annotate(decode(parts[1]))}, indent=2))
+PYTHON
+}
+
 # Run `dig` and display the most useful info
 function digga() {
 	dig +nocmd "$1" any +multiline +noall +answer;

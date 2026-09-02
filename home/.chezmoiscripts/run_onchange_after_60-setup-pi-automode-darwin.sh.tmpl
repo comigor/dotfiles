@@ -47,10 +47,11 @@ ext = base / "extension.ts"
 src = ext.read_text()
 if src and "classifier-ask" not in src:
     anchor = '      state.classifierDenied += 1;\n      return block(ctx, {\n        timestamp: Date.now(),\n        toolName: event.toolName,\n        reason: decision.reason,\n        action: summary,\n        kind: "classifier",\n      }, logCtx);'
-    add = '''      if (decision.tier !== "hard_deny" && decision.tier !== "none" && ctx.hasUI) {
+    add = '''      if (decision.tier !== "hard_deny" && ctx.hasUI) {
         const approved = await ctx.ui.confirm(
           "Auto mode: action needs approval",
           `${decision.reason}\\n\\n${summary}`,
+          { signal: ctx.signal },
         );
         if (approved) {
           state.classifierAllowed += 1;

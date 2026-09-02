@@ -167,7 +167,7 @@ providers:
         contextWindow: 500000
         maxTokens: 128000
   modal:
-    baseUrl: https://frontier-dev--ep-glm-5-2-server.us-east.modal.direct/v1
+    baseUrl: https://frontier-dev--ep-glm-5-3-nvfp4-server.us-east.modal.direct/v1
     apiKey: MODAL_PROXY_TOKEN_ID
     api: openai-completions
     headers:
@@ -176,8 +176,8 @@ providers:
     discovery:
       type: openai-models-list
     models:
-      - id: nvidia/GLM-5.2-NVFP4
-        name: GLM-5.2 NVFP4 on Modal
+      - id: zai-org/GLM-5.3
+        name: GLM-5.3 NVFP4 on Modal
         reasoning: true
         thinking:
           mode: effort
@@ -190,14 +190,14 @@ providers:
           output: 0
           cacheRead: 0
           cacheWrite: 0
-        contextWindow: 262144
+        contextWindow: 524288
         maxTokens: 131072
         compat:
           thinkingFormat: openai
           reasoningEffortMap:
-            minimal: none
+            minimal: low
             low: low
-            medium: medium
+            medium: high
             high: high
             xhigh: max
             max: max
