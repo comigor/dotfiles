@@ -13,7 +13,8 @@
     "allow": [
       "$defaults",
       "All local development operations inside the working tree are routine and allowed: running build/test/lint/tooling commands (go test, go vet, go build, go generate, npm, pnpm, bun, pytest, make, cargo); running python/node/shell scripts (including heredocs) that read or modify project files; refactoring and renaming symbols across the project; editing or deleting any file inside the working tree.",
-      "Read-only infrastructure CLI operations are routine work: kubectl get/describe/logs/top/api-*/config get-contexts/current-context; aws describe-*/list-*/get-*, s3 ls, logs tail, sts get-caller-identity; helm list/status; kubectl port-forward."
+      "Read-only infrastructure CLI operations are routine work: kubectl get/describe/logs/top/api-*/config get-contexts/current-context; aws describe-*/list-*/get-*, s3 ls, logs tail, sts get-caller-identity; helm list/status; kubectl port-forward.",
+      "Read-only inspection of any local path is allowed: reading, grepping, listing, and diffing files anywhere on this machine (the deterministic deniedPaths list already hard-blocks secrets like ~/.ssh). Words like admin, access, grant, or identity in code under inspection are not evidence of a privileged operation."
     ],
     "environment": [
       "$defaults",
@@ -66,6 +67,10 @@
       "bash(aws * reboot-*)"
     ],
     "allow": [
+      "read",
+      "grep",
+      "find",
+      "ls",
       "bash(git status*)",
       "bash(git diff*)",
       "bash(git log*)",
@@ -74,6 +79,14 @@
       "bash(git stash list*)",
       "bash(ls*)",
       "bash(pwd)",
+      "bash(rg *)",
+      "bash(rg -*)",
+      "bash(grep *)",
+      "bash(find *)",
+      "bash(head *)",
+      "bash(tail *)",
+      "bash(echo *)",
+      "bash(cat *)",
       "bash(kubectl get *)",
       "bash(kubectl describe *)",
       "bash(kubectl logs *)",
