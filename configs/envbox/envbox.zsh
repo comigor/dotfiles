@@ -1,8 +1,9 @@
 # Isolation model: env file is sourced inside this subshell, so every export
 # dies with it and real config files are never touched — cfgfile copies into
-# a mktemp sandbox and each tool is pointed at the copy. ENVBOX_LOCK_RBW=1 in
-# an env file forces `rbw lock` before the first fetch (agent TTL would
-# otherwise silently skip the password prompt).
+# a mktemp sandbox and each tool is pointed at the copy.
+# ~/.$name.secrets is auto-sourced after the env file (may override it).
+# ENVBOX_LOCK_RBW=1 in an env file forces rbw lock+unlock before the child
+# spawns (agent TTL would otherwise silently skip the password prompt).
 
 envbox() {
   emulate -L zsh
@@ -18,12 +19,8 @@ envbox() {
     local root=$(mktemp -d ${TMPDIR:-/tmp}/envbox.$name.XXXXXX)
     chmod 700 $root
     typeset -gA ENVBOX_MAP
-    local _eb_forced=
 
     _eb_rbw() {
-      if [[ -n $ENVBOX_LOCK_RBW && -z $_eb_forced ]]; then
-        rbw lock &>/dev/null; _eb_forced=1
-      fi
       rbw unlocked &>/dev/null || rbw unlock || return 1
       if (( $# > 1 )); then
         rbw get --field $2 $1
@@ -59,6 +56,12 @@ envbox() {
     }
 
     source $envfile || { rm -rf $root; exit 1 }
+    [[ -r $HOME/.$name.secrets ]] && source $HOME/.$name.secrets
+
+    if [[ -n $ENVBOX_LOCK_RBW ]]; then
+      rbw lock &>/dev/null
+      rbw unlocked &>/dev/null || rbw unlock || { rm -rf $root; exit 1 }
+    fi
 
     local t s
     for t s in ${(kv)ENVBOX_MAP}; do
