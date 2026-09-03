@@ -181,3 +181,4 @@ tui:
 spelling:
   typoDetection: false
   autocomplete: false
+doubleEscapeAction: tree
