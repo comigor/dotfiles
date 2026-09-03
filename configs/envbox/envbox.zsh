@@ -80,7 +80,7 @@ envbox() {
       esac
     done
 
-    export ENV=$name ENVBOX_ENV=$name
+    export ENV=$name ENVBOX_ENV=$name ENVBOX_ENVFILE=$envfile
     zsh
     local rc=$?
     rm -rf $root
