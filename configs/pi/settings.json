@@ -42,7 +42,6 @@
     "npm:pi-powerline-footer",
     "npm:@pi-unipi/notify",
     "npm:@sherif-fanous/pi-rtk",
-    "../../Projects/jong-pi-extensions/packages/diff-review",
     "../../Projects/pi-roaming",
     "npm:pi-hashline-edit",
     "npm:pi-lens",
