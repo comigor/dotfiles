@@ -2,8 +2,9 @@
 # dies with it and real config files are never touched — cfgfile copies into
 # a mktemp sandbox and each tool is pointed at the copy.
 # ~/.$name.secrets is auto-sourced after the env file (may override it).
-# ENVBOX_LOCK_RBW=1 in an env file forces rbw lock+unlock before the child
-# spawns (agent TTL would otherwise silently skip the password prompt).
+# ENVBOX_LOCK_RBW=1 forces rbw lock+unlock (agent TTL would otherwise silently
+# skip the password prompt). ENVBOX_CONFIRM=1 additionally requires typing the
+# env name — for environments where a bare password is not enough friction.
 
 envbox() {
   emulate -L zsh
@@ -61,6 +62,12 @@ envbox() {
     if [[ -n $ENVBOX_LOCK_RBW ]]; then
       rbw lock &>/dev/null
       rbw unlocked &>/dev/null || rbw unlock || { rm -rf $root; exit 1 }
+    fi
+
+    if [[ -n $ENVBOX_CONFIRM ]]; then
+      local reply
+      read -r "reply?Entering $name — type '$name' to continue: "
+      [[ $reply == $name ]] || { rm -rf $root; exit 1 }
     fi
 
     local t s

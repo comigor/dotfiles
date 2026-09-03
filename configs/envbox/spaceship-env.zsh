@@ -1,6 +1,6 @@
 # Custom spaceship section: current envbox environment ($ENV).
 # Sync (variable read only) so no pinentry can ever fire from a prompt hook.
-# prod gets %K{background} embedded in content; the section wrapper only
+# prod/admin get %K{background} embedded in content; the section wrapper only
 # manages foreground colors, so the content string must close its own bg (%k).
 
 SPACESHIP_ENV_SHOW="${SPACESHIP_ENV_SHOW=true}"
@@ -12,8 +12,11 @@ SPACESHIP_ENV_SYMBOL="${SPACESHIP_ENV_SYMBOL=""}"
 spaceship_env() {
   [[ $SPACESHIP_ENV_SHOW == false || -z $ENV ]] && return
   local color=green content=$ENV
-  if [[ $ENV == *prod* ]]; then
-    color=white
+  if [[ $ENV == *admin* ]]; then
+    color=15
+    content="%K{160} ${${(U)ENV}} %k"
+  elif [[ $ENV == *prod* ]]; then
+    color=15
     content="%K{124} ${${(U)ENV}} %k"
   fi
   spaceship::section::v4 \
