@@ -5,149 +5,192 @@ providers:
     api: openai-completions
     authHeader: true
     models:
-      - id: openai/gpt-5.6-sol
-        name: GPT-5.6 Sol (Half Context)
-        reasoning: true
-        compat:
-          openRouterRouting:
-            only: [azure]
-        thinking:
-          mode: effort
-          efforts: [low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 5
-          output: 30
-          cacheRead: 0.5
-          cacheWrite: 6.25
-        contextWindow: 525000
-        maxTokens: 128000
-      - id: openai/gpt-5.6-terra
-        name: GPT-5.6 Terra (Half Context)
-        reasoning: true
-        compat:
-          openRouterRouting:
-            only: [azure]
-        thinking:
-          mode: effort
-          efforts: [low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 2.5
-          output: 15
-          cacheRead: 0.25
-          cacheWrite: 3.125
-        contextWindow: 525000
-        maxTokens: 128000
-      - id: openai/gpt-5.6-luna
-        name: GPT-5.6 Luna (Half Context)
-        reasoning: true
-        compat:
-          openRouterRouting:
-            only: [azure]
-        thinking:
-          mode: effort
-          efforts: [low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 1
-          output: 6
-          cacheRead: 0.1
-          cacheWrite: 1.25
-        contextWindow: 525000
-        maxTokens: 128000
-      - id: anthropic/claude-fable-5
-        name: Claude Fable 5 (Half Context via OpenRouter)
-        reasoning: true
-        compat:
-          openRouterRouting:
-            only: [anthropic]
-        thinking:
-          mode: effort
-          efforts: [low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 10
-          output: 50
-          cacheRead: 1
-          cacheWrite: 12.5
-        contextWindow: 500000
-        maxTokens: 128000
-      - id: moonshotai/kimi-k3
-        name: Kimi K3 (Half Context)
-        reasoning: true
-        thinking:
-          mode: effort
-          efforts: [low, high, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 3
-          output: 15
-          cacheRead: 0.3
-          cacheWrite: 0
-        contextWindow: 525000
-        maxTokens: 128000
-      - id: anthropic/claude-opus-4.8
-        name: Claude Opus 4.8 (Half Context via OpenRouter)
-        reasoning: true
-        compat:
-          openRouterRouting:
-            only: [anthropic]
-        thinking:
-          mode: effort
-          efforts: [low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 5
-          output: 25
-          cacheRead: 0.5
-          cacheWrite: 6.25
-        contextWindow: 500000
-        maxTokens: 128000
-      - id: qwen/qwen3.8-max
-        name: Qwen 3.8 Max (Half Context)
-        reasoning: true
-        thinking:
-          mode: effort
-          efforts: [low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 2
-          output: 6
-          cacheRead: 0.25
-          cacheWrite: 2.5
-        contextWindow: 500000
-        maxTokens: 131072
-      - id: z-ai/glm-5.3
-        name: GLM 5.3 (Half Context)
-        reasoning: true
-        thinking:
-          mode: effort
-          efforts: [low, high, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text]
-        cost:
-          input: 1.4
-          output: 4.4
-          cacheRead: 0.26
-          cacheWrite: 0
-        contextWindow: 524288
-        maxTokens: 131072
+    - id: openai/gpt-5.6-sol
+      name: GPT-5.6 Sol (Half Context)
+      reasoning: true
+      compat:
+        openRouterRouting:
+          only:
+          - azure
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 2
+        output: 10
+        cacheRead: 0.2
+        cacheWrite: 2.5
+      contextWindow: 525000
+      maxTokens: 128000
+    - id: openai/gpt-5.6-terra
+      name: GPT-5.6 Terra (Half Context)
+      reasoning: true
+      compat:
+        openRouterRouting:
+          only:
+          - azure
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 2
+        output: 12
+        cacheRead: 0.2
+        cacheWrite: 2.5
+      contextWindow: 525000
+      maxTokens: 128000
+    - id: openai/gpt-5.6-luna
+      name: GPT-5.6 Luna (Half Context)
+      reasoning: true
+      compat:
+        openRouterRouting:
+          only:
+          - azure
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 0.2
+        output: 1.2
+        cacheRead: 0.02
+        cacheWrite: 0.25
+      contextWindow: 525000
+      maxTokens: 128000
+    - id: openai/gpt-6-astra
+      name: GPT-6 Astra (Half Context)
+      reasoning: true
+      compat:
+        openRouterRouting:
+          only:
+          - openai/flex
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 5
+        output: 25
+        cacheRead: 0.5
+        cacheWrite: 6.25
+      contextWindow: 525000
+      maxTokens: 128000
+    - id: anthropic/claude-fable-5
+      name: Claude Fable 5 (Half Context via OpenRouter)
+      reasoning: true
+      compat:
+        openRouterRouting:
+          only:
+          - anthropic
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 10
+        output: 50
+        cacheRead: 1
+        cacheWrite: 12.5
+      contextWindow: 500000
+      maxTokens: 128000
+    - id: anthropic/claude-fable-5.1
+      name: Claude Fable 5.1 (Half Context via OpenRouter)
+      reasoning: true
+      compat:
+        openRouterRouting:
+          only:
+          - anthropic
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 10
+        output: 50
+        cacheRead: 0.25
+        cacheWrite: 12.5
+      contextWindow: 500000
+      maxTokens: 128000
+    - id: z-ai/glm-5.3
+      name: GLM 5.3 (Half Context)
+      reasoning: true
+      thinking:
+        mode: effort
+        efforts:
+        - low
+        - high
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      cost:
+        input: 1.4
+        output: 4.4
+        cacheRead: 0.26
+        cacheWrite: 0
+      contextWindow: 524288
+      maxTokens: 131072
+      compat:
+        openRouterRouting:
+          only:
+          - gmicloud/fp8
   anthropic-half:
     baseUrl: https://api.anthropic.com
     api: anthropic-messages
@@ -155,17 +198,19 @@ providers:
     headers:
       x-api-key: ANTHROPIC_API_KEY
     models:
-      - id: claude-opus-5
-        name: Claude Opus 5 (Half Context)
-        reasoning: true
-        input: [text, image]
-        cost:
-          input: 5
-          output: 25
-          cacheRead: 0.5
-          cacheWrite: 6.25
-        contextWindow: 500000
-        maxTokens: 128000
+    - id: claude-opus-5
+      name: Claude Opus 5 (Half Context)
+      reasoning: true
+      input:
+      - text
+      - image
+      cost:
+        input: 5
+        output: 25
+        cacheRead: 0.5
+        cacheWrite: 6.25
+      contextWindow: 500000
+      maxTokens: 128000
   modal:
     baseUrl: https://frontier-dev--ep-glm-5-3-nvfp4-server.us-east.modal.direct/v1
     apiKey: MODAL_PROXY_TOKEN_ID
@@ -176,37 +221,44 @@ providers:
     discovery:
       type: openai-models-list
     models:
-      - id: zai-org/GLM-5.3
-        name: GLM-5.3 NVFP4 on Modal
-        reasoning: true
-        thinking:
-          mode: effort
-          efforts: [minimal, low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text]
-        cost:
-          input: 0
-          output: 0
-          cacheRead: 0
-          cacheWrite: 0
-        contextWindow: 524288
-        maxTokens: 131072
-        compat:
-          thinkingFormat: openai
-          reasoningEffortMap:
-            minimal: low
-            low: low
-            medium: high
-            high: high
-            xhigh: max
-            max: max
-          reasoningContentField: reasoning_content
-          supportsStrictMode: false
-          extraBody:
-            tool_stream: true
-  modal-k3:
-    baseUrl: https://frontier-dev--ep-ae-kimi-k3-server.us-east.modal.direct/v1
+    - id: zai-org/GLM-5.3
+      name: GLM-5.3 NVFP4 on Modal
+      reasoning: true
+      thinking:
+        mode: effort
+        efforts:
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      cost:
+        input: 0
+        output: 0
+        cacheRead: 0
+        cacheWrite: 0
+      contextWindow: 524288
+      maxTokens: 131072
+      compat:
+        thinkingFormat: openai
+        reasoningEffortMap:
+          minimal: low
+          low: low
+          medium: high
+          high: high
+          xhigh: max
+          max: max
+        reasoningContentField: reasoning_content
+        supportsStrictMode: false
+        extraBody:
+          tool_stream: true
+  modal-flash:
+    baseUrl: https://frontier-dev--ep-glm-5-3-flash-server.us-east.modal.direct/v1
     apiKey: MODAL_PROXY_TOKEN_ID
     api: openai-completions
     headers:
@@ -215,32 +267,40 @@ providers:
     discovery:
       type: openai-models-list
     models:
-      - id: moonshotai/Kimi-K3
-        name: Kimi K3 on Modal
-        reasoning: true
-        thinking:
-          mode: effort
-          efforts: [minimal, low, medium, high, xhigh, max]
-          defaultLevel: high
-          supportsDisplay: true
-        input: [text, image]
-        cost:
-          input: 0
-          output: 0
-          cacheRead: 0
-          cacheWrite: 0
-        contextWindow: 524288
-        maxTokens: 131072
-        compat:
-          thinkingFormat: openai
-          reasoningEffortMap:
-            minimal: low
-            low: low
-            medium: high
-            high: high
-            xhigh: max
-            max: max
-          reasoningContentField: reasoning_content
-          supportsStrictMode: false
-          extraBody:
-            tool_stream: true
+    - id: zai-org/GLM-5.3-Flash
+      name: GLM-5.3-Flash on Modal
+      reasoning: true
+      thinking:
+        mode: effort
+        efforts:
+        - minimal
+        - low
+        - medium
+        - high
+        - xhigh
+        - max
+        defaultLevel: high
+        supportsDisplay: true
+      input:
+      - text
+      - image
+      cost:
+        input: 0
+        output: 0
+        cacheRead: 0
+        cacheWrite: 0
+      contextWindow: 524288
+      maxTokens: 131072
+      compat:
+        thinkingFormat: openai
+        reasoningEffortMap:
+          minimal: low
+          low: low
+          medium: high
+          high: high
+          xhigh: max
+          max: max
+        reasoningContentField: reasoning_content
+        supportsStrictMode: false
+        extraBody:
+          tool_stream: true
