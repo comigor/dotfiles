@@ -12,12 +12,12 @@ SPACESHIP_ENV_SYMBOL="${SPACESHIP_ENV_SYMBOL=""}"
 spaceship_env() {
   [[ $SPACESHIP_ENV_SHOW == false || -z $ENV ]] && return
   local color=green content=$ENV
-  if [[ $ENV == *admin* ]]; then
-    color=15
-    content="%K{160} ${${(U)ENV}} %k"
-  elif [[ $ENV == *prod* ]]; then
+  if [[ $ENV == *prod* ]]; then
     color=15
     content="%K{124} ${${(U)ENV}} %k"
+  elif [[ $ENV == *admin* ]]; then
+    color=15
+    content="%K{202} ${${(U)ENV}} %k"
   fi
   spaceship::section::v4 \
     --color "$color" \
