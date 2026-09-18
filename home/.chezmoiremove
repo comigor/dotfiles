@@ -1,0 +1,3 @@
+.prod.secrets
+.prod-admin.secrets
+.staging-admin.secrets

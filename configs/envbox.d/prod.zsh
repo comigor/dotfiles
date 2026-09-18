@@ -1,4 +1,5 @@
-ENVBOX_LOCK_RBW=1
+[[ -n $ENVBOX_ENV ]] || bwunlock || return 1
+eval "$(cosmo --env prod env)" || true
 
 export ENVIRONMENT=prod
 export AWS_PROFILE=decade-prod

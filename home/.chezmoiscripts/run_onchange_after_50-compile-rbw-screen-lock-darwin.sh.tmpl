@@ -8,15 +8,19 @@ LABEL="dev.borges.rbw-screen-lock"
 PLIST="{{ .chezmoi.homeDir }}/Library/LaunchAgents/$LABEL.plist"
 
 if ! command -v swiftc >/dev/null 2>&1; then
-  echo "swiftc not available (Xcode CLT), skipping rbw-screen-lock build" >&2
-  exit 0
+  echo "swiftc is required to build the vault screen-lock hook" >&2
+  exit 1
 fi
 
+REBUILT=0
 if [[ ! -f "$BIN" || "$SRC" -nt "$BIN" ]]; then
   swiftc -O -o "$BIN" "$SRC"
+  REBUILT=1
 fi
 
 if ! launchctl list "$LABEL" >/dev/null 2>&1; then
   launchctl load "$PLIST"
+elif [[ "$REBUILT" == 1 ]]; then
+  launchctl kickstart -k "gui/$UID/$LABEL"
 fi
 {{ end -}}

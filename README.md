@@ -27,7 +27,7 @@ chezmoi update
 | Terminal | Ghostty |
 | Editor | Zed |
 | Tools | mise, opencode, karabiner (macOS), GPG agent (macOS) |
-| Secrets | `.secrets`, `.frontierrc` (via Bitwarden) |
+| Secrets | Base/staging files and ephemeral prod/admin profiles via fnox + Bitwarden |
 | Other | `.curlrc`, `.wgetrc`, `.inputrc`, `.screenrc`, `.editorconfig`, `.hushlogin`, `.Xmodmap`, `.tool-versions` |
 
 ## How it works
@@ -38,17 +38,39 @@ Most files are **symlinked** from `$HOME` back into this repo, so edits in eithe
 |---|---|---|
 | Symlinks | aliases, exports, zshrc, zprofile, all `.config/*`, gitignore, gitattributes, etc. | Edit anywhere |
 | Templates | `.gitconfig`, `.extra`, `.functions` | Edit in `home/`, run `chezmoi apply` |
-| Secrets | `.secrets`, `.frontierrc` | Stored in Bitwarden, pulled at apply time |
+| Secrets | `.secrets`, `.staging.secrets` | Bitwarden hidden fields, rendered by fnox at apply time |
 
-## Secrets (Bitwarden)
+## Secrets (fnox + Bitwarden)
 
 ```bash
-bw login
-export BW_SESSION=$(bw unlock --raw)
+bw login --quiet
+bw sync --nointeraction
+bwunlock
 chezmoi apply
+bw lock --quiet
+unset BW_SESSION
 ```
 
-Secrets are stored as Bitwarden Secure Notes named `dotfiles/secrets` and `dotfiles/frontierrc`.
+`bwunlock` uses the existing `pinentry-rbw-macos` authentication prompt and exports a session in the current shell. The master password reaches `bw` through stdin. Run it again after screen lock invalidates the session.
+
+`configs/envbox/fnox.toml` maps environment variables to hidden fields on the existing Bitwarden items, using UUIDs. Profiles are `base`, `staging`, `staging-admin` (inherits staging), `prod`, and `prod-admin` (inherits prod). Required fields fail closed; daemon caching is disabled by the loader. Keycloak aliases reference the same fields as their Skycloak counterparts.
+
+Base and staging profiles are rendered into private `~/.secrets` and `~/.staging.secrets` files by chezmoi. Privileged profiles are resolved at entry, in memory:
+
+```sh
+envbox prod
+envbox prod-admin
+envbox staging-admin
+exit
+```
+
+Prod/admin entry requires fresh authentication; admin entry also requires typing its name. Fnox injects the selected profile into the child shell. Other tier variables and inherited AWS credential overrides are cleared; shell startup does not reload staging over privileged values. AWS/Kubernetes config files remain sandboxed copies. The child shell receives no `BW_SESSION`/`FNOX_BW_SESSION`. `envbox staging` remains ungated and reads the rendered staging file.
+
+There are no persistent prod/admin secret files: `.chezmoiremove` removes the obsolete files. The screen-lock watcher locks `bw` and the retained `rbw` SSH agent, but cannot erase secrets already loaded into a running shell or base/staging files.
+
+**Accepted limitation:** fnox 1.35.2's native Bitwarden provider passes the vault session as `bw --session ...`, exposing it to local process inspection during resolution. Envbox is environment scoping, not an OS or per-tier vault authorization sandbox.
+
+The helper's [security model](https://github.com/pppobear/pinentry-rbw-macos#security-model) uses application-enforced macOS authentication, not a Keychain `.userPresence` access control. It is not protection against malicious code already running as the same user.
 
 ## OS support
 
@@ -94,7 +116,7 @@ home/
   dot_gnupg/
     symlink_*           # -> ~/.gnupg/gpg-agent.conf (symlink)
   private_dot_secrets.tmpl    # -> ~/.secrets (Bitwarden)
-  private_dot_frontierrc.tmpl # -> ~/.frontierrc (Bitwarden)
+  private_dot_frontierrc.tmpl # -> ~/.frontierrc (cosmo shell integration)
 configs/                # actual config file contents (symlink targets)
   ghostty/
   karabiner/
