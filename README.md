@@ -55,6 +55,8 @@ unset BW_SESSION
 
 `configs/envbox/fnox.toml` maps environment variables to hidden fields on the existing Bitwarden items, using UUIDs. Profiles are `base`, `staging`, `staging-admin` (inherits staging), `prod`, and `prod-admin` (inherits prod). Required fields fail closed; daemon caching is disabled by the loader. Keycloak aliases reference the same fields as their Skycloak counterparts.
 
+`staging-admin` adds `ZED_ENDPOINT` and `ZED_TOKEN` from the hidden fields on `dotfiles/staging-admin-secrets`; regular staging does not receive them.
+
 Base and staging profiles are rendered into private `~/.secrets` and `~/.staging.secrets` files by chezmoi. Privileged profiles are resolved at entry, in memory:
 
 ```sh

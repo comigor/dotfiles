@@ -10,6 +10,10 @@ backend = "bw"
 [profiles.staging-admin]
 inherits = ["staging"]
 
+[profiles.staging-admin.secrets]
+ZED_ENDPOINT = { value = "11ec2c2e-2c27-4ce3-9d20-b4c901303f65/ZED_ENDPOINT" }
+ZED_TOKEN = { value = "11ec2c2e-2c27-4ce3-9d20-b4c901303f65/ZED_TOKEN" }
+
 [profiles.base.secrets]
 ANTHROPIC_API_KEY = { value = "6817a0fa-4280-4ae7-85d6-b42f0165ecf5/ANTHROPIC_API_KEY" }
 GEMINI_API_KEY = { value = "6817a0fa-4280-4ae7-85d6-b42f0165ecf5/GEMINI_API_KEY" }
