@@ -1,0 +1,230 @@
+#!/usr/bin/env python3
+"""Idempotency gate for pinentry-rbw-macos.
+
+rbw-agent spawns one pinentry process per pending request, so a burst of
+ssh/git operations against a locked agent produces a queue of Touch ID
+dialogs. This gate serializes them: the first request prompts (once),
+concurrent requests wait and then replay the just-entered password, and a
+cancelled prompt suppresses further prompts for a short window instead of
+piling on.
+
+Env knobs:
+  RBW_PINENTRY_GATE_REAL   real pinentry binary to proxy to (for testing)
+  RBW_PINENTRY_GATE_TTL    seconds the entered password may be replayed (300)
+  RBW_PINENTRY_GATE_WAIT   seconds to wait for an in-flight prompt (300)
+
+Security note: the master password rests plaintext in a 0600 file under
+~/.cache/rbw-pinentry-gate/ for at most TTL seconds after entry.
+
+Debug: create /tmp/rbw-gate-debug to log decisions (passwords redacted) to
+/tmp/rbw-gate-<pid>.log.
+"""
+import fcntl
+import os
+import subprocess
+import sys
+import threading
+import time
+
+REAL = os.environ.get(
+    "RBW_PINENTRY_GATE_REAL", "/opt/homebrew/bin/pinentry-rbw-macos"
+)
+CACHE_DIR = os.path.expanduser("~/.cache/rbw-pinentry-gate")
+PW_FILE = os.path.join(CACHE_DIR, "pw")
+LOCK_FILE = os.path.join(CACHE_DIR, "lock")
+FAIL = b"FAIL"
+TTL = float(os.environ.get("RBW_PINENTRY_GATE_TTL", "300"))
+FAIL_TTL = 15.0
+PROMPT_WAIT = float(os.environ.get("RBW_PINENTRY_GATE_WAIT", "300"))
+CACHE_PROMPT = "Master Password"
+CANCELED_ERR = b"ERR 83886179 Operation cancelled\n"
+DEBUG = os.environ.get("RBW_PINENTRY_GATE_DEBUG") == "1" or os.path.exists(
+    "/tmp/rbw-gate-debug"
+)
+
+
+def dbg(fmt, *args):
+    if not DEBUG:
+        return
+    with open("/tmp/rbw-gate-{}.log".format(os.getpid()), "a") as f:
+        f.write("{:.3f} {}\n".format(time.time(), fmt % args if args else fmt))
+
+
+def respond(payload):
+    sys.stdout.buffer.write(payload)
+    sys.stdout.buffer.flush()
+
+
+def cache_read():
+    """Fresh password bytes, or None (missing/stale/fail-marker)."""
+    try:
+        with open(PW_FILE, "rb") as f:
+            data = f.read()
+        age = time.time() - os.stat(PW_FILE).st_mtime
+    except FileNotFoundError:
+        return None
+    if data == FAIL:
+        return None
+    if age > TTL:
+        return None
+    return data
+
+
+def fail_fresh():
+    try:
+        with open(PW_FILE, "rb") as f:
+            data = f.read()
+        age = time.time() - os.stat(PW_FILE).st_mtime
+    except FileNotFoundError:
+        return False
+    return data == FAIL and age <= FAIL_TTL
+
+
+def cache_write(data):
+    tmp = "{}.{}.tmp".format(PW_FILE, os.getpid())
+    with open(tmp, "wb") as f:
+        f.write(data)
+    os.chmod(tmp, 0o600)
+    os.replace(tmp, PW_FILE)
+
+
+def cache_invalidate():
+    try:
+        os.unlink(PW_FILE)
+    except FileNotFoundError:
+        pass
+
+
+def acquire_lock(fd, deadline_s):
+    end = time.monotonic() + deadline_s
+    while True:
+        try:
+            fcntl.flock(fd, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            return True
+        except BlockingIOError:
+            if time.monotonic() >= end:
+                return False
+            time.sleep(0.2)
+
+
+def main():
+    if "--store" in sys.argv or "--version" in sys.argv or "--help" in sys.argv:
+        os.execv(REAL, [REAL] + sys.argv[1:])
+
+    dbg("gate start pid %d real=%s", os.getpid(), REAL)
+    os.makedirs(CACHE_DIR, mode=0o700, exist_ok=True)
+    lock_fd = os.open(LOCK_FILE, os.O_CREAT | os.O_RDWR, 0o600)
+
+    child = subprocess.Popen(
+        [REAL] + sys.argv[1:],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.DEVNULL,
+    )
+
+    sniff = {"prompt": "", "awaiting": False, "last": None}
+    answered = threading.Event()
+
+    def child_to_client():
+        for line in child.stdout:
+            if line.startswith(b"D "):
+                dbg("child->client D <redacted>")
+            else:
+                dbg("child->client %r", line)
+            if sniff["awaiting"] and (
+                line.startswith(b"D ") or line.startswith(b"ERR")
+            ):
+                sniff["last"] = line.rstrip(b"\n")
+                sniff["awaiting"] = False
+                answered.set()
+            try:
+                sys.stdout.buffer.write(line)
+                sys.stdout.buffer.flush()
+            except BrokenPipeError:
+                dbg("client stdout broke")
+                break
+
+    t = threading.Thread(target=child_to_client, daemon=True)
+    t.start()
+
+    for line in sys.stdin.buffer:
+        # GETPIN arrives with no argument, so the newline must be stripped
+        # before splitting or the command never matches.
+        cmd = line.strip().split(b" ", 1)[0]
+        if cmd == b"SETPROMPT":
+            sniff["prompt"] = (
+                line.strip()[len(b"SETPROMPT "):]
+                .decode(errors="replace")
+                .strip()
+            )
+        elif cmd == b"SETERROR":
+            # A retry means the last answer was rejected: never replay it.
+            cache_invalidate()
+
+        if cmd == b"GETPIN" and sniff["prompt"] == CACHE_PROMPT:
+            dbg("getpin branch prompt=%r", sniff["prompt"])
+            pw = cache_read()
+            if pw is not None:
+                dbg("cache hit, answering locally")
+                respond(b"D " + pw + b"\nOK\n")
+                continue
+            if fail_fresh():
+                dbg("recent fail marker, cancelling without prompting")
+                respond(CANCELED_ERR)
+                continue
+            if not acquire_lock(lock_fd, PROMPT_WAIT):
+                # Another prompt stayed in flight past our wait budget; never
+                # prompt unsynchronized.
+                dbg("lock wait exhausted, cancelling without prompting")
+                respond(CANCELED_ERR)
+                continue
+            dbg("lock acquired")
+            pw = cache_read()
+            if pw is not None:
+                dbg("cache filled while waiting, answering locally")
+                respond(b"D " + pw + b"\nOK\n")
+                continue
+            if fail_fresh():
+                dbg("fail marker appeared while waiting, cancelling")
+                respond(CANCELED_ERR)
+                continue
+            # We hold the lock: ours is the only live prompt.
+            dbg("forwarding GETPIN to real pinentry (single live prompt)")
+            sniff["awaiting"] = True
+            child.stdin.write(line)
+            child.stdin.flush()
+            answered.wait(PROMPT_WAIT)
+            resp = sniff["last"]
+            if resp is not None and resp.startswith(b"D "):
+                dbg("captured password, caching")
+                cache_write(resp[2:])
+            elif resp is not None:
+                dbg("real pinentry returned %r, caching fail marker", resp[:40])
+                cache_write(FAIL)
+            else:
+                dbg("no response captured from real pinentry")
+            # The reader thread already forwarded the response.
+            continue
+
+        dbg("forwarding %r", cmd)
+        try:
+            child.stdin.write(line)
+            child.stdin.flush()
+        except BrokenPipeError:
+            dbg("child stdin broke")
+            break
+
+    dbg("stdin EOF, shutting down")
+    try:
+        child.stdin.close()
+    except BrokenPipeError:
+        pass
+    try:
+        child.wait(timeout=5)
+    except subprocess.TimeoutExpired:
+        child.kill()
+        child.wait()
+
+
+if __name__ == "__main__":
+    main()
