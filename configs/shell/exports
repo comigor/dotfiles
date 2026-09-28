@@ -49,3 +49,5 @@ export GPG_TTY=$(tty);
 export BASH_SILENCE_DEPRECATION_WARNING=1;
 
 export MISE_GO_SET_GOPATH=true
+
+export OMP_MEMORY_NUDGE=1

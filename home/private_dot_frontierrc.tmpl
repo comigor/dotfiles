@@ -1,1 +1,34 @@
-{{ output "rbw" "get" "--field" "notes" "dotfiles/frontierrc" }}
+# Async loading of cosmo env (slow due to network/auth).
+# Runs on the FIRST prompt, not at zprofile time: zsh-async's zle watcher
+# only registers when zle is active, and zprofile sources this file before
+# the first prompt exists (spaceship defers the same way).
+# Inside an envbox the box's own env file evaluates the matching cosmo env
+# already; the base shell must not overwrite it with staging values.
+_cosmo_env_load() {
+  local parent_path="$1"
+  export PATH="$parent_path"
+  command -v cosmo &>/dev/null && cosmo --env staging env --all
+}
+
+_cosmo_env_callback() {
+  local stdout=$3
+  [[ -n "$stdout" ]] && eval "$stdout"
+  async_stop_worker cosmo_worker 2>/dev/null
+}
+
+_cosmo_env_kick() {
+  add-zsh-hook -d precmd _cosmo_env_kick
+  [[ -n $ENVBOX_ENV ]] && return 0
+  async_start_worker cosmo_worker -n
+  async_register_callback cosmo_worker _cosmo_env_callback
+  async_job cosmo_worker _cosmo_env_load "$PATH"
+}
+
+if [[ -r ~/.zsh-async/async.zsh ]]; then
+  source ~/.zsh-async/async.zsh
+  async_init
+  autoload -Uz add-zsh-hook
+  add-zsh-hook precmd _cosmo_env_kick
+elif [[ ! -d ~/.zsh-async ]]; then
+  git clone --depth 1 -b 'v1.8.6' https://github.com/mafredri/zsh-async.git ~/.zsh-async 2>/dev/null
+fi

@@ -47,8 +47,7 @@
     "npm:pi-lens",
     "npm:pi-edit-session-in-place",
     "npm:pi-subagents",
-    "npm:@codexstar/pi-side-chat",
-    "npm:@zosmaai/pi-llm-wiki"
+    "npm:@codexstar/pi-side-chat"
   ],
   "extensions": [
     "/Users/igor/Projects/pi-brain-memory"

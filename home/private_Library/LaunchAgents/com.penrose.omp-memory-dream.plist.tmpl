@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.penrose.omp-memory-dream</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/bin/zsh</string>
+    <string>-lc</string>
+    <string>source ~/.exports; exec '{{ .chezmoi.homeDir }}/.bun/bin/bun' '{{ .chezmoi.homeDir }}/Projects/dotfiles/configs/omp/agent/omp-memory-config.ts' dream</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>{{ .chezmoi.homeDir }}/Projects/dotfiles</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HOME</key>
+    <string>{{ .chezmoi.homeDir }}</string>
+    <key>PATH</key>
+    <string>{{ .chezmoi.homeDir }}/.bun/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin</string>
+  </dict>
+  <key>StartCalendarInterval</key>
+  <dict>
+    <key>Hour</key><integer>4</integer>
+    <key>Minute</key><integer>0</integer>
+  </dict>
+  <key>ProcessType</key>
+  <string>Background</string>
+  <key>StandardOutPath</key>
+  <string>{{ .chezmoi.homeDir }}/.omp-memory/journal/dream.log</string>
+  <key>StandardErrorPath</key>
+  <string>{{ .chezmoi.homeDir }}/.omp-memory/journal/dream.log</string>
+</dict>
+</plist>

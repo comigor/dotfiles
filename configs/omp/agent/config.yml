@@ -1,7 +1,7 @@
 modelRoles:
-  slow: openrouter-half/openai/gpt-6-astra:xhigh
+  slow: openrouter-half/openai/gpt-6-sol:max
   advisor: modal-flash/zai-org/GLM-5.3-Flash:high
-  plan: openrouter-half/openai/gpt-6-astra:xhigh
+  plan: openrouter-half/openai/gpt-6-sol:max
   task: modal/zai-org/GLM-5.3:high
   commit: modal-flash/zai-org/GLM-5.3-Flash:high
   smol: modal-flash/zai-org/GLM-5.3-Flash:high
@@ -16,6 +16,7 @@ task:
     silent-failure-hunter: "modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high, openrouter-half/openai/gpt-5.6-sol:high"
     type-design-analyzer: "modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high, openrouter-half/openai/gpt-5.6-sol:high"
     scout: "modal-flash/zai-org/GLM-5.3-Flash:high, modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high"
+    tdd-worker: "modal-flash/zai-org/GLM-5.3-Flash:high, modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high"
     designer: "modal-flash/zai-org/GLM-5.3-Flash:high, modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high"
     reviewer: "modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high, openrouter-half/openai/gpt-5.6-sol:high"
     librarian: "modal-flash/zai-org/GLM-5.3-Flash:high, modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high"
@@ -23,12 +24,25 @@ task:
     sonic: "modal-flash/zai-org/GLM-5.3-Flash:high, modal/zai-org/GLM-5.3:high, openrouter-half/z-ai/glm-5.3:high"
 extensions:
   - ~/Projects/omp-modal-handoff
+  - /Users/igor/Projects/omp-extensions/harness-plugins/omp-compaction-handoff
+  - /Users/igor/Projects/dotfiles/configs/omp/agent/omp-memory.ts
+skills:
+  customDirectories:
+    - /Users/igor/.omp-memory/skills
+  ignoredSkills:
+    - llm-wiki
+compaction:
+  methodOrder: [snapcompat, soft, remote, handoff, shake]
+snapcompact:
+  toolResults: true
 browser:
   headless: true
 defaultThinkingLevel: xhigh
 autoResume: false
 advisor:
-  enabled: true
+  enabled: false
+  syncBacklog: "off"
+  immuneTurns: 5
 memory:
   backend: local
 edit:
@@ -64,20 +78,19 @@ retry:
       *default
     plan:
       &plan
+      - openrouter-half/openai/gpt-6-sol:max
+      - openrouter-half/anthropic/claude-opus-5.5:high
       - openrouter-half/openai/gpt-6-astra:xhigh
-      - openrouter-half/anthropic/claude-fable-5.1:high
-      - modal/zai-org/GLM-5.3:high
-      - openrouter-half/z-ai/glm-5.3:high
     slow:
       *plan
     commit:
-      &flash-chain
+      &commit
       - modal-flash/zai-org/GLM-5.3-Flash:high
       - openrouter-half/openai/gpt-5.6-luna:high
     smol:
-      *flash-chain
+      *commit
     tiny:
-      *flash-chain
+      *commit
     advisor:
       - modal-flash/zai-org/GLM-5.3-Flash:high
       - modal/zai-org/GLM-5.3:high
@@ -106,30 +119,6 @@ bash:
       approval: deny
     - match: halt*
       approval: deny
-    - match: rm -rf /*
-      approval: prompt
-    - match: rm -rf ~*
-      approval: prompt
-    - match: rm -rf $HOME*
-      approval: prompt
-    - match: rm -fr /*
-      approval: prompt
-    - match: rm -fr ~*
-      approval: prompt
-    - match: curl * | sh
-      approval: prompt
-    - match: curl * | bash
-      approval: prompt
-    - match: wget * | sh
-      approval: prompt
-    - match: wget * | bash
-      approval: prompt
-    - match: git push --force*
-      approval: prompt
-    - match: git push -f*
-      approval: prompt
-    - match: git reset --hard*
-      approval: prompt
     - match: chmod -R * /*
       approval: prompt
     - match: chown -R * /*

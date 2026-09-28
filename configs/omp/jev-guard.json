@@ -1,0 +1,10 @@
+{
+  "enabled": true,
+  "backend": "openrouter",
+  "model": "~typesafe/jev-latest",
+  "fallbackModel": "typesafe/jev-1.13",
+  "askThreshold": 0.35,
+  "blockThreshold": 0.8,
+  "uncertain": "ask",
+  "auditDisplay": "status"
+}

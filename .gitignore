@@ -284,3 +284,6 @@ $RECYCLE.BIN/
 .dolt/
 *.db
 .beads-credential-key
+
+# Generated omp runtime state
+configs/omp/agent/config.yml.lock

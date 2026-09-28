@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+export PATH="$HOME/.bun/bin:$PATH"
+omp plugin link "{{ .chezmoi.sourceDir }}/../configs/omp/plugins/specpi-jev-guard"
+installed_plugins="$(omp plugin list --json)"
+if python3 -c 'import json, sys; data=json.load(sys.stdin); sys.exit(0 if any(p["name"] == "@czottmann/pi-automode" for p in data["npm"]) else 1)' <<< "$installed_plugins"; then
+  omp plugin uninstall @czottmann/pi-automode
+fi
