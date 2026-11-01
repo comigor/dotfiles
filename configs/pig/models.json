@@ -1,0 +1,485 @@
+{
+  "providers": {
+    "anthropic": {
+      "models": [
+        {
+          "compat": {
+            "forceAdaptiveThinking": true
+          },
+          "contextWindow": 500000,
+          "id": "claude-fable-5",
+          "maxTokens": 65536,
+          "name": "Claude Fabio 5 (custom)",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "xhigh": "max"
+          }
+        }
+      ]
+    },
+    "openrouter": {
+      "models": [
+        {
+          "compat": {
+            "openRouterRouting": {
+              "allow_fallbacks": false,
+              "order": [
+                "parasail",
+                "wafer"
+              ]
+            }
+          },
+          "contextWindow": 500000,
+          "id": "z-ai/glm-5.2",
+          "maxTokens": 65536,
+          "name": "Z.ai GLM 5.2 (custom)",
+          "reasoning": true
+        },
+        {
+          "compat": {
+            "openRouterRouting": {
+              "allow_fallbacks": false,
+              "order": [
+                "azure"
+              ]
+            }
+          },
+          "contextWindow": 500000,
+          "id": "openai/gpt-5.6-sol",
+          "maxTokens": 65536,
+          "name": "GPT-5.6 Sol (custom)",
+          "reasoning": true
+        },
+        {
+          "compat": {
+            "openRouterRouting": {
+              "allow_fallbacks": false,
+              "order": [
+                "azure"
+              ]
+            }
+          },
+          "contextWindow": 500000,
+          "id": "openai/gpt-5.6-terra",
+          "maxTokens": 65536,
+          "name": "GPT-5.6 Terra (custom)",
+          "reasoning": true
+        },
+        {
+          "contextWindow": 500000,
+          "id": "moonshotai/kimi-k3",
+          "maxTokens": 65536,
+          "name": "Kimi K3 (custom)",
+          "reasoning": true
+        },
+        {
+          "contextWindow": 300000,
+          "id": "anthropic/claude-sonnet-5",
+          "maxTokens": 65536,
+          "name": "Claude Sonnet 5 (custom)"
+        }
+      ]
+    },
+    "openrouter-half": {
+      "name": "OpenRouter (Half Context)",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "OPENROUTER_API_KEY",
+      "api": "openai-completions",
+      "authHeader": true,
+      "models": [
+        {
+          "id": "openai/gpt-5.6-sol",
+          "name": "GPT-5.6 Sol (Half Context)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "azure"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
+          },
+          "contextWindow": 525000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "openai/gpt-5.6-terra",
+          "name": "GPT-5.6 Terra (Half Context)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "azure"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
+          },
+          "contextWindow": 525000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "openai/gpt-5.6-luna",
+          "name": "GPT-5.6 Luna (Half Context)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "azure"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.2,
+            "output": 1.2,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25
+          },
+          "contextWindow": 525000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "openai/gpt-6-sol",
+          "name": "GPT-6 Sol (Half Context)",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": "max",
+            "low": "max",
+            "medium": "max",
+            "high": "max",
+            "xhigh": "max",
+            "max": "max"
+          },
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "openai/flex"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.1,
+            "cacheWrite": 1.25
+          },
+          "contextWindow": 525000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "openai/gpt-6-astra",
+          "name": "GPT-6 Astra (Half Context)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "openai/flex"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          },
+          "contextWindow": 525000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "anthropic/claude-opus-5.5",
+          "name": "Claude Opus 5.5 (Half Context via OpenRouter)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "anthropic"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 5
+          },
+          "contextWindow": 500000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "anthropic/claude-fable-5",
+          "name": "Claude Fable 5 (Half Context via OpenRouter)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "anthropic"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5
+          },
+          "contextWindow": 500000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "anthropic/claude-fable-5.1",
+          "name": "Claude Fable 5.1 (Half Context via OpenRouter)",
+          "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "anthropic"
+              ]
+            }
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 10,
+            "output": 50,
+            "cacheRead": 0.25,
+            "cacheWrite": 12.5
+          },
+          "contextWindow": 500000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "z-ai/glm-5.3",
+          "name": "GLM 5.3 (Half Context)",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "max",
+            "max": "max"
+          },
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
+            "cacheWrite": 0
+          },
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "gmicloud/fp8"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "anthropic-half": {
+      "name": "Anthropic (Half Context)",
+      "baseUrl": "https://api.anthropic.com",
+      "api": "anthropic-messages",
+      "apiKey": "ANTHROPIC_API_KEY",
+      "models": [
+        {
+          "id": "claude-opus-5",
+          "name": "Claude Opus 5 (Half Context)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          },
+          "contextWindow": 500000,
+          "maxTokens": 128000
+        }
+      ]
+    },
+    "modal-half": {
+      "name": "Modal (Half Context)",
+      "baseUrl": "https://frontier-dev--ep-glm-5-3-nvfp4-server.us-east.modal.direct/v1",
+      "apiKey": "MODAL_PROXY_TOKEN_ID",
+      "api": "openai-completions",
+      "headers": {
+        "Modal-Key": "MODAL_PROXY_TOKEN_ID",
+        "Modal-Secret": "MODAL_PROXY_TOKEN_SECRET"
+      },
+      "models": [
+        {
+          "id": "zai-org/GLM-5.3",
+          "name": "GLM-5.3 NVFP4 on Modal (Half Context)",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "max",
+            "max": "max"
+          },
+          "input": [
+            "text"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "compat": {
+            "thinkingFormat": "openai",
+            "reasoningContentField": "reasoning_content",
+            "supportsStrictMode": false,
+            "extraBody": {
+              "tool_stream": true
+            }
+          }
+        }
+      ]
+    },
+    "modal-flash-half": {
+      "name": "Modal Flash (Half Context)",
+      "baseUrl": "https://frontier-dev--ep-glm-5-3-flash-server.us-east.modal.direct/v1",
+      "apiKey": "MODAL_PROXY_TOKEN_ID",
+      "api": "openai-completions",
+      "headers": {
+        "Modal-Key": "MODAL_PROXY_TOKEN_ID",
+        "Modal-Secret": "MODAL_PROXY_TOKEN_SECRET"
+      },
+      "models": [
+        {
+          "id": "zai-org/GLM-5.3-Flash",
+          "name": "GLM-5.3-Flash on Modal (Half Context)",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "minimal": "low",
+            "low": "low",
+            "medium": "high",
+            "high": "high",
+            "xhigh": "max",
+            "max": "max"
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "compat": {
+            "thinkingFormat": "openai",
+            "reasoningContentField": "reasoning_content",
+            "supportsStrictMode": false,
+            "extraBody": {
+              "tool_stream": true
+            }
+          }
+        }
+      ]
+    },
+    "mtplx": {
+      "api": "openai-completions",
+      "baseUrl": "http://127.0.0.1:8001/v1",
+      "apiKey": "MTPLX_API_KEY",
+      "models": [
+        {
+          "id": "qwen3.8-27b-abliterated-mtplx-optimized-speed",
+          "name": "Qwen3.8-27B Abliterated (local MTPLX, 32K, MTP)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 32768,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    "llamacpp": {
+      "api": "openai-completions",
+      "baseUrl": "http://127.0.0.1:8899/v1",
+      "apiKey": "LLAMACPP_API_KEY",
+      "models": [
+        {
+          "id": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+          "name": "Qwen3.6-35B-A3B Abliterated (local llama.cpp, 128K, MTP)",
+          "reasoning": true,
+          "input": [
+            "text"
+          ],
+          "contextWindow": 131072,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    }
+  }
+}

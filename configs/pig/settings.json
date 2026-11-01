@@ -1,0 +1,50 @@
+{
+  "defaultProvider": "llamacpp",
+  "defaultModel": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+  "defaultThinkingLevel": "high",
+  "hideThinkingBlock": false,
+  "theme": "dark",
+  "quietStartup": true,
+  "collapseChangelog": true,
+  "doubleEscapeAction": "tree",
+  "warnings": {
+    "anthropicExtraUsage": true
+  },
+  "compaction": {
+    "enabled": true,
+    "reserveTokens": 16384,
+    "keepRecentTokens": 32000
+  },
+  "branchSummary": {
+    "skipPrompt": false
+  },
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3,
+    "baseDelayMs": 2000,
+    "provider": {
+      "timeoutMs": 3600000,
+      "maxRetryDelayMs": 60000
+    }
+  },
+  "terminal": {
+    "showImages": true,
+    "imageWidthCells": 60,
+    "showTerminalProgress": true
+  },
+  "npmCommand": [
+    "npm",
+    "--registry=https://registry.npmjs.org/"
+  ],
+  "enableSkillCommands": true,
+  "enableInstallTelemetry": false,
+  "enableAnalytics": true,
+  "lastChangelogVersion": "1.4.0",
+  "packages": [
+    "npm:@mazli/pi-ask-user-question",
+    "npm:@sherif-fanous/pi-rtk",
+    "npm:pi-hashline-edit",
+    "npm:pi-lens",
+    "npm:pi-subagents"
+  ]
+}
