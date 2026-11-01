@@ -14,6 +14,7 @@ export SSH_AUTH_SOCK="${TMPDIR:-/tmp}/rbw-${UID}/ssh-agent-socket"
 export SHELL=/bin/zsh
 {{ end }}
 {{ if .is_wsl }}
-export GIT_SSH=$(which ssh.exe)
-eval "$(ssh-agent.exe -s)"
+# WSL should use native Linux OpenSSH by default. Starting ssh-agent.exe from
+# zsh emits Windows service output that is not shell code and can break startup.
+unset GIT_SSH
 {{ end }}

@@ -5,7 +5,7 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_MAGIC_FUNCTIONS="true"
 ZSH_DISABLE_COMPFIX="true"  # Skip compaudit security check
 
-export ZSH=$HOME/.oh-my-zsh
+export ZSH="${ZSH:-$HOME/.oh-my-zsh}"
 
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   ZSH_THEME="spaceship"
@@ -22,7 +22,9 @@ if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
     git           # Git branch and status
     node          # Node.js version (comment out if not needed)
     kubectl       # Kubernetes context (cross-check against env)
-    env           # envbox environment (green=staging, red=prod)
+  )
+  (( $+functions[spaceship_env] )) && SPACESHIP_PROMPT_ORDER+=(env)
+  SPACESHIP_PROMPT_ORDER+=(
     exec_time     # Execution time of last command
     line_sep      # Line break
     jobs          # Background jobs
@@ -47,11 +49,29 @@ fi
 ZSH_AUTOSUGGEST_BUFFER_MAX_SIZE="20"
 ZSH_AUTOSUGGEST_USE_ASYNC=1
 
-# Minimal plugins - each one adds load time
-plugins=(gitfast macos)
+# Minimal plugins - each one adds load time. The macos plugin calls Darwin-only
+# commands, so keep Linux/WSL startup native.
+plugins=(gitfast)
+[[ $OSTYPE == darwin* ]] && plugins+=(macos)
 
-# Let oh-my-zsh handle compinit (don't call it twice)
-source $ZSH/oh-my-zsh.sh
+# WSL's Docker Desktop integration can leave broken completion symlinks in
+# /usr/share/zsh/vendor-completions. compinit tries to read them on startup,
+# so drop that directory from fpath when any entry is dangling.
+for _completion in /usr/share/zsh/vendor-completions/*(N); do
+  if [[ -L $_completion && ! -e $_completion ]]; then
+    fpath=(${fpath:#/usr/share/zsh/vendor-completions})
+    break
+  fi
+done
+unset _completion
+
+# Let oh-my-zsh handle compinit when it is installed. Keep the shell usable
+# during a first WSL repair before bootstrap scripts have run.
+if [[ -r "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh"
+else
+  print -u2 "oh-my-zsh not found at $ZSH; run chezmoi apply to install it"
+fi
 
 if [[ $TERM_PROGRAM != "WarpTerminal" ]]; then
   # VCS info for prompt (lighter than full git plugin)
@@ -68,18 +88,22 @@ bindkey "^A" vi-beginning-of-line
 bindkey "^E" vi-end-of-line
 
 # Redo some exports
-source "$HOME/.zprofile"
+[[ -r "$HOME/.zprofile" ]] && source "$HOME/.zprofile"
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall
-[[ -f /Users/igor/.dart-cli-completion/zsh-config.zsh ]] && . /Users/igor/.dart-cli-completion/zsh-config.zsh || true
+[[ -f "$HOME/.dart-cli-completion/zsh-config.zsh" ]] && . "$HOME/.dart-cli-completion/zsh-config.zsh" || true
 ## [/Completion]
 
-export PATH="/Users/igor/.shorebird/bin:$PATH"
+[[ -d "$HOME/.shorebird/bin" ]] && export PATH="$HOME/.shorebird/bin:$PATH"
 
 # mise: full activation for interactive shells (keeps PATH and env vars in
-# sync per directory); shims for non-interactive shells come from ~/.extra
-command -v mise >/dev/null && eval "$(mise activate zsh)"
+# sync per directory); run the hook once immediately so non-prompt interactive
+# commands (`zsh -i -c ...`) see the managed tools too.
+if command -v mise >/dev/null; then
+  eval "$(mise activate zsh)"
+  (( $+functions[_mise_hook] )) && _mise_hook
+fi
 
 # Dedupe PATH last: scalar `export PATH=...` assignments above bypass the
 # array's unique attribute, so re-apply after all entries are added

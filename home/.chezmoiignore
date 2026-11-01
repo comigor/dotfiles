@@ -1,6 +1,15 @@
 README.md
 LICENSE-MIT.txt
 
+# Secret-backed files are opt-in so bootstrap does not require Bitwarden/rbw.
+{{ if or (not (env "DOTFILES_APPLY_SECRETS")) .is_wsl }}
+.frontierrc
+{{ end }}
+{{ if not (env "DOTFILES_APPLY_SECRETS") }}
+.secrets
+.staging.secrets
+{{ end }}
+
 # macOS-only files
 {{ if ne .chezmoi.os "darwin" }}
 .config/karabiner/

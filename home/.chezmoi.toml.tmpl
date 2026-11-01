@@ -6,7 +6,7 @@
 
 {{- $is_codespaces := env "CODESPACES" | not | not -}}
 {{- $is_wsl := false -}}
-{{- if stat "/proc/sys/fs/binfmt_misc/WSLInterop" -}}
+{{- if or (stat "/proc/sys/fs/binfmt_misc/WSLInterop") (contains "microsoft" (lower .chezmoi.kernel.osrelease)) -}}
 {{-   $is_wsl = true -}}
 {{- end -}}
 

@@ -2,15 +2,22 @@
 
 Managed with [chezmoi](https://chezmoi.io/). Secrets via [Bitwarden](https://bitwarden.com/).
 
-## Quick start
+## Install
 
-On a fresh machine:
+Fresh machine:
 
 ```bash
 sh -c "$(curl -fsLS get.chezmoi.io)" -- init --apply comigor
+exec zsh -l
 ```
 
-This installs chezmoi, clones this repo, prompts for your name/email/GPG key/repo path, and applies everything.
+Existing checkout, including WSL repair:
+
+```bash
+chezmoi init --source . --apply --promptDefaults && exec zsh -l
+```
+
+This installs chezmoi, clones or uses this repo, writes shell symlinks, runs bootstrap scripts, and starts zsh. Secret-backed files are opt-in so a fresh shell does not need Bitwarden first.
 
 ## Updating
 
@@ -43,10 +50,12 @@ Most files are **symlinked** from `$HOME` back into this repo, so edits in eithe
 ## Secrets (fnox + Bitwarden)
 
 ```bash
+eval "$(mise activate bash)"
+eval "$(mise hook-env -s bash)"
 bw login --quiet
 bw sync --nointeraction
 bwunlock
-chezmoi apply
+DOTFILES_APPLY_SECRETS=1 chezmoi apply
 bw lock --quiet
 unset BW_SESSION
 ```
@@ -118,7 +127,7 @@ home/
   dot_gnupg/
     symlink_*           # -> ~/.gnupg/gpg-agent.conf (symlink)
   private_dot_secrets.tmpl    # -> ~/.secrets (Bitwarden)
-  private_dot_frontierrc.tmpl # -> ~/.frontierrc (cosmo shell integration)
+  private_dot_frontierrc.tmpl # -> ~/.frontierrc (macOS cosmo shell integration; skipped on WSL)
 configs/                # actual config file contents (symlink targets)
   ghostty/
   karabiner/

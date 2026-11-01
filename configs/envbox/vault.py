@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+import shutil
 import subprocess
 import sys
 import tomllib
@@ -7,7 +8,7 @@ from pathlib import Path
 from urllib.parse import unquote_to_bytes
 
 
-def unlock():
+def unlock_with_pinentry():
     result = subprocess.run(
         ["pinentry-rbw-macos", "--timeout", "60"],
         input=(
@@ -33,7 +34,24 @@ def unlock():
         check=True,
         timeout=60,
     )
-    session = result.stdout.decode().strip()
+    return result.stdout.decode().strip()
+
+
+def unlock_with_bw_prompt():
+    result = subprocess.run(
+        ["bw", "unlock", "--raw"],
+        stdout=subprocess.PIPE,
+        check=True,
+        timeout=120,
+    )
+    return result.stdout.decode().strip()
+
+
+def unlock():
+    if shutil.which("pinentry-rbw-macos"):
+        session = unlock_with_pinentry()
+    else:
+        session = unlock_with_bw_prompt()
     if not session:
         raise RuntimeError("bw returned no session; run bw sync before trying again")
     return session
@@ -65,6 +83,11 @@ def main():
             os.environ.pop("FNOX_BW_SESSION", None)
             os.execvp(command[0], command)
     if not os.environ.get("BW_SESSION"):
+        if action == "export":
+            raise RuntimeError(
+                "BW_SESSION is not set; run `bwunlock` before "
+                "`DOTFILES_APPLY_SECRETS=1 chezmoi apply`"
+            )
         os.environ["BW_SESSION"] = unlock()
     os.environ.pop("FNOX_BW_SESSION", None)
     args = [
@@ -81,17 +104,18 @@ def main():
     ]
     if action == "export":
         args += ["export", "--format", "shell"]
-    else:
-        args += [
-            "exec",
-            "--",
-            "env",
-            "-u",
-            "BW_SESSION",
-            "-u",
-            "FNOX_BW_SESSION",
-            *command,
-        ]
+        subprocess.run(args, check=True, timeout=30)
+        return
+    args += [
+        "exec",
+        "--",
+        "env",
+        "-u",
+        "BW_SESSION",
+        "-u",
+        "FNOX_BW_SESSION",
+        *command,
+    ]
     os.execvp("fnox", args)
 
 

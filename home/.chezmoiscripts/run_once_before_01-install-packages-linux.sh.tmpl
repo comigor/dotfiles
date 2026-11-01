@@ -3,16 +3,19 @@
 set -eo pipefail
 
 sudo apt update
-sudo locale-gen en_US.UTF-8
 sudo apt install -y \
-    unzip zsh jq fzf git vim flatpak \
+    locales unzip zsh jq fzf git gh vim flatpak \
+    openssh-client curl ca-certificates gnupg lsb-release \
+    less tree bc dnsutils aria2 pcregrep ripgrep \
     gcc gettext libc6-dev libgl1-mesa-dev xorg-dev \
-    ca-certificates curl gnupg lsb-release libssl-dev libbz2-dev \
-    clang cmake ninja-build pkg-config libgtk-3-dev liblzma-dev libstdc++-12-dev
+    libssl-dev libbz2-dev clang cmake ninja-build pkg-config \
+    libgtk-3-dev liblzma-dev libstdc++-12-dev
+sudo locale-gen en_US.UTF-8
 
-echo "$SHELL" | grep -q zsh || {
-    chsh -s "$(which zsh)" "$USER"
-}
+zsh_path="$(command -v zsh)"
+if [ "${SHELL:-}" != "$zsh_path" ]; then
+    sudo chsh -s "$zsh_path" "$USER"
+fi
 
 sudo apt remove -y geary 'libreoffice*' || true
 sudo apt autoremove -y || true

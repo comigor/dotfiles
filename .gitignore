@@ -287,3 +287,10 @@ $RECYCLE.BIN/
 
 # Generated omp runtime state
 configs/omp/agent/config.yml.lock
+
+# Python bytecode
+__pycache__/
+*.pyc
+
+# Local bootstrap binary
+bin/chezmoi
