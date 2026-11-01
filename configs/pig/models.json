@@ -301,6 +301,32 @@
           },
           "contextWindow": 524288,
           "maxTokens": 131072
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash (Half Context)",
+          "reasoning": true,
+          "thinkingLevelMap": {
+            "off": "none",
+            "minimal": null,
+            "low": "low",
+            "medium": null,
+            "high": "high",
+            "xhigh": null,
+            "max": "max"
+          },
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 0.0056,
+            "output": 0.26695,
+            "cacheRead": 0.003,
+            "cacheWrite": 0
+          },
+          "contextWindow": 524288,
+          "maxTokens": 131072
         }
       ]
     },

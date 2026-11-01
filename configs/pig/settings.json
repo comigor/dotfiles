@@ -48,7 +48,7 @@
     "npm:pi-subagents"
   ],
   "subagents": {
-    "defaultModel": "modal-half/zai-org/GLM-5.3",
+    "defaultModel": "openrouter-half/deepseek/deepseek-v4.1-flash",
     "agentOverrides": {
       "reviewer": {
         "model": "openrouter-half/moonshotai/kimi-k3.1-pro",
