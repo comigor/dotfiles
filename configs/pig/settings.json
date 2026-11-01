@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "llamacpp",
-  "defaultModel": "Huihui-Qwen3.6-35B-A3B-abliterated-ggml-model-Q4_K.gguf",
+  "defaultProvider": "openrouter-half",
+  "defaultModel": "deepseek/deepseek-v4.1-flash",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "theme": "dark",
