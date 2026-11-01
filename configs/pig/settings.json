@@ -46,5 +46,34 @@
     "npm:pi-hashline-edit",
     "npm:pi-lens",
     "npm:pi-subagents"
-  ]
+  ],
+  "subagents": {
+    "defaultModel": "modal-half/zai-org/GLM-5.3",
+    "agentOverrides": {
+      "reviewer": {
+        "model": "openrouter-half/openai/gpt-5.6-sol",
+        "thinking": "high"
+      },
+      "oracle": {
+        "model": "openrouter-half/openai/gpt-5.6-sol",
+        "thinking": "high"
+      },
+      "researcher": {
+        "model": "modal-half/zai-org/GLM-5.3",
+        "thinking": "high"
+      },
+      "scout": {
+        "model": "modal-half/zai-org/GLM-5.3",
+        "thinking": "high"
+      },
+      "worker": {
+        "model": "modal-half/zai-org/GLM-5.3",
+        "thinking": "high"
+      },
+      "tdd-worker": {
+        "model": "modal-half/zai-org/GLM-5.3",
+        "thinking": "high"
+      }
+    }
+  }
 }
