@@ -47,45 +47,14 @@
     "npm:bladebro",
     "npm:@plannotator/pi-extension",
     "npm:pi-fabric",
-    "npm:pi-memory",
     "npm:pi-atelier",
     "npm:pi-btw"
   ],
   "piBolt": {
     "packagesOverlay": true,
     "packages": [
-      "npm:opensec-pi-subagents@0.20.9",
       "npm:opensec-pi-todo@2.13.1",
       "npm:opensec-pi-fff@0.11.0"
     ]
-  },
-  "subagents": {
-    "defaultModel": "openrouter-half/deepseek/deepseek-v4.1-flash",
-    "agentOverrides": {
-      "reviewer": {
-        "model": "openrouter-half/moonshotai/kimi-k3.1-pro",
-        "thinking": "high"
-      },
-      "oracle": {
-        "model": "openrouter-half/moonshotai/kimi-k3.1-pro",
-        "thinking": "high"
-      },
-      "researcher": {
-        "model": "modal-flash-half/zai-org/GLM-5.3-Flash",
-        "thinking": "high"
-      },
-      "scout": {
-        "model": "modal-flash-half/zai-org/GLM-5.3-Flash",
-        "thinking": "high"
-      },
-      "worker": {
-        "model": "modal-flash-half/zai-org/GLM-5.3-Flash",
-        "thinking": "high"
-      },
-      "tdd-worker": {
-        "model": "modal-flash-half/zai-org/GLM-5.3-Flash",
-        "thinking": "high"
-      }
-    }
   }
 }
