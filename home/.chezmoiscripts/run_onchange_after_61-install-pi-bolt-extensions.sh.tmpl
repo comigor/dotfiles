@@ -1,0 +1,16 @@
+{{- if ne .chezmoi.os "" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Install or reconcile the packages declared in the Pi agent directory, which
+# chezmoi symlinks to configs/pi. `run_onchange` reruns when settings.json
+# changes (hash below); Pi-Bolt also installs missing packages at startup.
+# settings: {{ include (joinPath .chezmoi.sourceDir ".." "configs/pi/settings.json") | sha256sum }}
+
+if [[ -x "$HOME/.local/bin/pi-bolt" ]]; then
+    "$HOME/.local/bin/pi-bolt" update --extensions
+    # piBolt.packages have no Pi build to load them and install lazily at
+    # startup; --help loads extensions without starting a session.
+    "$HOME/.local/bin/pi-bolt" --help >/dev/null 2>&1 || true
+fi
+{{ end -}}

@@ -1,0 +1,14 @@
+/*
+!/.gitignore
+!/settings.json
+!/models.json
+!/keybindings.json
+!/AGENTS.md
+!/SYSTEM.md
+!/APPEND_SYSTEM.md
+!/mcp.json
+!/extensions/
+!/agents/
+!/prompts/
+!/skills/
+!/themes/

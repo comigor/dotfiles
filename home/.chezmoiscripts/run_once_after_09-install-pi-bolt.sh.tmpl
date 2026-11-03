@@ -1,0 +1,27 @@
+{{- if ne .chezmoi.os "" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Pi-Bolt is Pi with an ahead-of-time compiled executable. The official installer
+# verifies the release signature and links pi-bolt into ~/.local/bin. It reads
+# Pi's agent directory (~/.pi/agent) as is. Extensions are declared in
+# configs/pi/settings.json, so let the installer add none of its own.
+#
+# The JIT build runs heavy run-time extensions (pi-lens, pi-fff) far faster, so
+# pick the JIT variant for this platform. `pi-bolt update` keeps the variant.
+case "$(uname -s)/$(uname -m)" in
+    Darwin/arm64 | Linux/aarch64 | Linux/arm64) variant=arm64-jit ;;
+    Linux/x86_64 | Linux/amd64) variant=x64-jit ;;
+    *) variant="" ;;
+esac
+
+if [[ -x "$HOME/.local/bin/pi-bolt" ]] &&
+    "$HOME/.local/bin/pi-bolt" --version 2>/dev/null | grep -q 'JIT on'; then
+    exit 0
+fi
+
+export PIBOLT_YES=1
+export PIBOLT_EXTENSIONS=no
+[[ -n "$variant" ]] && export PIBOLT_VARIANT="$variant"
+curl -fsSL https://pi-bolt.opensec.in/install.sh | sh
+{{ end -}}

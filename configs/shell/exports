@@ -52,8 +52,10 @@ export MISE_GO_SET_GOPATH=true
 
 export OMP_MEMORY_NUDGE=1
 
-# PiG replaces Pi: run in shared mode so it reads Pi's agent directory
-# (~/.pi/agent, which chezmoi symlinks to configs/pig) and Pi-path packages
-# (pi-subagents, pi-lens, ...) resolve their resources. PIG_USE_PI_DIRS is
-# pig-only, so Pi/omp are unaffected. Pig still keeps product state in ~/.pig.
+# PiG is kept as an option alongside Pi-Bolt: run in shared mode so it reads
+# Pi's agent directory (~/.pi/agent, which chezmoi symlinks to configs/pi) and
+# Pi-path packages (pi-lens, ...) resolve their resources. PIG_USE_PI_DIRS is
+# pig-only, so Pi/pi-bolt/omp are unaffected. Pig still keeps product state in
+# ~/.pig.
 export PIG_USE_PI_DIRS=1
+
