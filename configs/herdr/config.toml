@@ -1,0 +1,15 @@
+onboarding = false
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[ui]
+status_indicators = "symbols"
+
+[ui.toast]
+delivery = "herdr"
+
+[keys]
+split_vertical = "ctrl+shift+right"
+split_horizontal = "ctrl+shift+down"
