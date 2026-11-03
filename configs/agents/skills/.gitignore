@@ -1,1 +1,5 @@
 /v2-service-migration
+
+# Plannotator's skills: dropped in by its installer on every machine, not tracked
+/plannotator
+/plannotator-*

@@ -1,0 +1,15 @@
+{{- if ne .chezmoi.os "" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Plannotator: local plan review plus the Inbox. The installer puts the binary in
+# ~/.local/bin, wires the host agents it finds, and drops its skills into
+# ~/.agents/skills (untracked; reinstalled per machine). Its state under
+# ~/.plannotator is runtime data, not managed here.
+if ! command -v plannotator >/dev/null 2>&1; then
+    tmp="$(mktemp)"
+    trap 'rm -f "$tmp"' EXIT
+    curl -fsSL https://plannotator.ai/install.sh -o "$tmp"
+    bash "$tmp"
+fi
+{{ end -}}

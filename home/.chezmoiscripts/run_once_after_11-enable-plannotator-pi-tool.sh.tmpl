@@ -1,0 +1,30 @@
+{{- if ne .chezmoi.os "" -}}
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Turn on the Inbox tool for Pi (and pi-bolt, which shares ~/.pi/agent). The
+# Inbox rewrites ~/.plannotator/config.json with its own UI state, so merge the
+# flag in rather than managing the whole file. Run the Inbox once so the file
+# the Pi tool looks for exists.
+command -v plannotator >/dev/null 2>&1 || exit 0
+
+cfg="$HOME/.plannotator/config.json"
+python3 - "$cfg" <<'PY'
+import json, os, sys
+
+path = sys.argv[1]
+data = {}
+if os.path.exists(path):
+    with open(path) as fh:
+        data = json.load(fh)
+if data.get("inboxTool", {}).get("pi") is not True:
+    data.setdefault("inboxTool", {})["pi"] = True
+    with open(path, "w") as fh:
+        json.dump(data, fh, indent=2)
+        fh.write("\n")
+PY
+
+if [[ ! -f "$HOME/.plannotator/inbox/inbox.json" ]]; then
+    plannotator inbox --background >/dev/null 2>&1 || true
+fi
+{{ end -}}
