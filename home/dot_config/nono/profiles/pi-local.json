@@ -1,5 +1,5 @@
 {
-  "extends": "nolabs-ai/pi",
+  "extends": ["nolabs-ai/pi", "pi-local-grants"],
   "meta": {
     "name": "pi-local",
     "description": "Pi with a multi-repo workspace root, plus sandbox-safe git signing and push"

@@ -1,0 +1,227 @@
+#!/usr/bin/env python3
+"""pi-nono-learn — turn "some binary is blocked" into a policy line.
+
+Runs a command inside the nono sandbox with the pi-local profile, reads the
+denials (from nono's diagnostic footer and from the tool's own error text),
+sorts them into grants that are safe to take and ones that hand a credential to
+the agent, and with --apply writes the safe ones into
+~/.config/nono/profiles/pi-local-grants.json.
+
+    pi-nono-learn -- kubectl version --client
+    pi-nono-learn --apply -- mise --version
+    pi-nono-learn --include-secrets --apply -- kubectl config view
+
+Nothing is written without --apply. Credential-bearing paths are never written
+without --include-secrets, and permanently restricted ones never at all: those
+are printed with the broker that avoids granting them (agent socket, credential
+route, keyring injection).
+
+Expect two or three rounds for a new tool: a binary that cannot start never
+reaches the config file it would have been denied next.
+"""
+
+import json
+import os
+import re
+import subprocess
+import sys
+
+PROFILE = os.environ.get("PI_NONO_PROFILE", "pi-local")
+GRANTS = os.path.expanduser("~/.config/nono/profiles/pi-local-grants.json")
+HOME = os.path.expanduser("~")
+
+# Worth granting: toolchains, runtimes, caches, tool state. No long-lived secret
+# lives in these, and without them half the toolchain on PATH is unreachable.
+SAFE = (
+    "/.local/share/mise", "/.local/state/mise", "/.config/mise",
+    "/.local/bin", "/.local/share/pnpm", "/.local/share/pipx",
+    "/.cargo", "/.rustup", "/.nvm", "/.bun", "/.deno", "/.pub-cache",
+    "/.cache/", "/.local/state/", "/.gradle", "/.m2", "/.sdkman",
+    "/.shorebird", "/.asdf", "/.volta", "/.pkgx", "/.local/share/",
+    "/.config/helmenv", "/.config/k9s",
+)
+
+# The credential is the thing the sandbox exists to keep away from the agent.
+SECRET = (
+    "/.ssh/", "/.gnupg/", "/.aws", "/.kube", "/.docker/config.json",
+    "/.config/gcloud", "/.config/gh/hosts.yml", "/.config/gh/config.yml",
+    "/.netrc", "/.npmrc", "/.git-credentials", "/.config/op", "/.config/rbw",
+    "/.config/Bitwarden CLI", "/Library/Keychains",
+    "/Library/Application Support/rbw", "/Library/Application Support/1Password",
+    "/.pi/agent/auth.json", "/.password-store", "/.config/sops",
+    "/.terraform.d/credentials", "/.colima", "/.lima", "/.config/age",
+    "/.local/share/keyrings",
+)
+
+BROKER = {
+    "/.ssh": "ssh-agent socket + *.pub/config read only (already in pi-local)",
+    "/.gnupg": "gpg-agent socket + pubring/trustdb only (already in pi-local)",
+    "/.kube": "no clean broker — grant the file, or run kubectl outside the sandbox",
+    "/.aws": "network.custom_credentials + aws_auth: the proxy signs SigV4, no AWS key in the box",
+    "/.config/gcloud": "credential_capture cmd://gcloud auth print-access-token over a proxy route",
+    "/.config/gh": "credential_capture cmd://gh auth token (already set up in pi-local-gh)",
+    "/Library/Application Support/rbw": "rbw/ssh-agent socket, or nono keyring env_credentials",
+    "/.docker": "docker socket grant, or no Docker in the box at all",
+    "/.colima": "docker/colima socket grant — root-equivalent on the host, think twice",
+}
+
+
+def classify(path):
+    if path == HOME + "/bin" or path.startswith(HOME + "/bin/"):
+        return "safe"
+    for s in SECRET:
+        if s in path:
+            return "secret"
+    for s in SAFE:
+        if s in path:
+            return "safe"
+    return "review"
+
+
+def broker_for(path):
+    for k, v in BROKER.items():
+        if k in path:
+            return v
+    return "env_credentials from the system keystore, or a credential route if it is HTTP"
+
+
+def portable(path):
+    return "$HOME" + path[len(HOME):] if path.startswith(HOME + "/") else path
+
+
+def plausible(path):
+    """A grant is only written for a path we can believe: under $HOME, or real."""
+    return path.startswith(HOME + "/") or os.path.exists(path)
+
+
+OP_BUCKET = {"read": "read", "write": "allow", "readwrite": "allow"}
+FLAG_BUCKET = {"--read": "read", "--read-file": "read_file",
+               "--allow": "allow", "--allow-file": "allow",
+               "--allow-unix-socket": "unix_socket"}
+DENIAL_LINE = re.compile(r"^\s+(.+?) \((read|write|readwrite)\)(\s+\[permanently restricted\])?\s*$", re.M)
+TOOL_DENIAL = re.compile(r"(/[^:\n]*?): (?:Operation not permitted|Permission denied)")
+
+
+def scan(out):
+    """Return {path: bucket} and the set of permanently restricted paths."""
+    found, restricted = {}, set()
+
+    for m in DENIAL_LINE.finditer(out):
+        path, op, rest = m.group(1).strip(), m.group(2), m.group(3)
+        if not path.startswith("/"):
+            continue
+        found.setdefault(path, OP_BUCKET[op])
+        if rest:
+            restricted.add(path)
+
+    # "Fix flags:" is complete where the footer list truncates, and a path may
+    # contain spaces: join tokens until the next flag.
+    m = re.search(r"^Fix flags: (.*)$", out, re.M)
+    if m:
+        toks, cur, arg = m.group(1).split(), None, []
+        for t in toks + ["--end"]:
+            if t.startswith("--"):
+                if cur and arg:
+                    found.setdefault(" ".join(arg), FLAG_BUCKET[cur])
+                cur, arg = (t if t in FLAG_BUCKET else None), []
+            elif cur:
+                arg.append(t)
+
+    # A tool often names the path itself when nono's footer misses it.
+    for path in TOOL_DENIAL.findall(out):
+        path = path.strip()
+        if " /" in path:      # two paths glued together by the regex
+            continue
+        found.setdefault(path, "read")
+
+    return found, restricted
+
+
+def main(argv):
+    apply = "--apply" in argv
+    secrets = "--include-secrets" in argv
+    review = "--include-review" in argv or secrets
+    args = [a for a in argv if a not in ("--apply", "--include-secrets", "--include-review")]
+    if args and args[0] == "--":
+        args = args[1:]
+    if not args:
+        print(__doc__)
+        return 2
+
+    proc = subprocess.run(["nono", "run", "--profile", PROFILE, "--allow-cwd", "--"] + args,
+                          capture_output=True, text=True)
+    out = proc.stdout + proc.stderr
+    found, restricted = scan(out)
+
+    if not found:
+        print("No sandbox denials in that run.")
+        if proc.returncode != 0:
+            print("The command still failed — that failure is not a sandbox denial.")
+            print("Check a path by hand with: nono why --profile %s --path <path> --op read" % PROFILE)
+        return proc.returncode
+
+    plan = {"safe": {}, "secret": {}, "review": {}, "restricted": {}}
+    ignored = [p for p in found if not plausible(p)]
+    for p in ignored:
+        found.pop(p, None)
+    for path, kind in found.items():
+        key = "restricted" if path in restricted else classify(path)
+        plan[key].setdefault(kind, []).append(portable(path))
+
+    def show(title, entries):
+        if not entries:
+            return
+        print("\n" + title)
+        for kind, paths in sorted(entries.items()):
+            for p in sorted(set(paths)):
+                print("  %-12s %s" % (kind, p))
+
+    if ignored:
+        print("\nIgnored (not a path that exists, or outside $HOME): " + ", ".join(sorted(ignored)))
+    show("Safe to grant (toolchain, runtime, cache, tool state):", plan["safe"])
+    show("Not sure (grant with --include-review):", plan["review"])
+    show("Credential-bearing (grant with --include-secrets, after reading the note):", plan["secret"])
+    show("Permanently restricted (never automatic — needs bypass_protection):", plan["restricted"])
+
+    for p in sorted(set(x for d in (plan["secret"], plan["restricted"]) for ps in d.values() for x in ps)):
+        print("\n  %s\n    better: %s" % (p, broker_for(p)))
+
+    take = dict(plan["safe"])
+    if review:
+        for k, v in plan["review"].items():
+            take.setdefault(k, []).extend(v)
+    if secrets:
+        for k, v in plan["secret"].items():
+            take.setdefault(k, []).extend(v)
+    for k in plan["restricted"]:
+        take.pop(k, None)
+
+    if not apply:
+        print("\nDry run. Re-run with --apply to add the safe entries to")
+        print("  %s" % GRANTS)
+        return proc.returncode
+
+    with open(GRANTS) as fh:
+        prof = json.load(fh)
+    fs = prof.setdefault("filesystem", {})
+    added = []
+    for kind, paths in take.items():
+        cur = fs.setdefault(kind, [])
+        for p in sorted(set(paths)):
+            if p not in cur:
+                cur.append(p)
+                added.append("%s %s" % (kind, p))
+    if added:
+        with open(GRANTS, "w") as fh:
+            json.dump(prof, fh, indent=2)
+            fh.write("\n")
+        print("\nAdded to %s:" % GRANTS)
+        for a in added:
+            print("  " + a)
+    else:
+        print("\nNothing new to add.")
+    return proc.returncode
+
+
+if __name__ == "__main__":
+    sys.exit(main(sys.argv[1:]))
