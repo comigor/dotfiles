@@ -45,10 +45,12 @@
     "npm:pi-hashline-edit",
     "npm:pi-lens",
     "npm:bladebro",
-    "npm:@plannotator/pi-extension",
     "npm:pi-fabric",
     "npm:pi-atelier",
-    "npm:pi-btw"
+    "npm:pi-btw",
+    {
+      "source": "/Users/igor/.config/nono/packages/nolabs-ai/pi"
+    }
   ],
   "piBolt": {
     "packagesOverlay": true,
