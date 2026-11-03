@@ -1,0 +1,29 @@
+{
+  "extends": "nolabs-ai/pi",
+  "meta": {
+    "name": "pi-local",
+    "description": "Pi with a multi-repo workspace root, plus sandbox-safe git signing and push"
+  },
+  "groups": { "include": [] },
+  "workdir": { "access": "readwrite" },
+  "filesystem": {
+    "allow": ["$HOME/Projects"],
+    "read": ["$HOME/.pi-bolt", "$HOME/.local/bin"],
+    "read_file": [
+      "$HOME/.ssh/config",
+      "$HOME/.ssh/known_hosts",
+      "$HOME/.ssh/primary.pub",
+      "$HOME/.gnupg/pubring.kbx",
+      "$HOME/.gnupg/trustdb.gpg"
+    ],
+    "unix_socket": ["$HOME/.gnupg/S.gpg-agent"],
+    "bypass_protection": [
+      "$HOME/.ssh/config",
+      "$HOME/.ssh/known_hosts",
+      "$HOME/.ssh/primary.pub",
+      "$HOME/.gnupg/pubring.kbx",
+      "$HOME/.gnupg/trustdb.gpg",
+      "$HOME/.gnupg/S.gpg-agent"
+    ]
+  }
+}

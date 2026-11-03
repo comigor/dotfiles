@@ -1,0 +1,34 @@
+#!/bin/sh
+# pi-nono — run Pi-Bolt inside the nono sandbox.
+#
+#   pi-nono                 start Pi in the current directory
+#   pi-nono --print "hi"    any pi-bolt argument is passed straight through
+#
+# The sandbox comes from ~/.config/nono/profiles/pi-local.json (chezmoi-managed,
+# source: home/dot_config/nono/profiles/pi-local.json).
+#
+# What the agent can reach:
+#   read/write  the directory you launch from, and everything under ~/Projects
+#   read        ~/.pi (global AGENTS.md, settings, sessions), ~/.agents/skills,
+#               ~/.gitconfig, ~/.pi-bolt, ~/.local/bin
+#   signing     gpg-agent and ssh-agent sockets plus the public half of the keys,
+#               so signed commits and pushes work with no private key in the box
+#   denied      ~/.ssh private keys, ~/.gnupg/private-keys-v1.d, cloud creds,
+#               keychains, browser data, shell history, the rest of $HOME
+#
+# $HOME/Projects is granted as a whole on purpose: a session that starts in one
+# repo can open another one under it later without restarting, because Seatbelt
+# cannot widen a running sandbox.
+#
+# gh needs a credential route and a trusted proxy CA, so it lives in pi-nono-gh.
+set -eu
+
+if ! command -v nono >/dev/null 2>&1; then
+  echo "pi-nono: nono is not on PATH (expected in ~/.local/bin)" >&2
+  exit 127
+fi
+
+exec nono run \
+  --profile "${PI_NONO_PROFILE:-pi-local}" \
+  --allow-cwd \
+  -- pi-bolt "$@"

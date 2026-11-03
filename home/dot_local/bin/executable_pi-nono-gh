@@ -1,0 +1,23 @@
+#!/bin/sh
+# pi-nono-gh — pi-nono plus gh API access.
+#
+# Same sandbox as pi-nono, plus a github credential route: the token is read by
+# the *host* gh (cmd://gh auth token) and injected by nono's reverse proxy, so
+# it never enters the sandbox ("gh auth token" is never run inside).
+#
+# gh is a Go binary and ignores SSL_CERT_FILE on macOS, so it only trusts the
+# proxy through the system trust store: that is what --trust-proxy-ca does, and
+# it is why this is a separate launcher rather than the default. Day-to-day runs
+# stay on pi-nono, where no proxy CA is involved at all.
+set -eu
+
+if ! command -v nono >/dev/null 2>&1; then
+  echo "pi-nono-gh: nono is not on PATH (expected in ~/.local/bin)" >&2
+  exit 127
+fi
+
+exec nono run \
+  --profile pi-local-gh \
+  --allow-cwd \
+  --trust-proxy-ca \
+  -- pi-bolt "$@"

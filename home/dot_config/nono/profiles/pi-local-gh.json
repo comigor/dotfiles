@@ -1,0 +1,29 @@
+{
+  "extends": "pi-local",
+  "meta": {
+    "name": "pi-local-gh",
+    "description": "pi-local plus gh API access through the credential proxy (run with --trust-proxy-ca)"
+  },
+  "filesystem": {
+    "read": ["$HOME/.config/gh"]
+  },
+  "network": {
+    "credentials": ["github"],
+    "custom_credentials": {
+      "github": {
+        "upstream": "https://api.github.com",
+        "credential_key": "cmd://github",
+        "inject_header": "Authorization",
+        "credential_format": "token {}",
+        "env_var": "GH_TOKEN"
+      }
+    }
+  },
+  "credential_capture": {
+    "github": {
+      "command": ["/opt/homebrew/bin/gh", "auth", "token"],
+      "timeout_secs": 5,
+      "cache_ttl_secs": 900
+    }
+  }
+}
