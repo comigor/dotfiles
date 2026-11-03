@@ -49,6 +49,13 @@
           "reasoning": true
         },
         {
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "moonshotai/mxfp4"
+              ]
+            }
+          },
           "contextWindow": 500000,
           "id": "moonshotai/kimi-k3.1-pro",
           "maxTokens": 65536,
@@ -56,6 +63,13 @@
           "reasoning": true
         },
         {
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "anthropic"
+              ]
+            }
+          },
           "contextWindow": 300000,
           "id": "anthropic/claude-sonnet-5.5",
           "maxTokens": 65536,
@@ -125,7 +139,7 @@
           "compat": {
             "openRouterRouting": {
               "only": [
-                "openai/flex"
+                "openai"
               ]
             }
           },
@@ -273,6 +287,13 @@
           "id": "moonshotai/kimi-k3.1-pro",
           "name": "Kimi K3.1 Pro (Half Context)",
           "reasoning": true,
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "moonshotai/mxfp4"
+              ]
+            }
+          },
           "input": [
             "text"
           ],
@@ -297,6 +318,13 @@
             "high": "high",
             "xhigh": null,
             "max": "max"
+          },
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "deepinfra/fp8"
+              ]
+            }
           },
           "input": [
             "text",
