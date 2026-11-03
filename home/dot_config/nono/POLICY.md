@@ -76,22 +76,44 @@ These are decisions, not `pi-nono-learn` output. They live in
 | mise / node / npm / go | `allow`: `~/.local/share/mise`, `~/.local/state/mise`, `~/.npm`, `~/go`, `~/Library/Caches/go-build`; `read`: `~/.config/mise`, `~/.config/go`, `~/.cache` | none: caches and toolchains, no credentials |
 | kubectl | `read`+bypass `~/.kube/config`, `allow` `~/.kube/cache` | the agent holds the bearer token for whatever context is current (`staging`) |
 | aws | `read`+bypass `~/.aws`, `allow` `~/.aws/{sso,cli}/cache` | the agent can use the SSO session and call any AWS API the profile allows. No long-lived key: they use SSO, and the token cache is short-lived |
-| docker | `unix_socket` `~/.colima/default/docker.sock`, `read`+bypass `~/.docker` | **this one breaks the boundary** — see below |
+| docker | `unix_socket` `~/.colima/default/docker.sock`, `read`+bypass `~/.docker` | was a full host-home escape; closed at the colima end, see below |
 
-### The docker socket is a full escape hatch
+### The docker socket escaped through colima (closed 2026-11-03)
 
-Colima mounts the host `$HOME` **writable** into its VM by default. A container
-started from inside the sandbox can therefore read the host home directory:
+Colima mounted the host `$HOME` **writable** into its VM by default, so a
+container started from inside the sandbox read the host home:
 
 ```
 $ nono run --profile pi-local -- sh -c 'docker run --rm -v $HOME:/host alpine cat /host/sbx-secret.txt'
 home-secret
 ```
 
-So with docker granted, the sandbox stops being a boundary against a compromised
-agent — it only protects against accidents. If that matters, move the socket
-grant into an opt-in profile (`pi-local-docker`) and keep `pi-nono` contained;
-or reconfigure colima to mount a narrower directory writable.
+Fixed at the colima end rather than by dropping the grant —
+`~/.colima/default/colima.yaml`:
+
+```yaml
+mounts:
+  - location: ~/Projects
+    writable: true
+```
+
+The VM now mounts only `~/Projects` (rw) plus colima's own image cache (ro);
+`ls /Users/igor` inside it shows just `Library` and `Projects`. Every
+container here bind-mounts only paths under `~/Projects`, so nothing broke —
+anything mounting a dotfile directory now fails loudly instead.
+
+**Gotcha: changing colima mounts takes two restarts.** The first boot rewrites
+the guest fstab but systemd has already mounted the old `mount0`, so the old
+mount point lingers and the new one never appears. Stop and start colima
+twice, then verify:
+
+```
+colima ssh -- cat /proc/mounts | grep virtiofs
+colima ssh -- ls /Users/igor        # Library Projects
+```
+
+Never `colima delete` to force it: that destroys the VM disk, i.e. every
+docker image and volume. The restarts are enough.
 
 Verified working inside `pi-nono`: `docker ps` (lists real containers),
 `docker context ls`, `kubectl config current-context` (`staging`),
