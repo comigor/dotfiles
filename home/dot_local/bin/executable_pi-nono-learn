@@ -235,21 +235,21 @@ def main(argv):
         # by design, so a sandboxed process cannot widen its own policy.
         # Stage the same change as a draft for the user to promote.
         drafts = os.path.expanduser("~/.config/nono/profile-drafts")
-        path = os.path.join(drafts, "pi-local-grants-learned.json")
+        path = os.path.join(drafts, "pi-local-grants.json")
         os.makedirs(drafts, exist_ok=True)
+        # The draft carries the whole merged profile under its own name, so
+        # promoting it replaces pi-local-grants directly. A delta profile
+        # would need pi-local to extend it as well, which is a second edit.
         with open(path, "w") as fh:
-            json.dump({"extends": "pi-local-grants",
-                       "meta": {"name": "pi-local-grants-learned"},
-                       "filesystem": {k: sorted(set(v)) for k, v in take.items()}},
-                      fh, indent=2)
+            json.dump(prof, fh, indent=2)
             fh.write("\n")
         print("\n%s is read-only from in here (by design). Wrote a draft instead:" % GRANTS)
         print("  %s" % path)
         for a in added:
             print("  " + a)
-        print("\nReview and promote it from a normal shell:")
-        print("  nono profile validate --draft pi-local-grants-learned")
-        print("  nono profile promote pi-local-grants-learned")
+        print("\nReview and promote it from a normal shell, then relaunch:")
+        print("  nono profile validate --draft pi-local-grants")
+        print("  nono profile promote pi-local-grants")
     return proc.returncode
 
 
