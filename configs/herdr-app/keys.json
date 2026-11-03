@@ -4,7 +4,7 @@
     "cmd-h": "app.hide",
     "cmd-alt-h": "app.hide_others",
     "cmd-t": "tab.new",
-    "cmd-w": "tab.close",
+    "cmd-w": "pane.close",
     "ctrl-tab": "tab.next",
     "ctrl-shift-tab": "tab.prev",
     "cmd-shift-]": "tab.next",
@@ -18,11 +18,6 @@
     "cmd-p": "mod.open:picker",
     "cmd-shift-p": "app.palette",
     "cmd-,": "app.settings",
-    "cmd-d": "pane.split:right",
-    "cmd-shift-d": "pane.split:down",
-    "ctrl-shift-right": "pane.split:right",
-    "ctrl-shift-down": "pane.split:down",
-    "cmd-shift-w": "pane.close",
     "cmd-shift-enter": "pane.zoom",
     "cmd-alt-left": "pane.go:left",
     "cmd-alt-right": "pane.go:right",
@@ -58,7 +53,8 @@
     "ctrl-6": "space.select:6",
     "ctrl-7": "space.select:7",
     "ctrl-8": "space.select:8",
-    "ctrl-9": "space.select:9"
+    "ctrl-9": "space.select:9",
+    "shift-cmd-y": "mod.open:herdr-customize"
   },
   "terminal": {
     "cmd-c": "terminal.copy",
