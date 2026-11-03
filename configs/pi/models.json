@@ -66,7 +66,7 @@
     "openrouter-half": {
       "name": "OpenRouter (Half Context)",
       "baseUrl": "https://openrouter.ai/api/v1",
-      "apiKey": "OPENROUTER_API_KEY",
+      "apiKey": "$OPENROUTER_API_KEY",
       "api": "openai-completions",
       "authHeader": true,
       "models": [
@@ -264,7 +264,7 @@
           "compat": {
             "openRouterRouting": {
               "only": [
-                "gmicloud/fp8"
+                "alibaba"
               ]
             }
           }
@@ -316,11 +316,11 @@
     "modal-flash-half": {
       "name": "Modal Flash (Half Context)",
       "baseUrl": "https://frontier-dev--ep-glm-5-3-flash-server.us-east.modal.direct/v1",
-      "apiKey": "MODAL_PROXY_TOKEN_ID",
+      "apiKey": "$MODAL_PROXY_TOKEN_ID",
       "api": "openai-completions",
       "headers": {
-        "Modal-Key": "MODAL_PROXY_TOKEN_ID",
-        "Modal-Secret": "MODAL_PROXY_TOKEN_SECRET"
+        "Modal-Key": "$MODAL_PROXY_TOKEN_ID",
+        "Modal-Secret": "$MODAL_PROXY_TOKEN_SECRET"
       },
       "models": [
         {
