@@ -62,3 +62,7 @@ and everything is reachable on demand:
 - Gateway config: `configs/mcp-proxy/proxy.toml`; daemon: launchd
   `dev.mcp-proxy` (binary `~/.local/bin/mcp-proxy`, source build from
   `~/Projects/mcp-proxy`, PR #238 branch).
+
+## Always act, never narrate
+
+Never end a turn by announcing an action you did not take: "let me run...", "I'll check...", "running it now", "next I will...". If a reply says you will do something, you MUST make the corresponding tool call in that same turn. A promise to act with no tool call is a failed turn. Either perform the action immediately or do not write the sentence.
