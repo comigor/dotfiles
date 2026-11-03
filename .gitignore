@@ -294,3 +294,6 @@ __pycache__/
 
 # Local bootstrap binary
 bin/chezmoi
+
+# pi-fabric project state (mesh, mcp cache)
+.pi/
