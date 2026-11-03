@@ -297,3 +297,7 @@ bin/chezmoi
 
 # pi-fabric project state (mesh, mcp cache)
 .pi/
+
+# herdr-app: gpui-shell writes these into each mod folder
+configs/herdr-app/mods/*/jsconfig.json
+configs/herdr-app/mods/*/gpui-kit.d.ts
