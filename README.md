@@ -33,6 +33,7 @@ chezmoi update
 | Git | `.gitconfig` (templated per OS), `.gitignore`, `.gitattributes` |
 | Terminal | Ghostty |
 | Editor | Zed |
+| AI agents | Pi-Bolt (`pi-bolt`) sharing Pi's `~/.pi/agent`; Plannotator (plan review + Inbox), installed per machine |
 | Tools | mise, opencode, karabiner (macOS), GPG agent (macOS) |
 | Secrets | Base/staging files and ephemeral prod/admin profiles via fnox + Bitwarden |
 | Other | `.curlrc`, `.wgetrc`, `.inputrc`, `.screenrc`, `.editorconfig`, `.hushlogin`, `.Xmodmap`, `.tool-versions` |
@@ -46,6 +47,33 @@ Most files are **symlinked** from `$HOME` back into this repo, so edits in eithe
 | Symlinks | aliases, exports, zshrc, zprofile, all `.config/*`, gitignore, gitattributes, etc. | Edit anywhere |
 | Templates | `.gitconfig`, `.extra`, `.functions` | Edit in `home/`, run `chezmoi apply` |
 | Secrets | `.secrets`, `.staging.secrets` | Bitwarden hidden fields, rendered by fnox at apply time |
+
+## AI agents (Pi-Bolt)
+
+[Pi-Bolt](https://github.com/opensec-git/Pi-Bolt) is Pi with an ahead-of-time
+compiled executable. It uses Pi's agent directory, so `~/.pi/agent` is symlinked
+to [`configs/pi/`](configs/pi) and holds the shared `settings.json`, `models.json`
+and `keybindings.json`. Only those files are tracked; auth, sessions, model
+cache, npm packages and git checkouts stay machine-local via the directory's
+`.gitignore`.
+
+Pi-Bolt-only packages live under `piBolt.packages` with `packagesOverlay: true`,
+so a stock `pi` sharing the same directory neither installs nor loads them. The
+OpenSec extensions ([opensec-pi-subagents](https://www.npmjs.com/package/opensec-pi-subagents),
+[opensec-pi-todo](https://www.npmjs.com/package/opensec-pi-todo),
+[opensec-pi-fff](https://www.npmjs.com/package/opensec-pi-fff)) replace the
+upstream `pi-subagents` package and are pinned there. `run_once_after_09`
+installs Pi-Bolt with `PIBOLT_EXTENSIONS=no`; `run_onchange_after_61` reconciles
+the declared packages whenever `settings.json` changes.
+
+Pi-Bolt installs the **JIT variant** for the platform (the install script picks
+`arm64-jit` or `x64-jit` and reinstalls if the current build is JIT-off), so
+heavy run-time extensions like `pi-lens` and `pi-fff` run fast; `pi-bolt update`
+keeps the variant. PiG and omp remain as options: `PIG_USE_PI_DIRS` points PiG at
+this shared directory (its old `configs/pig` tree was removed), and the
+`configs/omp` symlinks remain. The jev-guard plugin and its bootstrap were
+removed, as was the omp-memory dream LaunchAgent (`~/.omp-memory` data is left
+in place).
 
 ## Secrets (fnox + Bitwarden)
 
@@ -100,6 +128,10 @@ Run automatically on first `chezmoi apply`:
 | `04` | mise + language runtimes |
 | `05` | Docker (Linux) |
 | `06` | uv (Python) |
+| `09` | Pi-Bolt JIT build (`PIBOLT_EXTENSIONS=no`; packages are declared in `configs/pi/settings.json`) |
+| `10` | Plannotator (local plan review + Inbox) |
+| `11` | Enable Plannotator's Pi Inbox tool and start the Inbox once |
+| `61` | Reconcile Pi-Bolt packages (`run_onchange`, reruns when `settings.json` changes) |
 
 ## Common commands
 
@@ -133,6 +165,7 @@ configs/                # actual config file contents (symlink targets)
   karabiner/
   mise/
   opencode/
+  pi/                   # ~/.pi/agent: settings, models, keybindings (Pi-Bolt)
   shell/                # aliases, exports, zprofile, zshrc
   git/                  # gitignore, gitattributes
   gnupg/
