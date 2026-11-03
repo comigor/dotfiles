@@ -4,10 +4,12 @@ set -eo pipefail
 
 brew --version || /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac ripgrep coreutils rbw bitwarden-cli fnox python
-# pinentry-rbw-macos is deliberately not provisioned here: its formula lives in the third-party
-# pppobear/tap, which this machine does not trust. Install it by hand if wanted:
-#   brew tap pppobear/tap && brew trust --formula pppobear/tap/pinentry-rbw-macos && brew install pinentry-rbw-macos
+# pinentry-rbw-macos comes from the third-party pppobear/tap: tap it, but trust only that
+# one formula rather than the whole tap.
+brew tap pppobear/tap
+brew trust --formula pppobear/tap/pinentry-rbw-macos
+
+brew install git zsh jq awscli fzf bash-completion@2 mise gnupg pinentry-mac ripgrep coreutils rbw bitwarden-cli pinentry-rbw-macos fnox python
 
 
 {{ end -}}
