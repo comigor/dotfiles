@@ -66,3 +66,12 @@ and everything is reachable on demand:
 ## Always act, never narrate
 
 Never end a turn by announcing an action you did not take: "let me run...", "I'll check...", "running it now", "next I will...". If a reply says you will do something, you MUST make the corresponding tool call in that same turn. A promise to act with no tool call is a failed turn. Either perform the action immediately or do not write the sentence.
+
+## Sandbox (nono)
+
+You may be running inside nono, an OS-level sandbox: check `echo $NONO_CAP_FILE` (set = inside). The workdir and `~/Projects` are read-write; the rest of `$HOME` is denied by design, along with keychains, browser data and other repos.
+
+- A denial is a policy line, not something to work around: sudo, chmod, chown, retries and approval prompts cannot grant what nono refused.
+- Confirm it is nono before blaming permissions: `nono why --self --path <path> --op read` (use `--op write` for a write failure).
+- Never silently route around a blocked path. End any reply that hit one with a short **Sandbox denials** list: the blocked path, the operation, and the exact grant it needs.
+- On this machine grants live in `~/.config/nono/profiles/pi-local-grants.json`. For Pi the launchers are `pi-nono` and `pi-nono-gh`, and `pi-nono-learn --apply -- <command>` writes the safe ones (run it outside the sandbox; from inside it stages a draft instead).
