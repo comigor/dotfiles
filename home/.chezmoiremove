@@ -1,3 +1,9 @@
 .prod.secrets
 .prod-admin.secrets
 .staging-admin.secrets
+
+# jev-guard retired
+.omp/jev-guard.json
+
+# omp-memory dream agent retired
+Library/LaunchAgents/com.penrose.omp-memory-dream.plist
