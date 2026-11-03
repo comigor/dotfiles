@@ -66,7 +66,12 @@ BROKER = {
 }
 
 
+NEVER = ("/.local/state/nono", "/.config/nono", "/.nono", "/.local/share/nono", "/Library/Application Support/nono")
+
+
 def classify(path):
+    if any(s in path for s in NEVER):
+        return "restricted"   # nono's own state: the audit log and the policy
     if path == HOME + "/bin" or path.startswith(HOME + "/bin/"):
         return "safe"
     for s in SECRET:
@@ -79,6 +84,8 @@ def classify(path):
 
 
 def broker_for(path):
+    if any(s in path for s in NEVER):
+        return "never: nono's own state holds the audit log and the policy"
     for k, v in BROKER.items():
         if k in path:
             return v
@@ -211,15 +218,38 @@ def main(argv):
             if p not in cur:
                 cur.append(p)
                 added.append("%s %s" % (kind, p))
-    if added:
+
+    if not added:
+        print("\nNothing new to add.")
+        return proc.returncode
+
+    try:
         with open(GRANTS, "w") as fh:
             json.dump(prof, fh, indent=2)
             fh.write("\n")
         print("\nAdded to %s:" % GRANTS)
         for a in added:
             print("  " + a)
-    else:
-        print("\nNothing new to add.")
+    except OSError:
+        # Running from inside a sandbox: the profiles directory is read-only
+        # by design, so a sandboxed process cannot widen its own policy.
+        # Stage the same change as a draft for the user to promote.
+        drafts = os.path.expanduser("~/.config/nono/profile-drafts")
+        path = os.path.join(drafts, "pi-local-grants-learned.json")
+        os.makedirs(drafts, exist_ok=True)
+        with open(path, "w") as fh:
+            json.dump({"extends": "pi-local-grants",
+                       "meta": {"name": "pi-local-grants-learned"},
+                       "filesystem": {k: sorted(set(v)) for k, v in take.items()}},
+                      fh, indent=2)
+            fh.write("\n")
+        print("\n%s is read-only from in here (by design). Wrote a draft instead:" % GRANTS)
+        print("  %s" % path)
+        for a in added:
+            print("  " + a)
+        print("\nReview and promote it from a normal shell:")
+        print("  nono profile validate --draft pi-local-grants-learned")
+        print("  nono profile promote pi-local-grants-learned")
     return proc.returncode
 
 
