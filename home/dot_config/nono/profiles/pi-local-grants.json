@@ -11,13 +11,14 @@
       "$HOME/go",
       "$HOME/Library/Caches/go-build",
       "$HOME/.kube/cache",
+      "$HOME/.pi-lens",
+      "$HOME/.cache",
       "$HOME/.aws/sso/cache",
       "$HOME/.aws/cli/cache"
     ],
     "read": [
       "$HOME/.config/mise",
       "$HOME/.config/go",
-      "$HOME/.cache",
       "$HOME/.kube/config",
       "$HOME/.aws",
       "$HOME/.docker"
