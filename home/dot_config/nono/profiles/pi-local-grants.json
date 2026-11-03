@@ -1,47 +1,38 @@
 {
   "meta": {
     "name": "pi-local-grants",
-    "description": "Learned grants for pi-local. Add entries here when a tool is blocked; pi-local extends this profile. Keep secrets out: use credential routes and agent sockets instead."
+    "description": "Grants for tools: the safe ones pi-nono-learn learns, plus deliberate per-tool decisions (aws, docker, kubectl). pi-local extends this profile."
   },
   "filesystem": {
     "allow": [
-      "$HOME/.local/state/mise/incomplete-installs/.migrated"
+      "$HOME/.local/share/mise",
+      "$HOME/.local/state/mise",
+      "$HOME/.npm",
+      "$HOME/go",
+      "$HOME/Library/Caches/go-build",
+      "$HOME/.kube/cache",
+      "$HOME/.aws/sso/cache",
+      "$HOME/.aws/cli/cache"
     ],
     "read": [
       "$HOME/.config/mise",
-      "$HOME/.local/state/mise/incomplete-installs",
-      "$HOME/.local/share/mise/dotnet-root",
-      "$HOME/.local/share/mise/installs/dart/3.9.4/bin",
-      "$HOME/.local/share/mise/installs/go/1.27.3/bin",
-      "$HOME/.local/share/mise/installs/java/corretto-21.0.13.0.11/bin",
-      "$HOME/.local/share/mise/installs/node/26.13.0/bin",
-      "$HOME/.local/share/mise/shims",
-      "$HOME/.pub-cache/bin",
-      "$HOME/.shorebird/bin",
-      "$HOME/bin",
-      "$HOME/.local/share/mise/installs",
-      "$HOME/.local/share/mise/installs/.mise-installs.toml",
-      "$HOME/.local/share/mise/installs/dart",
-      "$HOME/.local/share/mise/installs/dart/.mise.backend",
-      "$HOME/.local/share/mise/installs/dotnet",
-      "$HOME/.local/share/mise/installs/go",
-      "$HOME/.local/share/mise/installs/go/.mise.backend",
-      "$HOME/.local/share/mise/installs/go/.mise.backend.toml",
-      "$HOME/.local/share/mise/installs/go/latest",
-      "$HOME/.local/share/mise/installs/node",
-      "$HOME/.local/share/mise/installs/rust",
-      "$HOME/.local/share/mise/installs/rust/latest",
-      "$HOME/.local/share/mise/plugins",
-      "$HOME/.local/state/mise/tracked-configs"
+      "$HOME/.config/go",
+      "$HOME/.cache",
+      "$HOME/.kube/config",
+      "$HOME/.aws",
+      "$HOME/.docker"
     ],
-    "read_file": [
-      "$HOME/bin/kubectl",
-      "$HOME/.local/share/mise/installs/node/.mise.backend",
-      "$HOME/.local/share/mise/installs/node/.mise.backend.toml",
-      "$HOME/.local/state/mise/tool-purgatory.json",
-      "$HOME/.local/state/mise/tracked-configs/384b22988048cd5"
+    "read_file": [],
+    "unix_socket": [
+      "$HOME/.colima/default/docker.sock"
     ],
-    "unix_socket": [],
-    "bypass_protection": []
+    "bypass_protection": [
+      "$HOME/.kube/config",
+      "$HOME/.kube/cache",
+      "$HOME/.aws/sso/cache",
+      "$HOME/.aws/cli/cache",
+      "$HOME/.aws",
+      "$HOME/.docker"
+    ]
   }
 }

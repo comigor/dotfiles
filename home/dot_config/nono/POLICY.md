@@ -64,3 +64,35 @@ cannot widen a running sandbox.
 Check any single path without running anything:
 
     nono why --profile pi-local --path ~/.kube/config --op read
+
+
+## Deliberate tool grants (2026-11-03)
+
+These are decisions, not `pi-nono-learn` output. They live in
+`pi-local-grants.json` too, so there is one place to look.
+
+| Tool | Grant | Consequence |
+|---|---|---|
+| mise / node / npm / go | `allow`: `~/.local/share/mise`, `~/.local/state/mise`, `~/.npm`, `~/go`, `~/Library/Caches/go-build`; `read`: `~/.config/mise`, `~/.config/go`, `~/.cache` | none: caches and toolchains, no credentials |
+| kubectl | `read`+bypass `~/.kube/config`, `allow` `~/.kube/cache` | the agent holds the bearer token for whatever context is current (`staging`) |
+| aws | `read`+bypass `~/.aws`, `allow` `~/.aws/{sso,cli}/cache` | the agent can use the SSO session and call any AWS API the profile allows. No long-lived key: they use SSO, and the token cache is short-lived |
+| docker | `unix_socket` `~/.colima/default/docker.sock`, `read`+bypass `~/.docker` | **this one breaks the boundary** — see below |
+
+### The docker socket is a full escape hatch
+
+Colima mounts the host `$HOME` **writable** into its VM by default. A container
+started from inside the sandbox can therefore read the host home directory:
+
+```
+$ nono run --profile pi-local -- sh -c 'docker run --rm -v $HOME:/host alpine cat /host/sbx-secret.txt'
+home-secret
+```
+
+So with docker granted, the sandbox stops being a boundary against a compromised
+agent — it only protects against accidents. If that matters, move the socket
+grant into an opt-in profile (`pi-local-docker`) and keep `pi-nono` contained;
+or reconfigure colima to mount a narrower directory writable.
+
+Verified working inside `pi-nono`: `docker ps` (lists real containers),
+`docker context ls`, `kubectl config current-context` (`staging`),
+`aws sts get-caller-identity` (`662792376634`), `node`, `npm`, `go`, `mise`.
