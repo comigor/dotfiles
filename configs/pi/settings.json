@@ -41,12 +41,15 @@
   "enableAnalytics": true,
   "lastChangelogVersion": "1.4.0",
   "packages": [
-    "npm:@mazli/pi-ask-user-question",
     "npm:@sherif-fanous/pi-rtk",
     "npm:pi-hashline-edit",
     "npm:pi-lens",
     "npm:bladebro",
-    "npm:@plannotator/pi-extension"
+    "npm:@plannotator/pi-extension",
+    "npm:pi-fabric",
+    "npm:pi-memory",
+    "npm:pi-atelier",
+    "npm:pi-btw"
   ],
   "piBolt": {
     "packagesOverlay": true,
