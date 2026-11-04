@@ -1,0 +1,13 @@
+{
+  "name": "omp-memory-pi",
+  "private": true,
+  "type": "module",
+  "description": "Loads decade-eng/omp-extensions' omp-memory into Pi-Bolt with this machine's settings",
+  "keywords": ["pi-package"],
+  "pi": {
+    "extensions": ["./index.ts"]
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}

@@ -75,6 +75,15 @@ this shared directory (its old `configs/pig` tree was removed), and the
 removed, as was the omp-memory dream LaunchAgent (`~/.omp-memory` data is left
 in place).
 
+**omp-memory** (long-term memory: observes turns, dreams them into preferences,
+principles, project pages and skills, recalls them each session) runs in Pi-Bolt
+from a checkout of `decade-eng/omp-extensions` in `~/Projects`.
+[`configs/pi/packages/omp-memory`](configs/pi/packages/omp-memory) is a local
+package under `piBolt.packages` that sets its environment (store
+`~/.omp-memory`, shared with omp; GLM-5.3-Flash on Modal) and loads it. Use
+`/recall status`, `/recall dream`, `/recall questions`. `pi-local-grants` lets
+the nono sandbox write the store.
+
 ## Secrets (fnox + Bitwarden)
 
 ```bash

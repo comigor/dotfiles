@@ -14,7 +14,8 @@
       "$HOME/.pi-lens",
       "$HOME/.cache",
       "$HOME/.aws/sso/cache",
-      "$HOME/.aws/cli/cache"
+      "$HOME/.aws/cli/cache",
+      "$HOME/.omp-memory"
     ],
     "read": [
       "$HOME/.config/mise",

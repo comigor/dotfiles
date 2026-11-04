@@ -56,7 +56,8 @@
     "packagesOverlay": true,
     "packages": [
       "npm:opensec-pi-todo@2.13.1",
-      "npm:opensec-pi-fff@0.11.0"
+      "npm:opensec-pi-fff@0.11.0",
+      "./packages/omp-memory"
     ]
   }
 }
