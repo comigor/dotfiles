@@ -32,13 +32,9 @@
     ],
     "read": [
       "$HOME/.pi-bolt",
-      "$HOME/.local/bin",
-      "/System"
+      "$HOME/.local/bin"
     ],
     "write": [],
-    "allow_file": [
-      "/history database"
-    ],
     "read_file": [
       "$HOME/.gitignore",
       "$HOME/.gitattributes",
