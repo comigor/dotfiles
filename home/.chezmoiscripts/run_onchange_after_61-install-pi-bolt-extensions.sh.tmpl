@@ -12,5 +12,10 @@ if [[ -x "$HOME/.local/bin/pi-bolt" ]]; then
     # piBolt.packages have no Pi build to load them and install lazily at
     # startup; --help loads extensions without starting a session.
     "$HOME/.local/bin/pi-bolt" --help >/dev/null 2>&1 || true
+    # Bake the reconciled set in. Installing or removing a package leaves the
+    # previous set compiled into the binary, so a removed one stays referenced
+    # (doctor: "no longer installed") until this runs. ~15-40 s; the build
+    # before is kept and `pi-bolt update --rollback` puts it back.
+    "$HOME/.local/bin/pi-bolt" compile
 fi
 {{ end -}}
