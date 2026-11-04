@@ -59,7 +59,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -95,7 +96,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -131,7 +133,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -167,7 +170,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -203,7 +207,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -239,7 +244,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -275,7 +281,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_unless"
                                     }
@@ -311,7 +318,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -347,7 +355,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -383,7 +392,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -418,7 +428,8 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$"
+                                            "^co\\.zeit\\.hyper$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -454,7 +465,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -489,7 +501,8 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$"
+                                            "^co\\.zeit\\.hyper$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -524,7 +537,8 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$"
+                                            "^co\\.zeit\\.hyper$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -560,7 +574,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -596,7 +611,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -632,7 +648,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -668,7 +685,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -704,7 +722,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -740,7 +759,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -775,7 +795,8 @@
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
                                             "^co\\.zeit\\.hyper$",
-                                            "^dev\\.warp\\.Warp-Stable$"
+                                            "^dev\\.warp\\.Warp-Stable$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
@@ -810,7 +831,8 @@
                                             "^com\\.github\\.wez\\.wezterm$",
                                             "^com\\.alacritty$",
                                             "^io\\.alacritty$",
-                                            "^co\\.zeit\\.hyper$"
+                                            "^co\\.zeit\\.hyper$",
+                                            "^dev\\.herdr\\.app$"
                                         ],
                                         "type": "frontmost_application_if"
                                     }
