@@ -5,16 +5,43 @@
 set -eu
 
 status=$(herdr-app status) || exit 1
-target=$(printf '%s' "$status" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("agent") or "")')
-[ -n "$target" ] || { echo "annotate-last: no agent in the focused pane" >&2; exit 1; }
+focused_pane=$(printf '%s' "$status" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("focused_pane") or "")')
+space=$(printf '%s' "$status" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("space") or "")')
+fallback=$(printf '%s' "$status" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("agent") or "")')
 
-host=$(hc ls | python3 -c '
+# The pane the key was pressed in holds the reviewed agent; a review pane opened
+# beside it may already have taken focus, so fall back to the agent of that space.
+target=$(herdr-app ls | python3 -c '
 import json, sys
-address = sys.argv[1]
-for terminal in json.load(sys.stdin).get("terminals", []):
-    if terminal.get("address") == address:
-        print(terminal.get("agent") or "")
-        break
+pane, space, fallback = sys.argv[1:4]
+data = json.load(sys.stdin)
+def terminals(only_space=None):
+    for s in data.get("spaces", []):
+        if only_space and s.get("id") != only_space:
+            continue
+        for t in s.get("tabs", []):
+            for term in t.get("terminals", []):
+                yield term
+for term in terminals():
+    if term.get("pane") == pane and term.get("app"):
+        print(term["terminal"]); raise SystemExit
+same_space = [t for t in terminals(space) if t.get("app")]
+live = [t for t in same_space if t.get("status") != "done"]
+if live or same_space:
+    print((live or same_space)[0]["terminal"]); raise SystemExit
+print(fallback or "")
+' "$focused_pane" "$space" "$fallback")
+
+[ -n "$target" ] || { echo "annotate-last: no agent pane in this space" >&2; exit 1; }
+
+host=$(herdr-app ls | python3 -c '
+import json, sys
+want = sys.argv[1]
+for s in json.load(sys.stdin).get("spaces", []):
+    for t in s.get("tabs", []):
+        for term in t.get("terminals", []):
+            if term.get("terminal") == want:
+                print(term.get("app") or ""); raise SystemExit
 ' "$target")
 
 HERDR_ENV=1
