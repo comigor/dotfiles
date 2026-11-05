@@ -56,10 +56,14 @@
     "ctrl-shift-o": {
       "command": "terminal.open",
       "args": {
-        "argv": ["annotate-last"],
+        "argv": [
+          "annotate-last"
+        ],
         "place": "right"
       }
-    }
+    },
+    "ctrl-tab": "panes.next",
+    "ctrl-shift-tab": "panes.prev"
   },
   "terminal": {
     "cmd-c": "terminal.copy",
@@ -77,9 +81,5 @@
     "cmd-left": "send:\u0001",
     "cmd-right": "send:\u0005",
     "cmd-backspace": "send:\u0015"
-  },
-  "mod:panes": {
-    "ctrl-tab": "panes.next",
-    "ctrl-shift-tab": "panes.prev"
   }
 }
