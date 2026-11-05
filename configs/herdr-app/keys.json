@@ -54,7 +54,14 @@
     "ctrl-7": "space.select:7",
     "ctrl-8": "space.select:8",
     "ctrl-9": "space.select:9",
-    "shift-cmd-y": "mod.open:herdr-customize"
+    "shift-cmd-y": "mod.open:herdr-customize",
+    "ctrl-shift-o": {
+      "command": "terminal.open",
+      "args": {
+        "argv": ["plannotator-tui", "last", "--host", "pi"],
+        "place": "right"
+      }
+    }
   },
   "terminal": {
     "cmd-c": "terminal.copy",
