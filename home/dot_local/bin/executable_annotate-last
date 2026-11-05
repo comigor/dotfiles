@@ -1,0 +1,28 @@
+#!/bin/sh
+# Review the focused agent's last reply, then send the feedback back into its pane.
+# plannotator-tui delivers through the herdr CLI contract; that call is served here
+# by herdr-app-deliver over herdr-core, because herdr-app has no plugin host.
+set -eu
+
+status=$(herdr-app status) || exit 1
+target=$(printf '%s' "$status" | python3 -c 'import json,sys;print(json.load(sys.stdin).get("agent") or "")')
+[ -n "$target" ] || { echo "annotate-last: no agent in the focused pane" >&2; exit 1; }
+
+host=$(hc ls | python3 -c '
+import json, sys
+address = sys.argv[1]
+for terminal in json.load(sys.stdin).get("terminals", []):
+    if terminal.get("address") == address:
+        print(terminal.get("agent") or "")
+        break
+' "$target")
+
+HERDR_ENV=1
+HERDR_BIN_PATH=$HOME/.local/bin/herdr-app-deliver
+PLANNOTATOR_TUI_DELIVER_TO=$target
+export HERDR_ENV HERDR_BIN_PATH PLANNOTATOR_TUI_DELIVER_TO
+
+if [ -n "$host" ]; then
+    exec plannotator-tui last --host "$host" "$@"
+fi
+exec plannotator-tui last "$@"

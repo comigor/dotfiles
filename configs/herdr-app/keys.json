@@ -58,7 +58,7 @@
     "ctrl-shift-o": {
       "command": "terminal.open",
       "args": {
-        "argv": ["plannotator-tui", "last", "--host", "pi"],
+        "argv": ["annotate-last"],
         "place": "right"
       }
     }

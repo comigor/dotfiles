@@ -1,0 +1,44 @@
+#!/bin/sh
+# The slice of the herdr CLI plannotator-tui uses to hand feedback to an agent
+# (its delivery contract is "$HERDR_BIN_PATH agent prompt <pane> <feedback>").
+# herdr-app has no plugin host, so this maps that call onto herdr-core.
+set -eu
+
+usage() {
+    echo "usage: herdr-app-deliver agent prompt <terminal> <text>" >&2
+    exit 2
+}
+
+refuse() {
+    printf '{"error":{"code":"%s","message":"%s"}}\n' "$1" "$2" >&2
+    exit 1
+}
+
+[ "${1-}" = agent ] && [ "${2-}" = prompt ] && [ "$#" -ge 4 ] || usage
+target=$3
+shift 3
+feedback=$1
+
+case $target in
+t*) ;;
+*) refuse agent_not_found "unknown target: $target" ;;
+esac
+
+state=$(hc get "$target" 2>/dev/null | python3 -c '
+import json, sys
+try:
+    record = json.load(sys.stdin)
+except Exception:
+    raise SystemExit
+status = record.get("status") or {}
+if not status.get("app"):
+    print("no-agent")
+else:
+    print(status.get("state") or "")
+' || true)
+
+[ -n "$state" ] || refuse agent_not_found "$target is not a live terminal"
+[ "$state" != no-agent ] || refuse agent_not_found "$target has no agent"
+[ "$state" != blocked ] || refuse agent_blocked "the agent is at a dialog"
+
+hc send "$target" "$feedback"
