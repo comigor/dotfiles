@@ -37,10 +37,6 @@ Rules are scoped to where they apply rather than to a keyboard:
 
 App switching needs no rule: Control+Tab already emits Command+Tab through identity.
 
-## Known defects
-
-- `Ctrl+Space → Cmd+Space` and `Cmd+Space → Ctrl+Space` are exact inverses, both
-  unconditional, left over from two keyboards that disagree. At most one can be right.
 
 ## Work
 
@@ -48,5 +44,6 @@ App switching needs no rule: Control+Tab already emits Command+Tab through ident
 - [x] reset macOS Modifier Keys to defaults on every keyboard — they were inert; Karabiner decides
 - [x] reduce the complex rules to one variant per intent — 24 → 17; Ghostty owns tab and
       split cycling, the app owns tab cycling
-- [ ] verify per keyboard: Control+C copies, Control+Tab switches apps, Control+←
+- [x] verify per keyboard: Control+C copies, Control+Tab switches apps, Control+←
       navigates words, the third key+C signals, `ctrl-shift-o` opens the review
+- [ ] Ghostty split cycling still needs two splits open to be observable
