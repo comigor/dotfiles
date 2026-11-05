@@ -37,7 +37,6 @@ Rules are scoped to where they apply rather than to a keyboard:
 
 App switching needs no rule: Control+Tab already emits Command+Tab through identity.
 
-
 ## Work
 
 - [x] declare identity once in Karabiner, per-device entries only where hardware differs

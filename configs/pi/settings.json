@@ -51,7 +51,8 @@
     "npm:pi-btw",
     {
       "source": "/Users/igor/.config/nono/packages/nolabs-ai/pi"
-    }
+    },
+    "npm:@plannotator/pi-extension"
   ],
   "piBolt": {
     "packagesOverlay": true,
