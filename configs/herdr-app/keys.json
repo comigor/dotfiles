@@ -5,8 +5,6 @@
     "cmd-alt-h": "app.hide_others",
     "cmd-t": "tab.new",
     "cmd-w": "pane.close",
-    "ctrl-tab": "pane.go:right",
-    "ctrl-shift-tab": "pane.go:left",
     "cmd-shift-]": "tab.next",
     "cmd-shift-[": "tab.prev",
     "cmd-alt-]": "space.next",
@@ -79,5 +77,9 @@
     "cmd-left": "send:\u0001",
     "cmd-right": "send:\u0005",
     "cmd-backspace": "send:\u0015"
+  },
+  "mod:panes": {
+    "ctrl-tab": "panes.next",
+    "ctrl-shift-tab": "panes.prev"
   }
 }

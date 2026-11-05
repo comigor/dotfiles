@@ -175,6 +175,16 @@
           "content": {
             "mod": "desktop-notifications"
           }
+        },
+        {
+          "id": "panes",
+          "type": "block",
+          "size": {
+            "px": 0
+          },
+          "content": {
+            "mod": "panes"
+          }
         }
       ],
       "resizable": false
