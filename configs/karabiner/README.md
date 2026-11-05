@@ -41,17 +41,20 @@ App switching needs no rule: Control+Tab already emits Command+Tab through ident
 
 - `Ctrl+Space → Cmd+Space` and `Cmd+Space → Ctrl+Space` are exact inverses, both
   unconditional, left over from two keyboards that disagree. At most one can be right.
-- The NuPhy swaps Control/Command twice — macOS Modifier Keys and its Karabiner
-  device entry — so which one wins is undefined.
-- The Logitech `1046-41208` rotates Control→Command, Command→Option, Option→Control,
-  which no other keyboard does.
 - The Corsair `6940-7013` carries an Alt/Command swap in macOS only.
 - Caps Lock → Control is set in macOS for two keyboards and does nothing; Caps Lock is
   meant to stay Caps Lock.
 
 ## Work
 
-- [ ] declare identity once in Karabiner, per-device entries only where hardware differs
+- [x] declare identity once in Karabiner, per-device entries only where hardware differs
+- [ ] reset macOS Modifier Keys to defaults on every keyboard
+- [ ] reduce the complex rules to one variant per intent
+- [ ] verify per keyboard: Control+C copies, Control+Tab switches apps, Control+←
+      navigates words, the third key+C signals, `ctrl-shift-o` opens the review
+
+The review chord is pressed with the third key: it is macOS Control that the app
+matches, and physical `control` emits Command, so `control`+Shift+O cannot open it.
 - [ ] reset macOS Modifier Keys to defaults on every keyboard
 - [ ] reduce the complex rules to one variant per intent
 - [ ] verify per keyboard: Control+C copies, Control+Tab switches apps, Control+←
