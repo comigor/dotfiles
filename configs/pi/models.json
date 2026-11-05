@@ -99,8 +99,8 @@
         }
       }
     },
-    "modal-flash-half": {
-      "name": "Modal Flash (Half Context)",
+    "modal-glm-flash": {
+      "name": "Modal GLM Flash",
       "baseUrl": "https://frontier-dev--ep-glm-5-3-flash-server.us-east.modal.direct/v1",
       "apiKey": "$MODAL_PROXY_TOKEN_ID",
       "api": "openai-completions",
@@ -111,7 +111,7 @@
       "models": [
         {
           "id": "zai-org/GLM-5.3-Flash",
-          "name": "GLM-5.3-Flash on Modal (Half Context)",
+          "name": "GLM-5.3-Flash on Modal",
           "reasoning": true,
           "thinkingLevelMap": {
             "minimal": "low",

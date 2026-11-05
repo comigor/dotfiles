@@ -1,0 +1,56 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+# The Homebrew formula only downloads this same release asset, and needs a
+# current Xcode to do it, so fetch the binary directly on every platform.
+VERSION="0.9.9"
+BIN_DIR="{{ .chezmoi.homeDir }}/bin"
+BIN="$BIN_DIR/plannotator-tui"
+
+case "$(uname -s)" in
+Darwin) libc="apple-darwin" ;;
+Linux) libc="unknown-linux-gnu" ;;
+*)
+  echo "plannotator-tui: unsupported OS $(uname -s)" >&2
+  exit 1
+  ;;
+esac
+case "$(uname -m)" in
+arm64 | aarch64) arch="aarch64" ;;
+x86_64) arch="x86_64" ;;
+*)
+  echo "plannotator-tui: unsupported architecture $(uname -m)" >&2
+  exit 1
+  ;;
+esac
+asset="plannotator-tui-${arch}-${libc}"
+
+if [[ -x "$BIN" && "$("$BIN" --version 2>/dev/null)" == "plannotator-tui $VERSION" ]]; then
+  exit 0
+fi
+
+base="https://github.com/plannotator/plannotator-tui/releases/download/v${VERSION}"
+tmp="$(mktemp -d)"
+trap 'rm -rf "$tmp"' EXIT
+
+curl -fsSL "$base/SHA256SUMS" -o "$tmp/SHA256SUMS"
+curl -fsSL "$base/$asset" -o "$tmp/$asset"
+
+expected="$(awk -v a="$asset" '$2 == a { print $1 }' "$tmp/SHA256SUMS")"
+if [[ -z "$expected" ]]; then
+  echo "plannotator-tui: no checksum for $asset in SHA256SUMS" >&2
+  exit 1
+fi
+if command -v sha256sum >/dev/null 2>&1; then
+  actual="$(sha256sum "$tmp/$asset" | awk '{ print $1 }')"
+else
+  actual="$(shasum -a 256 "$tmp/$asset" | awk '{ print $1 }')"
+fi
+if [[ "$actual" != "$expected" ]]; then
+  echo "plannotator-tui: checksum mismatch for $asset" >&2
+  exit 1
+fi
+
+mkdir -p "$BIN_DIR"
+install -m 0755 "$tmp/$asset" "$BIN"
+echo "plannotator-tui ${VERSION} installed to $BIN"
