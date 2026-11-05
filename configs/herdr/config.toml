@@ -13,10 +13,3 @@ delivery = "herdr"
 [keys]
 split_vertical = "ctrl+shift+right"
 split_horizontal = "ctrl+shift+down"
-
-# review the focused agent's last reply in plannotator-tui and send feedback back
-[[keys.command]]
-key = "prefix+shift+o"
-type = "plugin_action"
-command = "annotate.last"
-description = "review the agent's last reply"
