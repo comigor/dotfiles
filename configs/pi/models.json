@@ -64,6 +64,7 @@
         },
         {
           "compat": {
+            "cacheControlFormat": "anthropic",
             "openRouterRouting": {
               "only": [
                 "anthropic"
@@ -185,6 +186,7 @@
           "name": "Claude Opus 5.5 (Half Context via OpenRouter)",
           "reasoning": true,
           "compat": {
+            "cacheControlFormat": "anthropic",
             "openRouterRouting": {
               "only": [
                 "anthropic"
@@ -209,6 +211,7 @@
           "name": "Claude Fable 5.1 (Half Context via OpenRouter)",
           "reasoning": true,
           "compat": {
+            "cacheControlFormat": "anthropic",
             "openRouterRouting": {
               "only": [
                 "anthropic"
@@ -233,6 +236,7 @@
           "name": "Claude Sonnet 5.5 (Half Context via OpenRouter)",
           "reasoning": true,
           "compat": {
+            "cacheControlFormat": "anthropic",
             "openRouterRouting": {
               "only": [
                 "anthropic"
