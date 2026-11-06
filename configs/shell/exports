@@ -59,3 +59,7 @@ export OMP_MEMORY_NUDGE=1
 # ~/.pig.
 export PIG_USE_PI_DIRS=1
 
+# Anthropic prompt caches expire after 5 minutes by default, which re-bills the
+# whole prefix after any short break; the long tier keeps them for an hour.
+export PI_CACHE_RETENTION=long
+
