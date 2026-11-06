@@ -7,19 +7,22 @@
           "promptCache": {
             "short": 300,
             "long": 3600
-          }
+          },
+          "contextWindow": 500000
         },
         "anthropic/claude-opus-5.5": {
           "promptCache": {
             "short": 300,
             "long": 3600
-          }
+          },
+          "contextWindow": 500000
         },
         "anthropic/claude-sonnet-5.5": {
           "promptCache": {
             "short": 300,
             "long": 3600
-          }
+          },
+          "contextWindow": 500000
         },
         "openai/gpt-6-astra": {
           "compat": {
@@ -33,7 +36,8 @@
           "promptCache": {
             "short": 300,
             "long": 1800
-          }
+          },
+          "contextWindow": 525000
         },
         "openai/gpt-6-luna": {
           "compat": {
@@ -47,7 +51,8 @@
           "promptCache": {
             "short": 300,
             "long": 1800
-          }
+          },
+          "contextWindow": 525000
         },
         "openai/gpt-6.1-sol": {
           "compat": {
@@ -61,7 +66,8 @@
           "promptCache": {
             "short": 300,
             "long": 1800
-          }
+          },
+          "contextWindow": 525000
         },
         "openai/gpt-6.1-terra": {
           "compat": {
@@ -75,27 +81,32 @@
           "promptCache": {
             "short": 300,
             "long": 1800
-          }
+          },
+          "contextWindow": 525000
         },
         "deepseek/deepseek-v4.1-flash": {
           "promptCache": {
             "short": 300
-          }
+          },
+          "contextWindow": 524288
         },
         "moonshotai/kimi-k3.1-pro": {
           "promptCache": {
             "short": 300
-          }
+          },
+          "contextWindow": 524288
         },
         "z-ai/glm-5.3": {
           "promptCache": {
             "short": 300
-          }
+          },
+          "contextWindow": 524288
         },
         "z-ai/glm-5.3-prime": {
           "promptCache": {
             "short": 300
-          }
+          },
+          "contextWindow": 500000
         }
       }
     },

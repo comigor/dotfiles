@@ -4,6 +4,7 @@
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "showCacheMissNotices": true,
+  "cacheWarming": "idle",
   "theme": "dark",
   "quietStartup": true,
   "collapseChangelog": true,
@@ -40,7 +41,7 @@
   "enableSkillCommands": true,
   "enableInstallTelemetry": false,
   "enableAnalytics": true,
-  "lastChangelogVersion": "1.4.0",
+  "lastChangelogVersion": "1.5.0",
   "packages": [
     "npm:@sherif-fanous/pi-rtk",
     "npm:pi-hashline-edit",
@@ -61,5 +62,10 @@
       "npm:opensec-pi-fff@0.11.0",
       "./packages/omp-memory"
     ]
+  },
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:@sherif-fanous/pi-rtk\",\"scope\":\"user\"}": "0.7.0",
+    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.9",
+    "{\"source\":\"npm:pi-atelier\",\"scope\":\"user\"}": "0.18.0"
   }
 }
