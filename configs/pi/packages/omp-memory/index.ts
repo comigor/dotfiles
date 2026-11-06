@@ -28,8 +28,8 @@ export default async function memoryExtension(pi: ExtensionAPI): Promise<void> {
   process.env.LAB_STORE ??= process.env.OMP_MEMORY_STORE;
   process.env.LAB_USER ??= "Igor";
   process.env.LAB_HANDLES ??= "comigor,Igor Borges";
-  // Observer and dream model: GLM-5.3-Flash on Modal, as configs/pi/models.json names it.
-  process.env.OMP_MEMORY_MODEL ??= "modal-flash-half/zai-org/GLM-5.3-Flash";
+  // Observer and dream model: the id is what matters, a provider rename keeps resolving.
+  process.env.OMP_MEMORY_MODEL ??= "modal-glm-flash/zai-org/GLM-5.3-Flash";
   const { default: memory } = await import(join(plugin, "index.ts"));
   return memory(pi);
 }
