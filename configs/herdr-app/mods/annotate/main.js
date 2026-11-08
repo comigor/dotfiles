@@ -108,7 +108,7 @@ export default class Annotate extends View {
   }
 
   sendAll() {
-    if (!this.terminal) return;
+    if (this.sending || !this.terminal) return;
     const pending = (this.state?.value() ?? "").trim();
     if (pending) { this.queue.push({ sel: this.selected, note: pending }); this.state.set_value(""); }
     if (!this.queue.length) return;
@@ -117,6 +117,8 @@ export default class Annotate extends View {
     const count = this.queue.length;
     exec("hc", ["send", this.terminal, message])
       .then(() => {
+        this.queue = [];
+        this.sending = false;
         setShared(queueKey(this.terminal), []);
         closeOverlay(props().overlay);
         notify({
