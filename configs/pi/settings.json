@@ -53,8 +53,7 @@
     {
       "source": "/Users/igor/.config/nono/packages/nolabs-ai/pi"
     },
-    "npm:@plannotator/pi-extension",
-    "git:github.com/comigor/pi-phone@main"
+    "npm:@plannotator/pi-extension"
   ],
   "piBolt": {
     "packagesOverlay": true,
