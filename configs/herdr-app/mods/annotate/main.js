@@ -23,7 +23,7 @@ const pbpaste = async () => {
 const pbcopy = async (text) => {
   await exec("/bin/sh", ["-c", "printf %s " + shq(text) + " | /usr/bin/pbcopy"]).catch(() => {});
 };
-const oneLine = (s) => s.replace(/\s+/g, " ").trim();
+const oneLine = (s) => String(s ?? "").replace(/\s+/g, " ").trim();
 const preview = (s) => {
   const t = oneLine(s);
   return t.length > PREVIEW_MAX ? t.slice(0, PREVIEW_MAX) + "…" : t;
@@ -36,7 +36,9 @@ export default class Annotate extends View {
     if (p.overlay) {
       // Popup copy: the composer over the queued notes.
       this.terminal = p.terminal;
-      this.queue = Array.isArray(p.queue) ? p.queue.slice() : [];
+      this.selected = oneLine(p.sel ?? "");
+      this.queue = (Array.isArray(p.queue) ? p.queue : [])
+        .map((q) => ({ sel: oneLine(q?.sel), note: String(q?.note ?? "") }));
       this.state = TextareaState.new({ placeholder: "Your note…", rows: 3 });
       this.state.set_auto_grow(3, 8);
       this.state.on("submit", (e) => { if (e?.secondary) this.add(); });
