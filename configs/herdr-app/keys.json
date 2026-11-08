@@ -75,6 +75,7 @@
     "cmd-shift-down": "pane.split:down",
     "ctrl-c": "terminal",
     "ctrl-r": "terminal",
+    "cmd-shift-a": "annotate.note",
     "alt-left": "send:\u001bb",
     "alt-right": "send:\u001bf",
     "alt-backspace": "send:\u0017",
