@@ -35,7 +35,7 @@ export default class Annotate extends View {
       this.selected = oneLine(p.sel ?? "");
       this.state = TextareaState.new({ placeholder: "Your note for the agent…", rows: 3 });
       this.state.set_auto_grow(3, 8);
-      this.state.on("submit", () => this.submit());
+      this.state.on("submit", (e) => { if (e?.secondary) this.submit(); });
       this.state.on("change", () => cx.notify());
       this.handle = cx.focus_handle();
       cx.timer.after(50, () => this.state.focus());
