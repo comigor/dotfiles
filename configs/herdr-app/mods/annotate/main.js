@@ -8,7 +8,7 @@
 
 import { View, div } from "gpui-kit";
 import { v_flex, h_flex, TextareaState, Textarea } from "gpui-base";
-import { focused, run, exec, notify, openOverlay, props, closeOverlay, theme } from "herdr";
+import { focused, run, exec, notify, openOverlay, props, closeOverlay, theme, nextCommand } from "herdr";
 
 const PREVIEW_MAX = 240;
 

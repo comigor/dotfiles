@@ -218,16 +218,6 @@
         12,
         16
       ]
-    },
-    {
-      "id": "b64df2702f90e94bf720a895565a7e3d0",
-      "type": "block",
-      "content": {
-        "mod": "annotate"
-      },
-      "size": {
-        "px": 0
-      }
     }
   ],
   "divider": {

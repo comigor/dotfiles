@@ -76,6 +76,7 @@
     "ctrl-c": "terminal",
     "ctrl-r": "terminal",
     "cmd-shift-a": "annotate.note",
+    "ctrl-shift-a": "annotate.note",
     "alt-left": "send:\u001bb",
     "alt-right": "send:\u001bf",
     "alt-backspace": "send:\u0017",
