@@ -108,7 +108,10 @@ export default class Annotate extends View {
   }
 
   sendAll() {
-    if (!this.queue.length || !this.terminal) return;
+    if (!this.terminal) return;
+    const pending = (this.state?.value() ?? "").trim();
+    if (pending) { this.queue.push({ sel: this.selected, note: pending }); this.state.set_value(""); }
+    if (!this.queue.length) return;
     const lines = this.queue.map((q, i) => (i + 1) + ') re: "' + preview(q.sel) + '" — ' + q.note);
     const message = "[Notes on your answer]\n" + lines.join("\n");
     const count = this.queue.length;
@@ -164,6 +167,6 @@ export default class Annotate extends View {
       .child(h_flex().gap(8).justify_end()
         .child(button("an-clear", "Clear all", false, () => this.clearQueue(), true))
         .child(button("an-close", "Close", false, () => closeOverlay(props().overlay)))
-        .child(button("an-send", "Send " + (this.queue.length ? this.queue.length : ""), this.queue.length > 0, () => this.sendAll())));
+        .child(button("an-send", "Send" + (this.queue.length || (this.state?.value() ?? "").trim() ? " " + (this.queue.length + ((this.state?.value() ?? "").trim() ? 1 : 0)) : ""), this.queue.length > 0 || Boolean((this.state?.value() ?? "").trim()), () => this.sendAll())));
   }
 }
