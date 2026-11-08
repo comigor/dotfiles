@@ -33,7 +33,7 @@ chezmoi update
 | Git | `.gitconfig` (templated per OS), `.gitignore`, `.gitattributes` |
 | Terminal | Ghostty |
 | Editor | Zed |
-| AI agents | Pi-Bolt (`pi-bolt`) sharing Pi's `~/.pi/agent`; Plannotator (plan review + linked Inbox), installed per machine |
+| AI agents | Pi-Bolt (`pi-bolt`) sharing Pi's `~/.pi/agent`; custom Pi Inbox relay extension with central Plannotator UI, installed per machine |
 | Tools | mise, opencode, karabiner (macOS), GPG agent (macOS) |
 | Secrets | Base/staging files and ephemeral prod/admin profiles via fnox + Bitwarden |
 | Other | `.curlrc`, `.wgetrc`, `.inputrc`, `.screenrc`, `.editorconfig`, `.hushlogin`, `.Xmodmap`, `.tool-versions` |
