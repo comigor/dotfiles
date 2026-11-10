@@ -107,6 +107,9 @@
             "short": 300
           },
           "contextWindow": 500000
+        },
+        "google/gemini-4-carbon": {
+          "contextWindow": 1048576
         }
       }
     },
