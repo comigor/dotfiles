@@ -1,0 +1,46 @@
+{
+  "configVersion": 4,
+  "executor": {
+    "kernel": "typescript"
+  },
+  "agents": {
+    "model": "openrouter/deepseek/deepseek-v4.1-flash",
+    "thinking": "high"
+  },
+  "models": {
+    "aliases": {
+      "scout": {
+        "model": [
+          "modal-glm-flash/zai-org/GLM-5.3-Flash",
+          "openrouter/z-ai/glm-5.3-flash",
+          "openrouter/deepseek/deepseek-v4.1-flash"
+        ],
+        "thinking": "medium"
+      },
+      "worker": {
+        "model": [
+          "openrouter/deepseek/deepseek-v4.1-flash",
+          "openrouter/z-ai/glm-5.3",
+          "modal-glm-flash/zai-org/GLM-5.3-Flash"
+        ],
+        "thinking": "high"
+      },
+      "reviewer": {
+        "model": [
+          "openrouter/moonshotai/kimi-k3.1-pro",
+          "openrouter/openai/gpt-6.1-terra",
+          "openrouter/anthropic/claude-sonnet-5.5"
+        ],
+        "thinking": "high"
+      },
+      "oracle": {
+        "model": [
+          "openrouter/anthropic/claude-opus-5.5",
+          "openrouter-carbon/google/gemini-4-carbon",
+          "openrouter/openai/gpt-6.1-sol"
+        ],
+        "thinking": "high"
+      }
+    }
+  }
+}
