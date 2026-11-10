@@ -107,9 +107,6 @@
             "short": 300
           },
           "contextWindow": 500000
-        },
-        "google/gemini-4-carbon": {
-          "contextWindow": 1048576
         }
       }
     },
@@ -154,6 +151,34 @@
             "extraBody": {
               "tool_stream": true
             }
+          }
+        }
+      ]
+    },
+    "openrouter-carbon": {
+      "name": "OpenRouter Custom",
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "apiKey": "$OPENROUTER_API_KEY",
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "google/gemini-4-carbon",
+          "name": "Gemini 4 Carbon",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 0.1875
+          },
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "compat": {
+            "thinkingFormat": "openrouter"
           }
         }
       ]
