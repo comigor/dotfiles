@@ -1,6 +1,6 @@
 {
-  "defaultProvider": "openrouter",
-  "defaultModel": "deepseek/deepseek-v4.1-flash",
+  "defaultProvider": "openrouter-carbon",
+  "defaultModel": "google/gemini-4-carbon",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
   "showCacheMissNotices": true,

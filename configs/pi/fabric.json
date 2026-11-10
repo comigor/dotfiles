@@ -4,40 +4,41 @@
     "kernel": "typescript"
   },
   "agents": {
-    "model": "openrouter/deepseek/deepseek-v4.1-flash",
+    "model": "openrouter/z-ai/glm-5.3-flash",
     "thinking": "high"
   },
   "models": {
     "aliases": {
       "scout": {
         "model": [
-          "modal-glm-flash/zai-org/GLM-5.3-Flash",
           "openrouter/z-ai/glm-5.3-flash",
-          "openrouter/deepseek/deepseek-v4.1-flash"
+          "openrouter/deepseek/deepseek-v4.1-flash",
+          "openrouter/openai/gpt-6-luna"
         ],
         "thinking": "medium"
       },
       "worker": {
         "model": [
+          "openrouter/z-ai/glm-5.3-flash",
           "openrouter/deepseek/deepseek-v4.1-flash",
-          "openrouter/z-ai/glm-5.3",
-          "modal-glm-flash/zai-org/GLM-5.3-Flash"
+          "openrouter/openai/gpt-6-luna"
         ],
         "thinking": "high"
       },
       "reviewer": {
         "model": [
           "openrouter/moonshotai/kimi-k3.1-pro",
-          "openrouter/openai/gpt-6.1-terra",
-          "openrouter/anthropic/claude-sonnet-5.5"
+          "openrouter/openai/gpt-6.1-sol",
+          "openrouter/anthropic/claude-opus-5.5"
         ],
         "thinking": "high"
       },
       "oracle": {
         "model": [
-          "openrouter/anthropic/claude-opus-5.5",
           "openrouter-carbon/google/gemini-4-carbon",
-          "openrouter/openai/gpt-6.1-sol"
+          "openrouter/openai/gpt-6-astra",
+          "openrouter/anthropic/claude-fable-5.2",
+          "openrouter/anthropic/claude-opus-5.5"
         ],
         "thinking": "high"
       }

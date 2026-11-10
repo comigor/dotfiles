@@ -3,7 +3,7 @@
   "providers": {
     "openrouter": {
       "modelOverrides": {
-        "anthropic/claude-fable-5.1": {
+        "anthropic/claude-fable-5.2": {
           "promptCache": {
             "short": 300,
             "long": 3600
@@ -107,6 +107,12 @@
             "short": 300
           },
           "contextWindow": 500000
+        },
+        "z-ai/glm-5.3-flash": {
+          "promptCache": {
+            "short": 300
+          },
+          "contextWindow": 524288
         }
       }
     },
