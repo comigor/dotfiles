@@ -53,7 +53,8 @@
     {
       "source": "/Users/igor/.config/nono/packages/nolabs-ai/pi"
     },
-    "git:github.com/comigor/pi-phone@main"
+    "git:github.com/comigor/pi-phone@main",
+    "npm:@plannotator/pi-extension"
   ],
   "piBolt": {
     "packagesOverlay": true,
@@ -65,7 +66,7 @@
   },
   "extensionChangelogVersions": {
     "{\"source\":\"npm:@sherif-fanous/pi-rtk\",\"scope\":\"user\"}": "0.7.0",
-    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.9",
+    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.11",
     "{\"source\":\"npm:pi-atelier\",\"scope\":\"user\"}": "0.18.0"
   }
 }
