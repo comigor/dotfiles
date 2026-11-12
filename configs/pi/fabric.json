@@ -35,7 +35,7 @@
       },
       "oracle": {
         "model": [
-          "openrouter-carbon/google/gemini-4-carbon",
+          "openrouter/google/gemini-4-carbon",
           "openrouter/openai/gpt-6-astra",
           "openrouter/anthropic/claude-fable-5.2",
           "openrouter/anthropic/claude-opus-5.5"

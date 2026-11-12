@@ -1,5 +1,5 @@
 {
-  "defaultProvider": "openrouter-carbon",
+  "defaultProvider": "openrouter",
   "defaultModel": "google/gemini-4-carbon",
   "defaultThinkingLevel": "high",
   "hideThinkingBlock": false,
@@ -66,7 +66,7 @@
   },
   "extensionChangelogVersions": {
     "{\"source\":\"npm:@sherif-fanous/pi-rtk\",\"scope\":\"user\"}": "0.7.0",
-    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.11",
+    "{\"source\":\"npm:pi-lens\",\"scope\":\"user\"}": "4.4.12",
     "{\"source\":\"npm:pi-atelier\",\"scope\":\"user\"}": "0.18.0"
   }
 }
