@@ -3,9 +3,41 @@
   "executor": {
     "kernel": "typescript"
   },
+  "approvals": {
+    "headless": "decision",
+    "headlessTimeoutMs": 300000
+  },
   "agents": {
     "model": "openrouter/z-ai/glm-5.3-flash",
-    "thinking": "high"
+    "thinking": "high",
+    "timeoutMs": 900000,
+    "retainRuns": true,
+    "childQuestions": "route",
+    "childQuestionTimeoutMs": 600000,
+    "childQuestionTools": [
+      "ask"
+    ],
+    "defaultTools": [
+      "read",
+      "bash",
+      "edit",
+      "write",
+      "grep",
+      "find",
+      "ls",
+      "fffind",
+      "ffgrep",
+      "lsp_navigation",
+      "symbol_search",
+      "read_symbol",
+      "read_enclosing",
+      "module_report",
+      "project_report",
+      "lens_diagnostics",
+      "ast_grep_search",
+      "ast_grep_outline",
+      "ast_grep_replace"
+    ]
   },
   "models": {
     "aliases": {
@@ -22,6 +54,14 @@
           "openrouter/z-ai/glm-5.3-flash",
           "openrouter/deepseek/deepseek-v4.1-flash",
           "openrouter/openai/gpt-6-luna"
+        ],
+        "thinking": "high"
+      },
+      "builder": {
+        "model": [
+          "openrouter/moonshotai/kimi-k3.1-pro",
+          "openrouter/openai/gpt-6.1-sol",
+          "openrouter/anthropic/claude-opus-5.5"
         ],
         "thinking": "high"
       },
