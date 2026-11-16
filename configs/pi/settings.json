@@ -55,7 +55,8 @@
     },
     "git:github.com/comigor/pi-phone@main",
     "npm:@plannotator/pi-extension",
-    "git:github.com/comigor/pi-handoff@main"
+    "git:github.com/comigor/pi-handoff@main",
+    "npm:speak-like-you-eat"
   ],
   "piBolt": {
     "packagesOverlay": true,
