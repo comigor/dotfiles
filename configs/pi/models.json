@@ -115,6 +115,13 @@
           "contextWindow": 524288
         },
         "google/gemini-4-carbon": {
+          "compat": {
+            "openRouterRouting": {
+              "only": [
+                "google-ai-studio/flex"
+              ]
+            }
+          },
           "promptCache": {
             "short": 300
           },
