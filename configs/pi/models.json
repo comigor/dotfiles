@@ -118,7 +118,7 @@
           "compat": {
             "openRouterRouting": {
               "only": [
-                "google-ai-studio/flex"
+                "google-ai-studio"
               ]
             }
           },
